@@ -68,7 +68,7 @@ body{
 <a class="link disabled" href="https://youtube.com/@kingpubglive" target="_blank" data-text="3) YouTube PG (Obuna)" onclick="visit(2)"></a>
 <a class="link disabled" href="https://youtu.be/LLLLz-mQPpM" target="_blank" data-text="4) Video (Like + Comment)" onclick="visit(3)"></a>
 <a class="link disabled" href="https://www.instagram.com/modderff" target="_blank" data-text="5) Instagram (Follow)" onclick="visit(4)"></a>
-<a class="link disabled" href="https://t.me/+V2UdRNrRpe02YjYy" target="_blank" data-text="6) Telegram (Obuna)" onclick="visit(5)"></a>
+
 
   
 <!-- Oxirgi tugma endi alohida qora bloksiz -->
@@ -84,7 +84,7 @@ body{
 const links = document.querySelectorAll(".link:not(.finalBlue)");
 links.forEach(l => l.textContent = l.dataset.text);
 
-let visited = [false,false,false,false,false,false];
+let visited = [false,false,false,false,false];
 let current = 0;
 
 links.forEach((btn,i)=>{
