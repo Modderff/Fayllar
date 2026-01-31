@@ -3,7 +3,7 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
-const bot = new Telegraf(process.env.8545496811:AAGAiN8zTzK_3PcddI5r8Li5RI3a4d6_5aU);
+const bot = new Telegraf(process.env.BOT_TOKEN);
 
 bot.start((ctx) => {
   ctx.reply("Bot ishlayapti 🚀");
