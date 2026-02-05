@@ -3,29 +3,60 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Live ochilmoqda...</title>
+<title>YouTube Live Tanlash</title>
 
 <style>
 body{
   margin:0;
   background:#000;
   color:#fff;
-  font-family:Arial;
+  font-family:Arial,sans-serif;
   display:flex;
   justify-content:center;
   align-items:center;
   height:100vh;
-  flex-direction:column;
 }
+
+.box{
+  width:100%;
+  max-width:420px;
+  text-align:center;
+  padding:20px;
+}
+
+h2{
+  color:#00ffd5;
+  margin-bottom:25px;
+}
+
+.btn{
+  display:block;
+  background:#00ffd5;
+  color:#000;
+  text-decoration:none;
+  padding:18px;
+  margin:15px 0;
+  border-radius:16px;
+  font-size:18px;
+  font-weight:bold;
+  transition:.2s;
+}
+
+.btn:active{
+  transform:scale(.96);
+}
+
 .loader{
-  width:55px;
-  height:55px;
-  border:6px solid rgba(255,0,0,.2);
-  border-top:6px solid red;
+  display:none;
+  width:45px;
+  height:45px;
+  border:5px solid rgba(0,255,213,.3);
+  border-top:5px solid #00ffd5;
   border-radius:50%;
   animation:spin 1s linear infinite;
-  margin-top:25px;
+  margin:25px auto;
 }
+
 @keyframes spin{
   0%{transform:rotate(0deg)}
   100%{transform:rotate(360deg)}
@@ -33,18 +64,38 @@ body{
 </style>
 
 <script>
-window.onload = function(){
+function go(url){
+  document.getElementById("buttons").style.display="none";
+  document.getElementById("loader").style.display="block";
+
   setTimeout(function(){
-    window.location.href = "https://youtu.be/ZY1mkE3zEDI";
-  }, 700);
+    window.location.href = url;
+  }, 900); // bosilgandan keyin 0.9 soniya
 }
 </script>
 
 </head>
 <body>
 
-<h2>🔴 LIVE ochilmoqda...</h2>
-<div class="loader"></div>
+<div class="box">
+  <h2>Qaysi Live?</h2>
+
+  <div id="buttons">
+    <a class="btn" onclick="go('intent://youtube.com/@modderf#Intent;scheme=https;package=com.google.android.youtube;end;')">
+      🔴 Free Fire
+    </a>
+
+    <a class="btn" onclick="go('intent://youtube.com/@kingpubglive#Intent;scheme=https;package=com.google.android.youtube;end;')">
+      🔴 PUBG Mobile
+    </a>
+  </div>
+
+  <div id="loader" class="loader"></div>
+
+  <p style="font-size:14px;opacity:.7;margin-top:15px">
+    Tanlangandan keyin YouTube ochiladi
+  </p>
+</div>
 
 </body>
 </html>
