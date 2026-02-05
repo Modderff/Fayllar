@@ -25,14 +25,14 @@ body{
 }
 
 h2{
-  color:#00ffd5;
+  color:#ff0000;
   margin-bottom:25px;
 }
 
 .btn{
   display:block;
-  background:#00ffd5;
-  color:#000;
+  background:#ff0000;
+  color:#fff;
   text-decoration:none;
   padding:18px;
   margin:15px 0;
@@ -40,6 +40,7 @@ h2{
   font-size:18px;
   font-weight:bold;
   transition:.2s;
+  box-shadow:0 0 15px rgba(255,0,0,0.6);
 }
 
 .btn:active{
@@ -50,8 +51,8 @@ h2{
   display:none;
   width:45px;
   height:45px;
-  border:5px solid rgba(0,255,213,.3);
-  border-top:5px solid #00ffd5;
+  border:5px solid rgba(255,0,0,.3);
+  border-top:5px solid #ff0000;
   border-radius:50%;
   animation:spin 1s linear infinite;
   margin:25px auto;
@@ -70,7 +71,7 @@ function go(url){
 
   setTimeout(function(){
     window.location.href = url;
-  }, 900); // bosilgandan keyin 0.9 soniya
+  }, 900);
 }
 </script>
 
@@ -78,15 +79,11 @@ function go(url){
 <body>
 
 <div class="box">
-  <h2>Qaysi Live?</h2>
+  <h2>🔴 LIVE</h2>
 
   <div id="buttons">
     <a class="btn" onclick="go('intent://www.youtube.com/live/ZY1mkE3zEDI?si=sGEwAlpgwvzm5UOS#Intent;scheme=https;package=com.google.android.youtube;end;')">
-      🔴 Free Fire
-    </a>
-
-    <a class="btn" onclick="go('intent://youtube.com/@kingpubglive#Intent;scheme=https;package=com.google.android.youtube;end;')">
-      🔴 PUBG Mobile
+      🔴 LIVE KO‘RISH
     </a>
   </div>
 
