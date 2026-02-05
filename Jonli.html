@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Live ochilmoqda...</title>
+
+<style>
+body{
+  margin:0;
+  background:#000;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  height:100vh;
+  color:#00ffd5;
+  font-family:Arial;
+  flex-direction:column;
+}
+.loader{
+  width:55px;
+  height:55px;
+  border:6px solid rgba(0,255,213,.2);
+  border-top:6px solid #00ffd5;
+  border-radius:50%;
+  animation:spin 1s linear infinite;
+  margin-top:25px;
+}
+@keyframes spin{
+  0%{transform:rotate(0deg)}
+  100%{transform:rotate(360deg)}
+}
+</style>
+
+<script>
+window.onload = function(){
+  setTimeout(function(){
+    window.location.replace("https://www.youtube.com/live/ZY1mkE3zEDI?si=sGEwAlpgwvzm5UOS");
+  }, 600);
+}
+</script>
+
+</head>
+<body>
+
+<h2>🔴 LIVE ochilmoqda...</h2>
+<div class="loader"></div>
+
+</body>
+</html>
