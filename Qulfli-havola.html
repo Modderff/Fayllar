@@ -65,11 +65,12 @@ body{
 
 
 
-<a class="link" href="https://youtu.be/5Cjt8rhD6Xc?si=mj49BLek9Zt7Ssd3" target="_blank" data-text="+1) Video (Like + Comment)" onclick="visit(0)"></a>
+<a class="link" href="https://youtu.be/X5R9mh0bgcY?si=5IKOUI0BA4WhGNcX" target="_blank" data-text="+1) Video (Like + Comment)" onclick="visit(0)"></a>
 <a class="link disabled" href="https://youtube.com/@modderf" target="_blank" data-text="1) YouTube FF (Obuna)" onclick="visit(1)"></a>
-<a class="link disabled" href="https://youtube.com/shorts/uwSMviLQAz8?si=qu5poTMeWqoiUukP" target="_blank" data-text="+2) Video (Like + Comment)" onclick="visit(2)"></a>
+<a class="link disabled" href="https://youtube.com/shorts/P_Dx4jl1WYY?si=BkbW1YoaWVHHMT82" target="_blank" data-text="+2) Video (Like + Comment)" onclick="visit(2)"></a>
 <a class="link disabled" href="https://youtube.com/@kingpubglive" target="_blank" data-text="2) YouTube PG (Obuna)" onclick="visit(3)"></a>
-<a class="link disabled" href="https://www.instagram.com/modderff" target="_blank" data-text="+3) Instagram (Follow)" onclick="visit(4)"></a>
+<a class="link disabled" href="https://www.instagram.com/modderff" target="_blank" data-text="+3) Instagram (Follow)" onclick="visit(4)"></a>  
+<a class="link disabled" href="https://t.me/+RZiLoLoeBWMzZmNi" target="_blank" data-text="+3) Telegram (Join)" onclick="visit(5)"></a>
 
 
   
@@ -86,7 +87,7 @@ body{
 const links = document.querySelectorAll(".link:not(.finalBlue)");
 links.forEach(l => l.textContent = l.dataset.text);
 
-let visited = [false,false,false,false,false];
+let visited = [false,false,false,false,false,false];
 let current = 0;
 
 links.forEach((btn,i)=>{
