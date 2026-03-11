@@ -13,7 +13,7 @@
       text-align: center;
       padding: 20px;
       position: relative;
-      overflow: hidden; /* Sahifadagi animatsiya to'liq ko'rsatilishini ta'minlash */
+      overflow: auto; /* Saytni surish imkonini berish */
     }
 
     .link {
@@ -83,6 +83,7 @@
       font-size: 24px;
       opacity: 0;
       animation: fall 10s infinite ease-in-out;
+      pointer-events: none; /* Gullarni bosmaslik uchun */
     }
 
     /* Animatsiya - gullar pastga tushadi */
