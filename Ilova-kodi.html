@@ -1,74 +1,103 @@
 <!DOCTYPE html>
 <html lang="uz">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Kodni ochish</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kodni ochish</title>
 
-<style>
-body{
-  background:#000;
-  color:#fff;
-  font-family:Arial,sans-serif;
-  text-align:center;
-  padding:20px;
-}
+  <style>
+    body {
+      background: #000;
+      color: #fff;
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 20px;
+      position: relative;
+      overflow: hidden; /* Sahifadagi animatsiya to'liq ko'rsatilishini ta'minlash */
+    }
 
-.link{
-  display:block;
-  background:#00ffd5;
-  color:#000;
-  margin:12px auto;
-  padding:16px;
-  width:95%;
-  max-width:420px;
-  border-radius:12px;
-  text-decoration:none;
-  font-size:18px;
-  font-weight:bold;
-}
+    .link {
+      display: block;
+      background: #00ffd5;
+      color: #000;
+      margin: 12px auto;
+      padding: 16px;
+      width: 95%;
+      max-width: 420px;
+      border-radius: 12px;
+      text-decoration: none;
+      font-size: 18px;
+      font-weight: bold;
+    }
 
-.link.disabled{
-  background:#777;
-  pointer-events:none;
-  opacity:.6;
-}
+    .link.disabled {
+      background: #777;
+      pointer-events: none;
+      opacity: .6;
+    }
 
-.link.visited{
-  background:#1aff1a;
-  box-shadow:0 0 12px rgba(0,255,0,.7);
-}
+    .link.visited {
+      background: #1aff1a;
+      box-shadow: 0 0 12px rgba(0, 255, 0, .7);
+    }
 
-.link.visited::after{
-  content:"Bajarildi";
-  display:block;
-  font-size:14px;
-  margin-top:4px;
-  color:#003300;
-}
+    .link.visited::after {
+      content: "Bajarildi";
+      display: block;
+      font-size: 14px;
+      margin-top: 4px;
+      color: #003300;
+    }
 
-#codeBox{
-  display:none;
-  margin-top:30px;
-  background:#111;
-  padding:20px;
-  border-radius:14px;
-  border:2px dashed #00ffd5;
-}
+    #codeBox {
+      display: none;
+      margin-top: 30px;
+      background: #111;
+      padding: 20px;
+      border-radius: 14px;
+      border: 2px dashed #00ffd5;
+    }
 
-.code{
-  font-size:28px;
-  color:#00ffd5;
-  letter-spacing:4px;
-  cursor:pointer;
-}
+    .code {
+      font-size: 28px;
+      color: #00ffd5;
+      letter-spacing: 4px;
+      cursor: pointer;
+    }
 
-.copyHint{
-  margin-top:8px;
-  font-size:13px;
-  color:#aaa;
-}
-</style>
+    .copyHint {
+      margin-top: 8px;
+      font-size: 13px;
+      color: #aaa;
+    }
+
+    #timer {
+      margin-top: 20px;
+      font-size: 20px;
+      color: #ff9900;
+    }
+
+    /* Animatsiya uchun .flower classi */
+    .flower {
+      position: absolute;
+      font-size: 24px;
+      opacity: 0;
+      animation: fall 10s infinite ease-in-out;
+    }
+
+    /* Animatsiya - gullar pastga tushadi */
+    @keyframes fall {
+      0% {
+        top: -10%;
+        left: calc(100% * random());
+        opacity: 1;
+      }
+      100% {
+        top: 100%;
+        opacity: 0;
+      }
+    }
+  </style>
 </head>
 <body>
 
@@ -79,53 +108,108 @@ body{
 <a class="link disabled" href="https://youtube.com/@modderf" target="_blank" data-text="1) YouTube FF (Obuna)" onclick="visit(1)"></a>
 <a class="link disabled" href="https://youtube.com/shorts/P_Dx4jl1WYY?si=BkbW1YoaWVHHMT82" target="_blank" data-text="+2) Video (Like + Comment)" onclick="visit(2)"></a>
 <a class="link disabled" href="https://youtube.com/@kingpubglive" target="_blank" data-text="2) YouTube PG (Obuna)" onclick="visit(3)"></a>
-<a class="link disabled" href="https://www.instagram.com/modderff" target="_blank" data-text="+3) Instagram (Follow)" onclick="visit(4)"></a>  
+<a class="link disabled" href="https://www.instagram.com/modderff" target="_blank" data-text="+3) Instagram (Follow)" onclick="visit(4)"></a>
 <a class="link disabled" href="https://t.me/+RZiLoLoeBWMzZmNi" target="_blank" data-text="+3) Telegram (Join)" onclick="visit(5)"></a>
-
-
 
 <div id="codeBox">
   <h3>🎉 Tabriklaymiz!</h3>
   <div class="code" id="codeText">50K</div>
   <div class="copyHint" id="copyHint">Bosib nusxalang</div>
+  <div id="timer"></div> <!-- Taymerni ko'rsatish uchun joy -->
 </div>
 
 <script>
-// 🔄 REFRESH BO‘LSA — HAMMASI QAYTA BOSHLANSIN
+// 🌸 Gullarni qo'shish uchun
+function createFlowers() {
+  const flower = document.createElement("div");
+  flower.classList.add("flower");
+  flower.textContent = "🌸";
+  document.body.appendChild(flower);
+
+  // Har bir gul uchun tasodifiy joylashtirish
+  flower.style.left = Math.random() * 100 + "%";
+  
+  // Har safar yangi gul qo'shiladi
+  setTimeout(createFlowers, Math.random() * 3000 + 1000); // Har bir 1-3 sekundda yangi gul paydo bo'ladi
+}
+
+createFlowers(); // Gullarni yaratishni boshlash
+
+// 🔄 REFRESH BO‘LSA — HAMMASI QAYTA BOSHLANMASIN
 const PAGE_KEY = "qulfi_" + location.pathname;
-localStorage.removeItem(PAGE_KEY);
+const savedCountdownDate = localStorage.getItem(PAGE_KEY);
+
+let countdownDate;
+
+if (savedCountdownDate) {
+  countdownDate = parseInt(savedCountdownDate, 10);  // Agar oldin saqlangan sana mavjud bo'lsa, uni olish
+} else {
+  countdownDate = new Date().getTime() + 7 * 24 * 60 * 60 * 1000;  // 7 kunlik taymerni o'rnatish
+  localStorage.setItem(PAGE_KEY, countdownDate);  // Yangi sanani saqlash
+}
 
 // ================================
 
 const links = document.querySelectorAll(".link");
 links.forEach(l => l.textContent = l.dataset.text);
 
-let visited = [false,false,false,false,false,false];
+let visited = [false, false, false, false, false, false];
 let current = 0;
 
-links.forEach((btn,i)=>{
-  if(i !== 0) btn.classList.add("disabled");
+links.forEach((btn, i) => {
+  if (i !== 0) btn.classList.add("disabled");
 });
 
-function visit(i){
-  if(i !== current) return;
+function visit(i) {
+  if (i !== current) return;
 
   visited[i] = true;
   links[i].classList.add("visited");
 
   current++;
-  if(links[current]) links[current].classList.remove("disabled");
+  if (links[current]) links[current].classList.remove("disabled");
 
-  if(visited.every(v => v)){
+  if (visited.every(v => v)) {
     document.getElementById("codeBox").style.display = "block";
+    startTimer(); // Taymerni ishga tushirish
   }
 }
 
 // 📋 Nusxalash
-document.getElementById("codeText").onclick = function(){
+document.getElementById("codeText").onclick = function () {
   navigator.clipboard.writeText(this.textContent);
   document.getElementById("copyHint").textContent = "Nusxa olindi!";
 };
+
+// ================================
+// 7 kunlik taymer
+
+function startTimer() {
+  const timerInterval = setInterval(function () {
+    const now = new Date().getTime();
+    const distance = countdownDate - now;
+
+    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+    // Taymerni ekranga chiqarish
+    document.getElementById("timer").innerHTML = `${days} Kun ${hours} Soat ${minutes} Daqiqa ${seconds} Sekund`;
+
+    // Taymer tugaganida
+    if (distance < 0) {
+      clearInterval(timerInterval);
+      document.getElementById("timer").innerHTML = "Taymer tugadi!";
+      
+      // Yangi taymerni boshlash (7 kunlik yangi taymer)
+      countdownDate = new Date().getTime() + 7 * 24 * 60 * 60 * 1000;  // 7 kunlik taymer
+      localStorage.setItem(PAGE_KEY, countdownDate);  // Yangi sanani saqlash
+      startTimer(); // Yangi taymerni ishga tushirish
+    }
+  }, 1000);
+}
+
 </script>
 
 </body>
