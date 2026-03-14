@@ -6,55 +6,87 @@
 <title>Kirish uchun obuna</title>
 
 <style>
-body{
-  background:#000;
-  color:#fff;
-  font-family:Arial,sans-serif;
-  text-align:center;
-  padding:20px;
+body {
+  background: #000;
+  color: #fff;
+  font-family: Arial, sans-serif;
+  text-align: center;
+  padding: 20px;
+  position: relative;
+  overflow: hidden; /* Sahifada bo'sh joydan tashqariga chiqmaslik */
 }
 
-.link{
-  display:block;
-  background:#00ffd5;
-  color:#000;
-  margin:12px auto;
-  padding:16px;
-  width:95%;
-  max-width:420px;
-  border-radius:12px;
-  text-decoration:none;
-  font-size:18px;
-  font-weight:bold;
+/* Gullarni animatsiya qilish uchun */
+.flower {
+  position: absolute;
+  font-size: 24px;
+  opacity: 0;
+  animation: fall 10s infinite ease-in-out;
+  pointer-events: none; /* Gullarni bosmaslik uchun */
 }
 
-.link.disabled{
-  background:#777;
-  pointer-events:none;
-  opacity:.6;
+/* Animatsiya - gullar pastga tushadi */
+@keyframes fall {
+  0% {
+    top: -10%;
+    left: calc(100% * random());
+    opacity: 1;
+  }
+  100% {
+    top: 100%;
+    opacity: 0;
+  }
 }
 
-.link.visited{
-  background:#1aff1a;
-  box-shadow:0 0 12px rgba(0,255,0,.7);
+.link {
+  display: block;
+  background: #00ffd5;
+  color: #000;
+  margin: 12px auto;
+  padding: 16px;
+  width: 95%;
+  max-width: 420px;
+  border-radius: 12px;
+  text-decoration: none;
+  font-size: 18px;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
 }
 
-.link.visited::after{
-  content:"Bajarildi";
-  display:block;
-  font-size:14px;
-  margin-top:4px;
-  color:#003300;
+/* Tugmalarga hover effekti qo'shish */
+.link:hover {
+  background-color: #1aff1a;
+  color: #000;
+}
+
+.link.disabled {
+  background: #777;
+  pointer-events: none;
+  opacity: .6;
+}
+
+.link.visited {
+  background: #1aff1a;
+  box-shadow: 0 0 12px rgba(0, 255, 0, .7);
+}
+
+.link.visited::after {
+  content: "Bajarildi";
+  display: block;
+  font-size: 14px;
+  margin-top: 4px;
+  color: #003300;
 }
 
 /* Oxirgi tugma ham bir xil, faqat moviy */
-.link.finalBlue{
-  background:#2196f3;
-  color:#fff;
-  box-shadow:0 0 12px rgba(33,150,243,.7);
+.link.finalBlue {
+  background: #2196f3;
+  color: #fff;
+  box-shadow: 0 0 12px rgba(33,150,243,.7);
 }
-.link.finalBlue::after{
-  content:"";
+
+.link.finalBlue::after {
+  content: "";
 }
 </style>
 </head>
@@ -63,8 +95,6 @@ body{
 <h2>🔒 Havolani Qulfdan chiqarish uchun kanallarga obuna bo‘ling</h2>
 <p>Tartib bilan bajaring. Sahifani yangilamang.</p>
 
-
-
 <a class="link" href="https://youtu.be/X5R9mh0bgcY?si=5IKOUI0BA4WhGNcX" target="_blank" data-text="+1) Video (Like + Comment)" onclick="visit(0)"></a>
 <a class="link disabled" href="https://youtube.com/@modderf" target="_blank" data-text="1) YouTube FF (Obuna)" onclick="visit(1)"></a>
 <a class="link disabled" href="https://youtube.com/shorts/P_Dx4jl1WYY?si=BkbW1YoaWVHHMT82" target="_blank" data-text="+2) Video (Like + Comment)" onclick="visit(2)"></a>
@@ -72,8 +102,6 @@ body{
 <a class="link disabled" href="https://www.instagram.com/modderff" target="_blank" data-text="+3) Instagram (Follow)" onclick="visit(4)"></a>  
 <a class="link disabled" href="https://t.me/+RZiLoLoeBWMzZmNi" target="_blank" data-text="+3) Telegram (Join)" onclick="visit(5)"></a>
 
-
-  
 <!-- Oxirgi tugma endi alohida qora bloksiz -->
 <a href="https://modderff.github.io/Fayllar/Maxfiy-havola.html" 
    target="_blank" 
@@ -84,6 +112,22 @@ body{
 </a>
 
 <script>
+// 🌸 Gullarni qo'shish uchun
+function createFlowers() {
+  const flower = document.createElement("div");
+  flower.classList.add("flower");
+  flower.textContent = "🌸";
+  document.body.appendChild(flower);
+
+  // Har bir gul uchun tasodifiy joylashtirish
+  flower.style.left = Math.random() * 100 + "%";
+  
+  // Har safar yangi gul qo'shiladi
+  setTimeout(createFlowers, Math.random() * 3000 + 1000); // Har bir 1-3 sekundda yangi gul paydo bo'ladi
+}
+
+createFlowers(); // Gullarni yaratishni boshlash
+
 const links = document.querySelectorAll(".link:not(.finalBlue)");
 links.forEach(l => l.textContent = l.dataset.text);
 
