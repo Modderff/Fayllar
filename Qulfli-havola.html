@@ -50,16 +50,16 @@
       text-decoration: none;
       font-size: 18px;
       font-weight: bold;
-      transition: all 0.3s ease; /* Hover effektlari uchun sishasinon effekt */
+      transition: background-color 0.3s ease; /* Hover effektlari uchun */
       box-shadow: 0 0 12px rgba(0,255,0,.7);
-      transform: scale(1); /* Bosilganda kattalashishi uchun */
+      transform: scale(1); /* Bosilganda kattalashmasin */
     }
 
-    /* Hover va aktiv holat uchun effektlar */
+    /* Hover holatida tugma kattalashadi */
     .link:hover {
       background: #1aff1a;
       color: #000;
-      transform: scale(1.1); /* Tugma ustiga kursorni olib borilganda kengayishi */
+      transform: scale(1.1); /* Hover holatida kengayadi */
     }
 
     .link.disabled {
