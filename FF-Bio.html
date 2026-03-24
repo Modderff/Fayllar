@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Copy Cards</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #0f172a;
+    color: white;
+    overflow-x: hidden;
+}
+
+/* GRID */
+.container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+    padding: 20px;
+}
+
+/* CARD */
+.card {
+    background: #1e293b;
+    padding: 15px;
+    border-radius: 15px;
+    text-align: center;
+    box-shadow: 0 0 15px rgba(0,0,0,0.4);
+}
+
+.card img {
+    width: 100%;
+    border-radius: 10px;
+}
+
+.copy-text {
+    margin-top: 10px;
+    padding: 10px;
+    background: #0ea5e9;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: 0.3s;
+    user-select: none;
+}
+
+.copy-text:hover {
+    background: #0284c7;
+}
+
+.copied {
+    background: #22c55e !important;
+}
+
+/* 🌸 GUL ANIMATSIYA */
+.flower {
+    position: fixed;
+    top: -50px;
+    font-size: 20px;
+    animation: fall linear infinite;
+    z-index: 9999;
+}
+
+@keyframes fall {
+    to {
+        transform: translateY(110vh) rotate(360deg);
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<!-- 20 TA CARD -->
+<script>
+let text = `[b][c]╭─╮   
+︱▶︱ʏᴏᴜтᴜвᴇ┊ [33FFB5] @ModderF
+╰─99K`;
+
+for(let i=1;i<=20;i++){
+    document.write(`
+    <div class="card">
+        <img src="https://i.postimg.cc/J40XjFDR/Screenshot-2026-03-24-16-33-57-373.png">
+        <div class="copy-text" onclick="copyText(this)">
+            Nusxalash 📋
+        </div>
+    </div>
+    `);
+}
+</script>
+
+</div>
+
+<script>
+function copyText(el) {
+    let text = `[b][c]╭─╮   
+︱▶︱ʏᴏᴜтᴜвᴇ┊ [33FFB5] @ModderF
+╰─99K`;
+
+    navigator.clipboard.writeText(text).then(() => {
+        el.innerText = "Nusxa olindi ✅";
+        el.classList.add("copied");
+
+        setTimeout(() => {
+            el.innerText = "Nusxalash 📋";
+            el.classList.remove("copied");
+        }, 2000);
+    });
+}
+
+/* 🌸 GUL YOG‘ISH */
+function createFlower() {
+    let flower = document.createElement("div");
+    flower.className = "flower";
+    flower.innerHTML = "🌸";
+
+    flower.style.left = Math.random() * window.innerWidth + "px";
+    flower.style.animationDuration = (3 + Math.random() * 5) + "s";
+    flower.style.opacity = Math.random();
+
+    document.body.appendChild(flower);
+
+    setTimeout(() => {
+        flower.remove();
+    }, 8000);
+}
+
+setInterval(createFlower, 300);
+</script>
+
+</body>
+</html>
