@@ -133,7 +133,7 @@
     const links = document.querySelectorAll(".link:not(.finalBlue)");
     links.forEach(l => l.textContent = l.dataset.text);
 
-    let visited = [false,false,false,false,false,false];
+    let visited = [false,false,false,false,false];
     let current = 0;
 
     links.forEach((btn,i)=>{
