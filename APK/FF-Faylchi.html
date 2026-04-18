@@ -1,0 +1,156 @@
+
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Modded by - Dilmurod</title>
+
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: #000;
+      color: #fff;
+      font-family: Arial, sans-serif;
+      text-align: center;
+      overflow-x: hidden; /* yon tomonga chiqmasin */
+      overflow-y: auto;   /* scroll ishlaydi */
+    }
+
+    body {
+      padding: 20px;
+      position: relative;
+    }
+
+    /* 🌸 Gullar */
+    .flower {
+      position: fixed;
+      top: -10%;
+      font-size: 24px;
+      opacity: 0.8;
+      animation: fall linear forwards;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    @keyframes fall {
+      to {
+        transform: translateY(110vh);
+        opacity: 0;
+      }
+    }
+
+    .link {
+      display: block;
+      background: #00ffd5;
+      color: #000;
+      margin: 12px auto;
+      padding: 16px;
+      width: 95%;
+      max-width: 420px;
+      border-radius: 50px;
+      text-decoration: none;
+      font-size: 18px;
+      font-weight: bold;
+      transition: all 0.3s ease;
+      box-shadow: 0 0 12px rgba(0,255,0,.7);
+      transform: scale(1);
+      z-index: 1;
+      position: relative;
+    }
+
+    .link:hover {
+      background: #1aff1a;
+      transform: scale(1.08);
+    }
+
+    .link.disabled {
+      background: #777;
+      pointer-events: none;
+      opacity: .6;
+    }
+
+    .link.visited {
+      background: #1aff1a;
+    }
+
+    .link.visited::after {
+      content: "Bajarildi";
+      display: block;
+      font-size: 14px;
+      margin-top: 4px;
+      color: #003300;
+    }
+
+    .link.finalBlue {
+      background: #2196f3;
+      color: #fff;
+      box-shadow: 0 0 12px rgba(33,150,243,.7);
+    }
+  </style>
+</head>
+<body>
+
+  <h2>🔑 Faylni Qulfdan ochish uchun kanallarga obuna bo'l</h2>
+  <p>Sahifani yangilama</p>
+
+  <a class="link" href="https://modderff.github.io/Fayllar/Modder-FF-Video.html" target="_blank" data-text="1) Shorts (Like + Comment)" onclick="visit(0)"></a>
+  <a class="link disabled" href="https://www.youtube.com/channel/UCdlOZ5UZRq1Y3HiuDdgi3Ag" target="_blank" data-text="2) YouTube FF (Obuna)" onclick="visit(1)"></a>
+  <a class="link disabled" href="https://modderff.github.io/Fayllar/King-Pubg-Video.html" target="_blank" data-text="3) Shorts (Like + Comment)" onclick="visit(2)"></a>
+  <a class="link disabled" href="https://www.youtube.com/channel/UC9E0sZ3-qmpLqD2dH6CLAVA" target="_blank" data-text="4) YouTube PG (Obuna)" onclick="visit(3)"></a>
+  <a class="link disabled" href="https://modderff.github.io/Fayllar/Telegram-Link.html" target="_blank" data-text="5) Telegram (Join)" onclick="visit(4)"></a>
+  <a class="link disabled" href="https://www.instagram.com/modderff" target="_blank" data-text="6) Instagram (Follow)" onclick="visit(5)"></a>
+
+  <a href="https://www.dropbox.com/scl/fi/g2wjo4hwhyj1zpg7kl63w/FF-Faylchi-New-1.apk?rlkey=oc8n6gp13ex7dwmf0fd2s0ily&st=h2qc74iq&dl=1" 
+     target="_blank" 
+     class="link finalBlue"
+     id="finalBtn"
+     style="display:none;">
+     🔓 Qulf ochildi yuklash mumkin
+  </a>
+
+  <script>
+    // 🌸 Gullar
+    function createFlowers() {
+      const flower = document.createElement("div");
+      flower.classList.add("flower");
+      flower.textContent = "🌸";
+
+      flower.style.left = Math.random() * 100 + "%";
+      flower.style.animationDuration = (Math.random() * 5 + 5) + "s";
+
+      document.body.appendChild(flower);
+
+      setTimeout(() => {
+        flower.remove();
+      }, 10000);
+
+      setTimeout(createFlowers, 800);
+    }
+
+    createFlowers();
+
+    const links = document.querySelectorAll(".link:not(.finalBlue)");
+    links.forEach(l => l.textContent = l.dataset.text);
+
+    let visited = [false,false,false,false,false,false];
+    let current = 0;
+
+    function visit(i){
+      if(i !== current) return;
+
+      visited[i] = true;
+      links[i].classList.add("visited");
+
+      current++;
+      if(links[current]) links[current].classList.remove("disabled");
+
+      if(visited.every(v => v)){
+        document.getElementById("finalBtn").style.display = "block";
+      }
+    }
+  </script>
+
+</body>
+</html>
