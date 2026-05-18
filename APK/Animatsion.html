@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="uz">
 <head>
@@ -14,8 +13,8 @@
       color: #fff;
       font-family: Arial, sans-serif;
       text-align: center;
-      overflow-x: hidden; /* yon tomonga chiqmasin */
-      overflow-y: auto;   /* scroll ishlaydi */
+      overflow-x: hidden;
+      overflow-y: auto;
     }
 
     body {
@@ -76,7 +75,7 @@
     }
 
     .link.visited::after {
-      content: "Bajarildi";
+      content: "✅ Bajarildi";
       display: block;
       font-size: 14px;
       margin-top: 4px;
@@ -88,6 +87,12 @@
       color: #fff;
       box-shadow: 0 0 12px rgba(33,150,243,.7);
     }
+
+    .countdown {
+      font-size: 14px;
+      margin-top: 5px;
+      color: yellow;
+    }
   </style>
 </head>
 <body>
@@ -95,30 +100,82 @@
   <h2>🔑 Faylni Qulfdan ochish uchun kanallarga obuna bo'l</h2>
   <p>Sahifani yangilama</p>
 
-  <a class="link" href="https://modderff.github.io/Fayllar/Modder-FF-Video.html" target="_blank" data-text="1) Shorts (Like + Comment)" onclick="visit(0)"></a>
-  <a class="link disabled" href="https://www.youtube.com/channel/UCdlOZ5UZRq1Y3HiuDdgi3Ag" target="_blank" data-text="2) YouTube FF (Obuna)" onclick="visit(1)"></a>
-  <a class="link disabled" href="https://modderff.github.io/Fayllar/King-Pubg-Video.html" target="_blank" data-text="3) Shorts (Like + Comment)" onclick="visit(2)"></a>
-  <a class="link disabled" href="https://www.youtube.com/channel/UC9E0sZ3-qmpLqD2dH6CLAVA" target="_blank" data-text="4) YouTube PG (Obuna)" onclick="visit(3)"></a>
-  <a class="link disabled" href="https://modderff.github.io/Fayllar/Telegram-Link.html" target="_blank" data-text="5) Telegram (Join)" onclick="visit(4)"></a>
-  <a class="link disabled" href="https://www.instagram.com/modderff" target="_blank" data-text="6) Instagram (Follow)" onclick="visit(5)"></a>
+  <a class="link"
+     href="https://modderff.github.io/Fayllar/Modder-FF-Video.html"
+     target="_blank"
+     data-text="1) Shorts (Like + Comment)"
+     onclick="visit(event,0)">
+  </a>
 
-  <a href="https://www.dropbox.com/scl/fi/hqv1h40t7ulsd6lpc9tyk/AFTER-OB53-UPDATE-NEW-JUMP-MEDKIT-ANIMETION-FF-MAX-BY-MODDER-1.zip?rlkey=b53xwphfii8hrpf6gazdevr2o&st=yu2evfqn&dl=1" 
-     target="_blank" 
+  <a class="link disabled"
+     href="https://www.youtube.com/channel/UCdlOZ5UZRq1Y3HiuDdgi3Ag"
+     target="_blank"
+     data-text="2) YouTube FF (Obuna)"
+     onclick="visit(event,1)">
+  </a>
+
+  <a class="link disabled"
+     href="https://modderff.github.io/Fayllar/King-Pubg-Video.html"
+     target="_blank"
+     data-text="3) Shorts (Like + Comment)"
+     onclick="visit(event,2)">
+  </a>
+
+  <a class="link disabled"
+     href="https://www.youtube.com/channel/UC9E0sZ3-qmpLqD2dH6CLAVA"
+     target="_blank"
+     data-text="4) YouTube PG (Obuna)"
+     onclick="visit(event,3)">
+  </a>
+
+  <a class="link disabled"
+     href="https://modderff.github.io/Fayllar/Telegram-Link.html"
+     target="_blank"
+     data-text="5) Telegram (Join)"
+     onclick="visit(event,4)">
+  </a>
+
+  <a class="link disabled"
+     href="https://www.instagram.com/modderff"
+     target="_blank"
+     data-text="6) Instagram (Follow)"
+     onclick="visit(event,5)">
+  </a>
+
+  <!-- 🔓 Yuklash -->
+<a href="https://www.dropbox.com/scl/fi/hqv1h40t7ulsd6lpc9tyk/AFTER-OB53-UPDATE-NEW-JUMP-MEDKIT-ANIMETION-FF-MAX-BY-MODDER-1.zip?rlkey=b53xwphfii8hrpf6gazdevr2o&st=yu2evfqn&dl=1" 
+     target="_blank"
      class="link finalBlue"
      id="finalBtn"
      style="display:none;">
      🔓 Qulf ochildi yuklash mumkin
   </a>
 
+  <!-- 📢 Telegram -->
+  <a href="https://t.me/Maxfiy_havolabot?start=190"
+     target="_blank"
+     class="link finalBlue"
+     id="telegramBtn"
+     style="display:none;">
+     📢 Telegram orqali yuklash
+  </a>
+
   <script>
+
     // 🌸 Gullar
     function createFlowers() {
+
       const flower = document.createElement("div");
+
       flower.classList.add("flower");
+
       flower.textContent = "🌸";
 
-      flower.style.left = Math.random() * 100 + "%";
-      flower.style.animationDuration = (Math.random() * 5 + 5) + "s";
+      flower.style.left =
+        Math.random() * 100 + "%";
+
+      flower.style.animationDuration =
+        (Math.random() * 5 + 5) + "s";
 
       document.body.appendChild(flower);
 
@@ -131,25 +188,83 @@
 
     createFlowers();
 
-    const links = document.querySelectorAll(".link:not(.finalBlue)");
-    links.forEach(l => l.textContent = l.dataset.text);
+    const links =
+      document.querySelectorAll(".link:not(.finalBlue)");
 
-    let visited = [false,false,false,false,false,false];
+    links.forEach(l => {
+      l.textContent = l.dataset.text;
+    });
+
+    let visited =
+      [false,false,false,false,false,false];
+
     let current = 0;
 
-    function visit(i){
-      if(i !== current) return;
+    function visit(event, i){
 
-      visited[i] = true;
-      links[i].classList.add("visited");
-
-      current++;
-      if(links[current]) links[current].classList.remove("disabled");
-
-      if(visited.every(v => v)){
-        document.getElementById("finalBtn").style.display = "block";
+      if(i !== current){
+        event.preventDefault();
+        return;
       }
+
+      let btn = links[i];
+
+      if(btn.classList.contains("waiting")){
+        event.preventDefault();
+        return;
+      }
+
+      btn.classList.add("waiting");
+
+      let timer = 15;
+
+      const countdown =
+        document.createElement("div");
+
+      countdown.className = "countdown";
+
+      countdown.innerText =
+        "⏰ " + timer + " Soniya kuting";
+
+      btn.appendChild(countdown);
+
+      const interval = setInterval(() => {
+
+        timer--;
+
+        countdown.innerText =
+          "⏰ " + timer + " Soniya kuting";
+
+        if(timer <= 0){
+
+          clearInterval(interval);
+
+          countdown.remove();
+
+          visited[i] = true;
+
+          btn.classList.add("visited");
+
+          current++;
+
+          if(links[current]){
+            links[current]
+              .classList.remove("disabled");
+          }
+
+          if(visited.every(v => v)){
+
+            document.getElementById("finalBtn")
+              .style.display = "block";
+
+            document.getElementById("telegramBtn")
+              .style.display = "block";
+          }
+        }
+
+      },1000);
     }
+
   </script>
 
 </body>
