@@ -1,98 +1,11 @@
 <!DOCTYPE html>
-<html lang="uz">
+<html>
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>YouTube Live Tanlash</title>
-
-<style>
-body{
-  margin:0;
-  background:#000;
-  color:#fff;
-  font-family:Arial,sans-serif;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  height:100vh;
-}
-
-.box{
-  width:100%;
-  max-width:420px;
-  text-align:center;
-  padding:20px;
-}
-
-h2{
-  color:#ff0000;
-  margin-bottom:25px;
-}
-
-.btn{
-  display:block;
-  background:#ff0000;
-  color:#fff;
-  text-decoration:none;
-  padding:18px;
-  margin:15px 0;
-  border-radius:16px;
-  font-size:18px;
-  font-weight:bold;
-  transition:.2s;
-  box-shadow:0 0 15px rgba(255,0,0,0.6);
-}
-
-.btn:active{
-  transform:scale(.96);
-}
-
-.loader{
-  display:none;
-  width:45px;
-  height:45px;
-  border:5px solid rgba(255,0,0,.3);
-  border-top:5px solid #ff0000;
-  border-radius:50%;
-  animation:spin 1s linear infinite;
-  margin:25px auto;
-}
-
-@keyframes spin{
-  0%{transform:rotate(0deg)}
-  100%{transform:rotate(360deg)}
-}
-</style>
-
 <script>
-function go(url){
-  document.getElementById("buttons").style.display="none";
-  document.getElementById("loader").style.display="block";
-
-  setTimeout(function(){
-    window.location.href = url;
-  }, 900);
-}
+window.location.replace("https://www.youtube.com/watch?v=8BRQwteZpEk");
 </script>
-
 </head>
 <body>
-
-<div class="box">
-  <h2>🔴 LIVE</h2>
-
-  <div id="buttons">
-    <a class="btn" onclick="go('intent://youtube.com/live/Vk72APRt5MU#Intent;scheme=https;package=com.google.android.youtube;end;')">
-      🔴 LIVE KO‘RISH
-    </a>
-  </div>
-
-  <div id="loader" class="loader"></div>
-
-  <p style="font-size:14px;opacity:.7;margin-top:15px">
-    Tanlangandan keyin YouTube ochiladi
-  </p>
-</div>
-
 </body>
 </html>
