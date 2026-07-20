@@ -1,123 +1,336 @@
-<script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-import {
-  getDatabase,
-  ref,
-  get,
-  runTransaction
-} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kalitni oling</title>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+<style>
+  :root {
+    --bg: #11141a;
+    --surface: #1a1f28;
+    --surface-2: #212836;
+    --brass: #c9a227;
+    --brass-dim: #8a7220;
+    --text: #eae7de;
+    --text-dim: #8b91a0;
+    --used: #3c4452;
+    --danger: #c2492f;
+  }
 
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Inter', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+  }
+
+  .kv-wrap { width: 100%; max-width: 460px; }
+
+  .kv-eyebrow {
+    font-family: 'Courier New', monospace;
+    font-size: 12px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--brass);
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .kv-eyebrow .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--brass); }
+
+  .kv-title {
+    font-weight: 700;
+    font-size: 30px;
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+    margin: 0 0 10px;
+  }
+
+  .kv-sub {
+    font-size: 14.5px;
+    color: var(--text-dim);
+    line-height: 1.55;
+    margin: 0 0 28px;
+  }
+
+  .kv-card {
+    position: relative;
+    background: linear-gradient(155deg, var(--surface-2) 0%, var(--surface) 60%);
+    border: 1px solid #2a3140;
+    border-radius: 16px;
+    padding: 28px;
+    overflow: hidden;
+  }
+  .kv-card::before {
+    content: "";
+    position: absolute;
+    top: -40%; right: -20%;
+    width: 220px; height: 220px;
+    background: radial-gradient(circle, rgba(201,162,39,0.10) 0%, rgba(201,162,39,0) 70%);
+    pointer-events: none;
+  }
+
+  .kv-chip {
+    width: 38px; height: 28px;
+    border-radius: 5px;
+    background: linear-gradient(135deg, #d8b845, var(--brass-dim));
+    position: relative;
+    margin-bottom: 22px;
+  }
+  .kv-chip::after {
+    content: "";
+    position: absolute; inset: 5px;
+    border: 1px solid rgba(0,0,0,0.25);
+    border-radius: 3px;
+  }
+
+  .kv-status-row {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 4px;
+    font-family: 'Courier New', monospace;
+    font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--text-dim);
+  }
+
+  .kv-code {
+    font-family: 'Courier New', monospace;
+    font-size: 26px; font-weight: 600; letter-spacing: 0.04em;
+    color: var(--text);
+    margin: 10px 0 4px;
+    word-break: break-all;
+    min-height: 34px;
+  }
+
+  .kv-duration { font-size: 13px; color: var(--brass); }
+
+  .kv-btn {
+    width: 100%;
+    margin-top: 22px;
+    padding: 14px 18px;
+    border-radius: 10px;
+    border: none;
+    background: var(--brass);
+    color: #16130a;
+    font-weight: 700;
+    font-size: 15px;
+    cursor: pointer;
+    transition: transform 0.12s ease, background 0.15s ease;
+  }
+  .kv-btn:hover:not(:disabled) { background: #ddb536; }
+  .kv-btn:active:not(:disabled) { transform: scale(0.98); }
+  .kv-btn:disabled { background: var(--used); color: var(--text-dim); cursor: not-allowed; }
+
+  .kv-note { margin-top: 14px; font-size: 12.5px; color: var(--text-dim); line-height: 1.5; text-align: center; }
+  .kv-note.err { color: var(--danger); }
+
+  .kv-pulse { animation: kvpulse 1.4s ease-in-out infinite; }
+  @keyframes kvpulse { 0%,100% { opacity: 1; } 50% { opacity: 0.55; } }
+
+  @media (prefers-reduced-motion: reduce) {
+    .kv-pulse { animation: none; }
+    .kv-btn { transition: none; }
+  }
+</style>
+</head>
+<body>
+
+<div id="app-root"></div>
+
+<script>
+// ====== FIREBASE SOZLAMALARI ======
+// Bu yerga o'zingizning Firebase loyihangiz konfiguratsiyasini qo'ying.
+// Firebase Console -> Project settings -> "Your apps" -> Config
 const firebaseConfig = {
-  apiKey: "AIzaSyBagTt_GKxzKzUiIj8dIVZu-gPM9-EHDUo",
-  authDomain: "planning-with-ai-7f474.firebaseapp.com",
-  databaseURL: "https://planning-with-ai-7f474-default-rtdb.firebaseio.com",
-  projectId: "planning-with-ai-7f474",
-  storageBucket: "planning-with-ai-7f474.firebasestorage.app",
-  messagingSenderId: "730296215902",
-  appId: "1:730296215902:web:ef0487d2ac628724e947cf"
+  apiKey: "BU_YERGA_API_KEY",
+  authDomain: "BU_YERGA_AUTH_DOMAIN",
+  projectId: "BU_YERGA_PROJECT_ID",
+  storageBucket: "BU_YERGA_STORAGE_BUCKET",
+  messagingSenderId: "BU_YERGA_SENDER_ID",
+  appId: "BU_YERGA_APP_ID"
 };
 
-const app = initializeApp(firebaseConfig);
-const db = getDatabase(app);
+firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
 
-async function getFirebaseKey() {
+// Kalitlaringiz shu yerda. Kerak bo'lsa, shu ro'yxatni o'zgartiring/uzaytiring.
+const KEYS_SEED = [
+  { code: "4c89e4eab9", duration: "1Hour" },
+  { code: "4ec85498e0", duration: "1Hour" },
+  { code: "6709cc3af0", duration: "1Hour" },
+  { code: "22827d3380", duration: "1Hour" }
+];
 
-  const oldKey = localStorage.getItem("myKey");
+const KEYS_COLLECTION = "keys";
+const LOCAL_CLAIM_KEY = "kv_my_claim";
 
-  if (oldKey) {
-    document.getElementById("codeText").textContent = oldKey;
-    return;
+const root = document.getElementById("app-root");
+
+function esc(s) {
+  return String(s).replace(/[&<>"']/g, c => ({
+    "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
+  }[c]));
+}
+
+// Firestore'da kalitlar mavjudligini tekshiradi, bo'lmasa yaratadi (bir martalik "seed")
+async function ensureSeeded() {
+  const snap = await db.collection(KEYS_COLLECTION).limit(1).get();
+  if (!snap.empty) return;
+  const batch = db.batch();
+  KEYS_SEED.forEach(k => {
+    const ref = db.collection(KEYS_COLLECTION).doc(k.code);
+    batch.set(ref, { duration: k.duration, status: "available", claimedBy: null });
+  });
+  await batch.commit();
+}
+
+function getLocalClaim() {
+  try {
+    const raw = localStorage.getItem(LOCAL_CLAIM_KEY);
+    return raw ? JSON.parse(raw) : null;
+  } catch (e) { return null; }
+}
+
+function saveLocalClaim(entry) {
+  try { localStorage.setItem(LOCAL_CLAIM_KEY, JSON.stringify(entry)); } catch (e) {}
+}
+
+function render(state) {
+  const { phase, code, duration, remaining, total } = state;
+  let statusHtml, bodyHtml, btnHtml, noteHtml;
+
+  if (phase === "loading") {
+    statusHtml = `<span class="kv-pulse">TEKSHIRILMOQDA…</span><span></span>`;
+    bodyHtml = `<div class="kv-code kv-pulse">— — — — — — — —</div><div class="kv-duration">&nbsp;</div>`;
+    btnHtml = `<button class="kv-btn" disabled>Yuklanmoqda…</button>`;
+    noteHtml = "";
+  } else if (phase === "claimed") {
+    statusHtml = `<span>SIZNING KALITINGIZ</span><span>FAOL</span>`;
+    bodyHtml = `<div class="kv-code">${esc(code)}</div><div class="kv-duration">Amal qilish muddati: ${esc(duration)}</div>`;
+    btnHtml = `<button class="kv-btn" id="kv-copy-btn">Kalitni nusxalash</button>`;
+    noteHtml = `<div class="kv-note">Bu kalit faqat sizga tegishli. Uni boshqa hech kimga bermang.</div>`;
+  } else if (phase === "available") {
+    statusHtml = `<span>KALITLAR OMBORI</span><span>${remaining} / ${total} MAVJUD</span>`;
+    bodyHtml = `<div class="kv-code" style="color:var(--text-dim); font-size:20px;">Hali kalit olinmagan</div><div class="kv-duration">Har bir odamga — 1 ta kalit</div>`;
+    btnHtml = `<button class="kv-btn" id="kv-claim-btn">Kalitni olish</button>`;
+    noteHtml = "";
+  } else if (phase === "empty") {
+    statusHtml = `<span>KALITLAR OMBORI</span><span style="color:var(--danger)">0 / ${total} MAVJUD</span>`;
+    bodyHtml = `<div class="kv-code" style="color:var(--text-dim); font-size:20px;">Kalitlar tugadi</div><div class="kv-duration">&nbsp;</div>`;
+    btnHtml = `<button class="kv-btn" disabled>Kalit qolmadi</button>`;
+    noteHtml = `<div class="kv-note err">Barcha kalitlar band qilingan. Keyinroq qayta tekshiring.</div>`;
+  } else if (phase === "claiming") {
+    statusHtml = `<span>KALIT AJRATILMOQDA…</span><span></span>`;
+    bodyHtml = `<div class="kv-code kv-pulse">Bir zum kuting…</div><div class="kv-duration">&nbsp;</div>`;
+    btnHtml = `<button class="kv-btn" disabled>Ajratilmoqda…</button>`;
+    noteHtml = "";
+  } else if (phase === "error") {
+    statusHtml = `<span>XATOLIK</span><span></span>`;
+    bodyHtml = `<div class="kv-code" style="color:var(--danger); font-size:18px;">Ulanishda xatolik</div><div class="kv-duration">&nbsp;</div>`;
+    btnHtml = `<button class="kv-btn" id="kv-retry-btn">Qayta urinish</button>`;
+    noteHtml = `<div class="kv-note err">Firebase konfiguratsiyasini tekshiring.</div>`;
   }
 
-  const snap = await get(ref(db, "keys"));
+  root.innerHTML = `
+    <div class="kv-wrap">
+      <div class="kv-eyebrow"><span class="dot"></span>1 ODAMGA — 1 KALIT</div>
+      <h1 class="kv-title">Shaxsiy kirish kalitingizni oling</h1>
+      <p class="kv-sub">Quyidagi tugmani bosing — sizga tasodifiy ravishda bitta, faqat sizga tegishli kalit ajratiladi. Har bir shaxs faqat bitta kalit ola oladi.</p>
+      <div class="kv-card">
+        <div class="kv-chip"></div>
+        <div class="kv-status-row">${statusHtml}</div>
+        ${bodyHtml}
+        ${btnHtml}
+      </div>
+      ${noteHtml}
+    </div>
+  `;
 
-  if (!snap.exists()) {
-    document.getElementById("codeText").textContent = "KEY YO'Q";
-    return;
-  }
+  const claimBtn = document.getElementById("kv-claim-btn");
+  if (claimBtn) claimBtn.addEventListener("click", handleClaim);
 
-  const keys = snap.val();
+  const retryBtn = document.getElementById("kv-retry-btn");
+  if (retryBtn) retryBtn.addEventListener("click", init);
 
-  for (const id in keys) {
+  const copyBtn = document.getElementById("kv-copy-btn");
+  if (copyBtn) copyBtn.addEventListener("click", async () => {
+    try {
+      await navigator.clipboard.writeText(code);
+      copyBtn.textContent = "Nusxalandi ✓";
+      setTimeout(() => { copyBtn.textContent = "Kalitni nusxalash"; }, 1600);
+    } catch (e) {
+      copyBtn.textContent = "Nusxalab bo'lmadi";
+    }
+  });
+}
 
-    const result = await runTransaction(
-      ref(db, "keys/" + id),
-      (data) => {
+async function handleClaim() {
+  render({ phase: "claiming" });
+  try {
+    const keysRef = db.collection(KEYS_COLLECTION);
 
-        if (data == null) return data;
+    const claimedEntry = await db.runTransaction(async (tx) => {
+      const snap = await tx.get(keysRef.where("status", "==", "available").limit(1));
+      if (snap.empty) return null;
+      const doc = snap.docs[0];
+      tx.update(doc.ref, {
+        status: "used",
+        claimedBy: "user-" + Math.random().toString(36).slice(2, 10)
+      });
+      return { code: doc.id, duration: doc.data().duration };
+    });
 
-        if (data.used === false) {
-
-          data.used = true;
-
-          return data;
-
-        }
-
-        return;
-
-      }
-    );
-
-    if (result.committed) {
-
-      const key = result.snapshot.val().key;
-
-      localStorage.setItem("myKey", key);
-
-      document.getElementById("codeText").textContent = key;
-
+    if (!claimedEntry) {
+      const total = (await keysRef.get()).size;
+      render({ phase: "empty", total });
       return;
-
     }
 
+    saveLocalClaim(claimedEntry);
+    render({ phase: "claimed", code: claimedEntry.code, duration: claimedEntry.duration });
+  } catch (e) {
+    console.error(e);
+    render({ phase: "error" });
   }
-
-  document.getElementById("codeText").textContent = "KEY QOLMAGAN";
-}
-async function visit(i) {
-
-  if (i !== current) return;
-
-  visited[i] = true;
-  links[i].classList.add("visited");
-
-  current++;
-
-  if (links[current]) {
-    links[current].classList.remove("disabled");
-  }
-
-  if (visited.every(v => v)) {
-
-    document.getElementById("codeBox").style.display = "block";
-
-    await getFirebaseKey();
-
-    startTimer();
-
-  }
-
 }
 
-    document.getElementById("codeText").onclick = function () {
-  navigator.clipboard.writeText(this.textContent);
-  document.getElementById("copyHint").textContent = "Nusxa olindi!";
-};
+async function init() {
+  render({ phase: "loading" });
+  try {
+    const localClaim = getLocalClaim();
+    if (localClaim) {
+      render({ phase: "claimed", code: localClaim.code, duration: localClaim.duration });
+      return;
+    }
 
-    // Taymer tugaganda eski keyni o'chirish (ixtiyoriy)
-function resetKey() {
-  localStorage.removeItem("myKey");
+    await ensureSeeded();
+
+    const snap = await db.collection(KEYS_COLLECTION).get();
+    const total = snap.size;
+    const remaining = snap.docs.filter(d => d.data().status === "available").length;
+
+    if (remaining === 0) {
+      render({ phase: "empty", total });
+    } else {
+      render({ phase: "available", remaining, total });
+    }
+  } catch (e) {
+    console.error(e);
+    render({ phase: "error" });
+  }
 }
 
-// Sahifa yuklanganda eski key bo'lsa ko'rsatish
-window.addEventListener("load", () => {
-  const savedKey = localStorage.getItem("myKey");
+init();
+</script>
 
-  if (savedKey) {
-    document.getElementById("codeBox").style.display = "block";
-    document.getElementById("codeText").textContent = savedKey;
-    startTimer();
-  }
-});
-    </script>
+</body>
+</html>
