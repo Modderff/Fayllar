@@ -535,24 +535,6 @@ function visit(i) {
 steps[0].classList.add("active");
 links[0].querySelector(".status").textContent = "Endi shu bosqich";
 
-// Avval kalit olingan bo'lsa — hammasini "bajarilgan" holatda ko'rsatish
-(function restoreIfAlreadyClaimed() {
-  const existing = getLocalClaimSimple();
-  if (existing) {
-    visited = [true, true, true, true, true];
-    steps.forEach((s, i) => { s.classList.add("done"); s.classList.remove("active"); });
-    links.forEach(l => {
-      l.classList.remove("disabled");
-      l.classList.add("visited");
-      l.querySelector(".status").textContent = "Bajarildi";
-    });
-    updateRail();
-    document.getElementById("codeBox").style.display = "block";
-    showCodeState("ready", existing);
-    startTimer();
-  }
-})();
-
 codeTextEl.onclick = function () {
   if (codeTextEl.classList.contains("pending") || codeTextEl.classList.contains("err")) return;
   navigator.clipboard.writeText(this.textContent);
