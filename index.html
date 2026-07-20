@@ -1,45 +1,123 @@
-<!DOCTYPE html>
-<html lang="uz">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Key System</title>
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import {
+  getDatabase,
+  ref,
+  get,
+  runTransaction
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 
-<style>
-body{
-    margin:0;
-    background:#111;
-    color:#fff;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    height:100vh;
-    font-family:Arial,sans-serif;
+const firebaseConfig = {
+  apiKey: "AIzaSyBagTt_GKxzKzUiIj8dIVZu-gPM9-EHDUo",
+  authDomain: "planning-with-ai-7f474.firebaseapp.com",
+  databaseURL: "https://planning-with-ai-7f474-default-rtdb.firebaseio.com",
+  projectId: "planning-with-ai-7f474",
+  storageBucket: "planning-with-ai-7f474.firebasestorage.app",
+  messagingSenderId: "730296215902",
+  appId: "1:730296215902:web:ef0487d2ac628724e947cf"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getDatabase(app);
+
+async function getFirebaseKey() {
+
+  const oldKey = localStorage.getItem("myKey");
+
+  if (oldKey) {
+    document.getElementById("codeText").textContent = oldKey;
+    return;
+  }
+
+  const snap = await get(ref(db, "keys"));
+
+  if (!snap.exists()) {
+    document.getElementById("codeText").textContent = "KEY YO'Q";
+    return;
+  }
+
+  const keys = snap.val();
+
+  for (const id in keys) {
+
+    const result = await runTransaction(
+      ref(db, "keys/" + id),
+      (data) => {
+
+        if (data == null) return data;
+
+        if (data.used === false) {
+
+          data.used = true;
+
+          return data;
+
+        }
+
+        return;
+
+      }
+    );
+
+    if (result.committed) {
+
+      const key = result.snapshot.val().key;
+
+      localStorage.setItem("myKey", key);
+
+      document.getElementById("codeText").textContent = key;
+
+      return;
+
+    }
+
+  }
+
+  document.getElementById("codeText").textContent = "KEY QOLMAGAN";
 }
-.box{
-    background:#1e1e1e;
-    padding:30px;
-    border-radius:15px;
-    text-align:center;
-    width:350px;
+async function visit(i) {
+
+  if (i !== current) return;
+
+  visited[i] = true;
+  links[i].classList.add("visited");
+
+  current++;
+
+  if (links[current]) {
+    links[current].classList.remove("disabled");
+  }
+
+  if (visited.every(v => v)) {
+
+    document.getElementById("codeBox").style.display = "block";
+
+    await getFirebaseKey();
+
+    startTimer();
+
+  }
+
 }
-#key{
-    margin-top:20px;
-    font-size:24px;
-    color:#00ff88;
-    word-break:break-all;
+
+    document.getElementById("codeText").onclick = function () {
+  navigator.clipboard.writeText(this.textContent);
+  document.getElementById("copyHint").textContent = "Nusxa olindi!";
+};
+
+    // Taymer tugaganda eski keyni o'chirish (ixtiyoriy)
+function resetKey() {
+  localStorage.removeItem("myKey");
 }
-</style>
 
-</head>
-<body>
+// Sahifa yuklanganda eski key bo'lsa ko'rsatish
+window.addEventListener("load", () => {
+  const savedKey = localStorage.getItem("myKey");
 
-<div class="box">
-<h2>Loading Key...</h2>
-<div id="key">Kuting...</div>
-</div>
-
-<script type="module" src="script.js"></script>
-
-</body>
-</html>
+  if (savedKey) {
+    document.getElementById("codeBox").style.display = "block";
+    document.getElementById("codeText").textContent = savedKey;
+    startTimer();
+  }
+});
+    </script>
