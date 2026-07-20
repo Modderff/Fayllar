@@ -1,90 +1,75 @@
 <!DOCTYPE html>
-<html>
+<html lang="uz">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Key Generator</title>
+
 <style>
 body{
-    background:#111;
-    color:white;
-    font-family:Arial;
-    text-align:center;
-    padding-top:100px;
+background:#0d1117;
+display:flex;
+justify-content:center;
+align-items:center;
+height:100vh;
+font-family:Arial;
 }
+
 .box{
-    background:#222;
-    padding:30px;
-    border-radius:15px;
-    width:300px;
-    margin:auto;
+background:#161b22;
+padding:30px;
+border-radius:15px;
+width:350px;
+text-align:center;
+box-shadow:0 0 20px #000;
 }
+
+h2{
+color:white;
+margin-bottom:20px;
+}
+
 button{
-    padding:12px 30px;
-    border:0;
-    border-radius:10px;
-    background:#00ff88;
-    cursor:pointer;
-    font-size:18px;
+width:100%;
+height:50px;
+border:0;
+border-radius:10px;
+background:#238636;
+color:white;
+font-size:18px;
+cursor:pointer;
 }
+
+button:hover{
+background:#2ea043;
+}
+
 #key{
-    margin-top:20px;
-    color:#00ff88;
-    font-size:22px;
+margin-top:20px;
+color:#00ff99;
+font-size:22px;
+font-weight:bold;
+word-break:break-all;
 }
 </style>
+
 </head>
 
 <body>
 
 <div class="box">
-<h2>KEY SYSTEM</h2>
 
-<button onclick="getKey()">GET KEY</button>
+<h2>KEY GENERATOR</h2>
+
+<button onclick="getKey()">
+GET KEY
+</button>
 
 <div id="key"></div>
 
 </div>
 
-<script>
-async function getKey(){
-
-let old = localStorage.getItem("my_key");
-
-if(old){
- document.getElementById("key").innerHTML =
- "Sizda key bor:<br>"+old;
- return;
-}
-
-
-let file = await fetch("Ilovalar-07-20.txt");
-let text = await file.text();
-
-let lines = text.split("\n");
-
-for(let i=0;i<lines.length;i++){
-
-let data = lines[i].split(",");
-
-if(data[2]=="No Used"){
-
-let key=data[0];
-
-localStorage.setItem("my_key",key);
-
-document.getElementById("key").innerHTML =
-"Your Key:<br>"+key;
-
-return;
-
-}
-
-}
-
-document.getElementById("key").innerHTML="Key qolmagan";
-
-}
-</script>
+<script type="module" src="script.js"></script>
 
 </body>
 </html>
