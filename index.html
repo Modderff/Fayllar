@@ -155,6 +155,48 @@ const db = firebase.firestore();
 const KEYS_COLLECTION = "codes100";
 const LOCAL_CLAIM_KEY = "codes100_my_claim";
 
+// Kalitlaringiz. Bo'sh bazani bir martalik avtomatik to'ldirish uchun ishlatiladi.
+const KEYS_SEED = [
+  "140f96c54b","ad6f40e728","3f422fabdf","e1329a5ec5","dd77a284fd",
+  "1a9b77e817","c5e67ed1e2","9573aff93b","f6d04337ac","9163cd8ffe",
+  "acc3a33dfa","3a97ce094a","a557761416","6d815736db","eced16a87f",
+  "2559b333d1","59a24e2a7e","88ba91e362","8fb402c0a5","6aab31694b",
+  "f5b000cc73","933eb50d9f","5edf05bdf7","b363df5ae4","cac0e3c4a0",
+  "265b27f484","253da2dd08","b4b2c7a181","3e44a5c734","e7f6c049cb",
+  "5257655014","515b0058bd","1bfa87bf4b","2482569c3a","3e5b304fb5",
+  "ed1de3e24a","f225be4b36","fe6a66e7c9","89fb1c42e9","c01551bf33",
+  "90e26b9f3c","96849d1414","37d9d7f115","cd69ef3ba4","f3a62a697e",
+  "51a6f2264e","b028073c9f","9ad15f98bb","ffc193be94","34a2d0323f",
+  "33badd186b","d5747aaa12","a8343d881e","4ffa052938","3435b259cd",
+  "6dc5820c02","19dbb660ae","66ea53bbf5","261d42ec36","e33da3d803",
+  "9fcc29d41b","775425cfd5","a22b1957bc","e9baf6b238","d21e347ce0",
+  "ee0bc11e88","4512ae9420","e0e2436df9","5496bd6dca","4a6a1cf8eb",
+  "14859ba48a","b6bffee5ef","180983807d","b5f8df9915","53cdeed11f",
+  "90baa39475","9d5c8c8b49","73c7fc2ce5","2d8a878b54","66d1918dda",
+  "d380c26b2c","81501efea4","3da1ce0788","d433b9471c","8e76c47a7d",
+  "8173d0d22c","22e8a63b87","4006584a26","2688818eaf","96f6d371e1",
+  "866e990516","7f40c65e95","11d72804c2","f79e1755f0","3b8c42c8cf",
+  "a5ce3a5273","43326af06c","f42b4de778","cac9b2d611"
+];
+const KEYS_DURATION = "170Hour";
+
+// Bazada hali hech narsa bo'lmasa, KEYS_SEED ro'yxatini bir martalik yozadi.
+async function ensureSeeded() {
+  try {
+    const snap = await db.collection(KEYS_COLLECTION).limit(1).get();
+    if (!snap.empty) return; // allaqachon to'ldirilgan
+    const batch = db.batch();
+    KEYS_SEED.forEach(code => {
+      const ref = db.collection(KEYS_COLLECTION).doc(code);
+      batch.set(ref, { duration: KEYS_DURATION, status: "available", claimedBy: null });
+    });
+    await batch.commit();
+  } catch (e) {
+    console.error("Seed error:", e);
+  }
+}
+ensureSeeded();
+
 function getLocalClaim() {
   try {
     const raw = localStorage.getItem(LOCAL_CLAIM_KEY);
