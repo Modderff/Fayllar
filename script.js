@@ -3,7 +3,7 @@ import {
   getDatabase,
   ref,
   get,
-  update
+  runTransaction
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 
 const firebaseConfig = {
@@ -21,32 +21,36 @@ const db = getDatabase(app);
 
 window.getKey = async function () {
 
-    const snapshot = await get(ref(db, "keys"));
+  const all = await get(ref(db, "keys"));
 
-    if (!snapshot.exists()) {
-        document.getElementById("key").innerHTML = "Key topilmadi";
-        return;
+  if (!all.exists()) {
+    document.getElementById("key").innerHTML = "Key topilmadi";
+    return;
+  }
+
+  const keys = all.val();
+
+  for (const id in keys) {
+
+    const keyRef = ref(db, "keys/" + id);
+
+    const result = await runTransaction(keyRef, (data) => {
+
+      if (data == null) return data;
+
+      if (data.used === false) {
+        data.used = true;
+        return data;
+      }
+
+      return;
+    });
+
+    if (result.committed) {
+      document.getElementById("key").innerHTML = result.snapshot.val().key;
+      return;
     }
+  }
 
-    const keys = snapshot.val();
-
-    for (const id in keys) {
-
-        const item = keys[id];
-
-        if (item.used === false) {
-
-            document.getElementById("key").innerHTML = item.key;
-
-            await update(ref(db, "keys/" + id), {
-                used: true
-            });
-
-            return;
-        }
-
-    }
-
-    document.getElementById("key").innerHTML = "Key qolmagan";
-
-}
+  document.getElementById("key").innerHTML = "Key qolmagan";
+};
