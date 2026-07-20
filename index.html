@@ -1,155 +1,143 @@
 <!DOCTYPE html>
 <html lang="uz">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Kalitni oling</title>
-<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
-<style>
-  :root {
-    --bg: #11141a;
-    --surface: #1a1f28;
-    --surface-2: #212836;
-    --brass: #c9a227;
-    --brass-dim: #8a7220;
-    --text: #eae7de;
-    --text-dim: #8b91a0;
-    --used: #3c4452;
-    --danger: #c2492f;
-  }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ilova kodi</title>
 
-  * { box-sizing: border-box; }
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
 
-  body {
-    margin: 0;
-    font-family: -apple-system, BlinkMacSystemFont, 'Inter', sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 24px;
-  }
+  <style>
+    body {
+      background: #000;
+      color: #fff;
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 20px;
+      position: relative;
+      overflow: auto; /* Saytni surish imkonini berish */
+    }
 
-  .kv-wrap { width: 100%; max-width: 460px; }
+    .link {
+      display: block;
+      background: #00ffd5;
+      color: #000;
+      margin: 12px auto;
+      padding: 16px;
+      width: 95%;
+      max-width: 420px;
+      border-radius: 12px;
+      text-decoration: none;
+      font-size: 18px;
+      font-weight: bold;
+    }
 
-  .kv-eyebrow {
-    font-family: 'Courier New', monospace;
-    font-size: 12px;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--brass);
-    margin-bottom: 10px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-  .kv-eyebrow .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--brass); }
+    .link.disabled {
+      background: #777;
+      pointer-events: none;
+      opacity: .6;
+    }
 
-  .kv-title {
-    font-weight: 700;
-    font-size: 30px;
-    line-height: 1.15;
-    letter-spacing: -0.01em;
-    margin: 0 0 10px;
-  }
+    .link.visited {
+      background: #1aff1a;
+      box-shadow: 0 0 12px rgba(0, 255, 0, .7);
+    }
 
-  .kv-sub {
-    font-size: 14.5px;
-    color: var(--text-dim);
-    line-height: 1.55;
-    margin: 0 0 28px;
-  }
+    .link.visited::after {
+      content: "Bajarildi";
+      display: block;
+      font-size: 14px;
+      margin-top: 4px;
+      color: #003300;
+    }
 
-  .kv-card {
-    position: relative;
-    background: linear-gradient(155deg, var(--surface-2) 0%, var(--surface) 60%);
-    border: 1px solid #2a3140;
-    border-radius: 16px;
-    padding: 28px;
-    overflow: hidden;
-  }
-  .kv-card::before {
-    content: "";
-    position: absolute;
-    top: -40%; right: -20%;
-    width: 220px; height: 220px;
-    background: radial-gradient(circle, rgba(201,162,39,0.10) 0%, rgba(201,162,39,0) 70%);
-    pointer-events: none;
-  }
+    #codeBox {
+      display: none;
+      margin-top: 30px;
+      background: #111;
+      padding: 20px;
+      border-radius: 14px;
+      border: 2px dashed #00ffd5;
+    }
 
-  .kv-chip {
-    width: 38px; height: 28px;
-    border-radius: 5px;
-    background: linear-gradient(135deg, #d8b845, var(--brass-dim));
-    position: relative;
-    margin-bottom: 22px;
-  }
-  .kv-chip::after {
-    content: "";
-    position: absolute; inset: 5px;
-    border: 1px solid rgba(0,0,0,0.25);
-    border-radius: 3px;
-  }
+    .code {
+      font-size: 28px;
+      color: #00ffd5;
+      letter-spacing: 4px;
+      cursor: pointer;
+    }
 
-  .kv-status-row {
-    display: flex; justify-content: space-between; align-items: center;
-    margin-bottom: 4px;
-    font-family: 'Courier New', monospace;
-    font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
-    color: var(--text-dim);
-  }
+    .code.pending {
+      font-size: 16px;
+      letter-spacing: 1px;
+      color: #aaa;
+      cursor: default;
+    }
 
-  .kv-code {
-    font-family: 'Courier New', monospace;
-    font-size: 26px; font-weight: 600; letter-spacing: 0.04em;
-    color: var(--text);
-    margin: 10px 0 4px;
-    word-break: break-all;
-    min-height: 34px;
-  }
+    .code.err {
+      font-size: 15px;
+      letter-spacing: 0.5px;
+      color: #ff5c5c;
+      cursor: default;
+    }
 
-  .kv-duration { font-size: 13px; color: var(--brass); }
+    .copyHint {
+      margin-top: 8px;
+      font-size: 13px;
+      color: #aaa;
+    }
 
-  .kv-btn {
-    width: 100%;
-    margin-top: 22px;
-    padding: 14px 18px;
-    border-radius: 10px;
-    border: none;
-    background: var(--brass);
-    color: #16130a;
-    font-weight: 700;
-    font-size: 15px;
-    cursor: pointer;
-    transition: transform 0.12s ease, background 0.15s ease;
-  }
-  .kv-btn:hover:not(:disabled) { background: #ddb536; }
-  .kv-btn:active:not(:disabled) { transform: scale(0.98); }
-  .kv-btn:disabled { background: var(--used); color: var(--text-dim); cursor: not-allowed; }
+    #timer {
+      margin-top: 20px;
+      font-size: 20px;
+      color: #ff9900;
+    }
 
-  .kv-note { margin-top: 14px; font-size: 12.5px; color: var(--text-dim); line-height: 1.5; text-align: center; }
-  .kv-note.err { color: var(--danger); }
+    /* Animatsiya uchun .flower classi */
+    .flower {
+      position: absolute;
+      font-size: 24px;
+      opacity: 0;
+      animation: fall 10s infinite ease-in-out;
+      pointer-events: none; /* Gullarni bosmaslik uchun */
+    }
 
-  .kv-pulse { animation: kvpulse 1.4s ease-in-out infinite; }
-  @keyframes kvpulse { 0%,100% { opacity: 1; } 50% { opacity: 0.55; } }
-
-  @media (prefers-reduced-motion: reduce) {
-    .kv-pulse { animation: none; }
-    .kv-btn { transition: none; }
-  }
-</style>
+    /* Animatsiya - gullar pastga tushadi */
+    @keyframes fall {
+      0% {
+        top: -10%;
+        left: calc(100% * random());
+        opacity: 1;
+      }
+      100% {
+        top: 100%;
+        opacity: 0;
+      }
+    }
+  </style>
 </head>
 <body>
 
-<div id="app-root"></div>
+<h2>🔒 Kodni olish uchun kanallarga obuna bo‘l</h2>
+<p>Tartib bilan bajar. Sahifani yangilama.</p>
+
+  <a class="link" href="https://youtu.be/5Cjt8rhD6Xc?si=Hi2ZllEosgjErMls" target="_blank" data-text="1) Shorts (Like + Comment)" onclick="visit(0)"></a>
+  <a class="link disabled" href="https://www.youtube.com/channel/UCdlOZ5UZRq1Y3HiuDdgi3Ag" target="_blank" data-text="2) YouTube FF (Obuna)" onclick="visit(1)"></a>
+  <a class="link disabled" href="https://youtu.be/LLLLz-mQPpM?si=DYhQ_LeqN7Wp7WOS" target="_blank" data-text="3) Shorts (Like + Comment)" onclick="visit(2)"></a>
+  <a class="link disabled" href="https://www.youtube.com/channel/UC9E0sZ3-qmpLqD2dH6CLAVA" target="_blank" data-text="4) YouTube PG (Obuna)" onclick="visit(3)"></a>
+  <a class="link disabled" href="https://t.me/+RZiLoLoeBWMzZmNi" target="_blank" data-text="5) Telegram (Join)" onclick="visit(4)"></a>
+
+
+<div id="codeBox">
+  <h3>🎉 Tabriklaymiz!</h3>
+  <div class="code" id="codeText">—</div>
+  <div class="copyHint" id="copyHint">Bosib nusxala</div>
+  <div id="timer"></div> <!-- Taymerni ko'rsatish uchun joy -->
+</div>
 
 <script>
 // ====== FIREBASE SOZLAMALARI ======
-// Bu yerga o'zingizning Firebase loyihangiz konfiguratsiyasini qo'ying.
-// Firebase Console -> Project settings -> "Your apps" -> Config
 const firebaseConfig = {
   apiKey: "AIzaSyBagTt_GKxzKzUiIj8dIVZu-gPM9-EHDUo",
   authDomain: "planning-with-ai-7f474.firebaseapp.com",
@@ -162,36 +150,10 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
 
-// Kalitlaringiz shu yerda. Kerak bo'lsa, shu ro'yxatni o'zgartiring/uzaytiring.
-const KEYS_SEED = [
-  { code: "4c89e4eab9", duration: "1Hour" },
-  { code: "4ec85498e0", duration: "1Hour" },
-  { code: "6709cc3af0", duration: "1Hour" },
-  { code: "22827d3380", duration: "1Hour" }
-];
-
-const KEYS_COLLECTION = "keys";
-const LOCAL_CLAIM_KEY = "kv_my_claim";
-
-const root = document.getElementById("app-root");
-
-function esc(s) {
-  return String(s).replace(/[&<>"']/g, c => ({
-    "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
-  }[c]));
-}
-
-// Firestore'da kalitlar mavjudligini tekshiradi, bo'lmasa yaratadi (bir martalik "seed")
-async function ensureSeeded() {
-  const snap = await db.collection(KEYS_COLLECTION).limit(1).get();
-  if (!snap.empty) return;
-  const batch = db.batch();
-  KEYS_SEED.forEach(k => {
-    const ref = db.collection(KEYS_COLLECTION).doc(k.code);
-    batch.set(ref, { duration: k.duration, status: "available", claimedBy: null });
-  });
-  await batch.commit();
-}
+// Bu sahifa uchun ALOHIDA kolleksiya nomi — eski test kalitlaringizga
+// (Kalitni olish sahifasidagi 4 talik "keys" kolleksiyasiga) tegmaydi.
+const KEYS_COLLECTION = "codes100";
+const LOCAL_CLAIM_KEY = "codes100_my_claim";
 
 function getLocalClaim() {
   try {
@@ -200,148 +162,191 @@ function getLocalClaim() {
   } catch (e) { return null; }
 }
 
-function saveLocalClaim(entry) {
-  try { localStorage.setItem(LOCAL_CLAIM_KEY, JSON.stringify(entry)); } catch (e) {}
+function saveLocalClaim(code) {
+  try { localStorage.setItem(LOCAL_CLAIM_KEY, code); } catch (e) {}
 }
 
-function render(state) {
-  const { phase, code, duration, remaining, total } = state;
-  let statusHtml, bodyHtml, btnHtml, noteHtml;
+function getLocalClaimSimple() {
+  try { return localStorage.getItem(LOCAL_CLAIM_KEY); } catch (e) { return null; }
+}
 
-  if (phase === "loading") {
-    statusHtml = `<span class="kv-pulse">TEKSHIRILMOQDA…</span><span></span>`;
-    bodyHtml = `<div class="kv-code kv-pulse">— — — — — — — —</div><div class="kv-duration">&nbsp;</div>`;
-    btnHtml = `<button class="kv-btn" disabled>Yuklanmoqda…</button>`;
-    noteHtml = "";
-  } else if (phase === "claimed") {
-    statusHtml = `<span>SIZNING KALITINGIZ</span><span>FAOL</span>`;
-    bodyHtml = `<div class="kv-code">${esc(code)}</div><div class="kv-duration">Amal qilish muddati: ${esc(duration)}</div>`;
-    btnHtml = `<button class="kv-btn" id="kv-copy-btn">Kalitni nusxalash</button>`;
-    noteHtml = `<div class="kv-note">Bu kalit faqat sizga tegishli. Uni boshqa hech kimga bermang.</div>`;
-  } else if (phase === "available") {
-    statusHtml = `<span>KALITLAR OMBORI</span><span>${remaining} / ${total} MAVJUD</span>`;
-    bodyHtml = `<div class="kv-code" style="color:var(--text-dim); font-size:20px;">Hali kalit olinmagan</div><div class="kv-duration">Har bir odamga — 1 ta kalit</div>`;
-    btnHtml = `<button class="kv-btn" id="kv-claim-btn">Kalitni olish</button>`;
-    noteHtml = "";
-  } else if (phase === "empty") {
-    statusHtml = `<span>KALITLAR OMBORI</span><span style="color:var(--danger)">0 / ${total} MAVJUD</span>`;
-    bodyHtml = `<div class="kv-code" style="color:var(--text-dim); font-size:20px;">Kalitlar tugadi</div><div class="kv-duration">&nbsp;</div>`;
-    btnHtml = `<button class="kv-btn" disabled>Kalit qolmadi</button>`;
-    noteHtml = `<div class="kv-note err">Barcha kalitlar band qilingan. Keyinroq qayta tekshiring.</div>`;
-  } else if (phase === "claiming") {
-    statusHtml = `<span>KALIT AJRATILMOQDA…</span><span></span>`;
-    bodyHtml = `<div class="kv-code kv-pulse">Bir zum kuting…</div><div class="kv-duration">&nbsp;</div>`;
-    btnHtml = `<button class="kv-btn" disabled>Ajratilmoqda…</button>`;
-    noteHtml = "";
-  } else if (phase === "error") {
-    statusHtml = `<span>XATOLIK</span><span></span>`;
-    bodyHtml = `<div class="kv-code" style="color:var(--danger); font-size:18px;">Ulanishda xatolik</div><div class="kv-duration">&nbsp;</div>`;
-    btnHtml = `<button class="kv-btn" id="kv-retry-btn">Qayta urinish</button>`;
-    noteHtml = `<div class="kv-note err">Firebase konfiguratsiyasini tekshiring.</div>`;
+const codeTextEl = document.getElementById("codeText");
+const copyHintEl = document.getElementById("copyHint");
+
+function showCodeState(state, value) {
+  codeTextEl.classList.remove("pending", "err");
+  if (state === "pending") {
+    codeTextEl.classList.add("pending");
+    codeTextEl.textContent = "Kalit ajratilmoqda…";
+    copyHintEl.textContent = "";
+  } else if (state === "empty") {
+    codeTextEl.classList.add("err");
+    codeTextEl.textContent = "Afsuski, kalitlar tugadi";
+    copyHintEl.textContent = "Keyinroq qayta urinib ko'ring";
+  } else if (state === "error") {
+    codeTextEl.classList.add("err");
+    codeTextEl.textContent = "Ulanishda xatolik yuz berdi";
+    copyHintEl.textContent = "Sahifani yangilab ko'ring";
+  } else if (state === "ready") {
+    codeTextEl.textContent = value;
+    copyHintEl.textContent = "Bosib nusxala";
+  }
+}
+
+// Barcha 5 ta havola bajarilgach chaqiriladi: bitta, shu foydalanuvchiga
+// tegishli kalitni Firestore'dan oladi (agar avval olingan bo'lsa, o'shani
+// qaytaradi — qayta yangi kalit berilmaydi).
+async function claimMyCode() {
+  showCodeState("pending");
+
+  const existing = getLocalClaimSimple();
+  if (existing) {
+    showCodeState("ready", existing);
+    return;
   }
 
-  root.innerHTML = `
-    <div class="kv-wrap">
-      <div class="kv-eyebrow"><span class="dot"></span>1 ODAMGA — 1 KALIT</div>
-      <h1 class="kv-title">Shaxsiy kirish kalitingizni oling</h1>
-      <p class="kv-sub">Quyidagi tugmani bosing — sizga tasodifiy ravishda bitta, faqat sizga tegishli kalit ajratiladi. Har bir shaxs faqat bitta kalit ola oladi.</p>
-      <div class="kv-card">
-        <div class="kv-chip"></div>
-        <div class="kv-status-row">${statusHtml}</div>
-        ${bodyHtml}
-        ${btnHtml}
-      </div>
-      ${noteHtml}
-    </div>
-  `;
-
-  const claimBtn = document.getElementById("kv-claim-btn");
-  if (claimBtn) claimBtn.addEventListener("click", handleClaim);
-
-  const retryBtn = document.getElementById("kv-retry-btn");
-  if (retryBtn) retryBtn.addEventListener("click", init);
-
-  const copyBtn = document.getElementById("kv-copy-btn");
-  if (copyBtn) copyBtn.addEventListener("click", async () => {
-    try {
-      await navigator.clipboard.writeText(code);
-      copyBtn.textContent = "Nusxalandi ✓";
-      setTimeout(() => { copyBtn.textContent = "Kalitni nusxalash"; }, 1600);
-    } catch (e) {
-      copyBtn.textContent = "Nusxalab bo'lmadi";
-    }
-  });
-}
-
-async function handleClaim() {
-  render({ phase: "claiming" });
   try {
     const keysRef = db.collection(KEYS_COLLECTION);
 
-    // Query for an available key OUTSIDE the transaction (compat SDK
-    // transactions only support tx.get() on a single document reference,
-    // not on a query).
     const candidateSnap = await keysRef.where("status", "==", "available").limit(1).get();
     if (candidateSnap.empty) {
-      const total = (await keysRef.get()).size;
-      render({ phase: "empty", total });
+      showCodeState("empty");
       return;
     }
     const candidateRef = candidateSnap.docs[0].ref;
 
-    const claimedEntry = await db.runTransaction(async (tx) => {
+    const claimedCode = await db.runTransaction(async (tx) => {
       const doc = await tx.get(candidateRef);
       if (!doc.exists || doc.data().status !== "available") {
-        return null;
+        return null; // boshqa foydalanuvchi bir zumda oldi — qayta urinamiz
       }
       tx.update(candidateRef, {
         status: "used",
         claimedBy: "user-" + Math.random().toString(36).slice(2, 10)
       });
-      return { code: doc.id, duration: doc.data().duration };
+      return doc.id;
     });
 
-    if (!claimedEntry) {
-      // Someone else claimed this exact key between the query and the
-      // transaction — retry once.
-      return handleClaim();
+    if (!claimedCode) {
+      return claimMyCode(); // raqobat holati — bitta marta qayta urinish
     }
 
-    saveLocalClaim(claimedEntry);
-    render({ phase: "claimed", code: claimedEntry.code, duration: claimedEntry.duration });
+    saveLocalClaim(claimedCode);
+    showCodeState("ready", claimedCode);
   } catch (e) {
     console.error(e);
-    render({ phase: "error" });
+    showCodeState("error");
   }
 }
 
-async function init() {
-  render({ phase: "loading" });
-  try {
-    const localClaim = getLocalClaim();
-    if (localClaim) {
-      render({ phase: "claimed", code: localClaim.code, duration: localClaim.duration });
-      return;
-    }
+// 🌸 Gullarni qo'shish uchun
+function createFlowers() {
+  const flower = document.createElement("div");
+  flower.classList.add("flower");
+  flower.textContent = "❄️";
+  document.body.appendChild(flower);
 
-    await ensureSeeded();
+  // Har bir gul uchun tasodifiy joylashtirish
+  flower.style.left = Math.random() * 100 + "%";
+  
+  // Har safar yangi gul qo'shiladi
+  setTimeout(createFlowers, Math.random() * 3000 + 1000); // Har bir 1-3 sekundda yangi gul paydo bo'ladi
+}
 
-    const snap = await db.collection(KEYS_COLLECTION).get();
-    const total = snap.size;
-    const remaining = snap.docs.filter(d => d.data().status === "available").length;
+createFlowers(); // Gullarni yaratishni boshlash
 
-    if (remaining === 0) {
-      render({ phase: "empty", total });
-    } else {
-      render({ phase: "available", remaining, total });
-    }
-  } catch (e) {
-    console.error(e);
-    render({ phase: "error" });
+// 🔄 REFRESH BO‘LSA — HAMMASI QAYTA BOSHLANMASIN
+const PAGE_KEY = "qulfi_" + location.pathname;
+const savedCountdownDate = localStorage.getItem(PAGE_KEY);
+
+let countdownDate;
+
+if (savedCountdownDate) {
+  countdownDate = parseInt(savedCountdownDate, 10);  // Agar oldin saqlangan sana mavjud bo'lsa, uni olish
+} else {
+  countdownDate = new Date().getTime() + 7 * 24 * 60 * 60 * 1000;  // 7 kunlik taymerni o'rnatish
+  localStorage.setItem(PAGE_KEY, countdownDate);  // Yangi sanani saqlash
+}
+
+// ================================
+
+const links = document.querySelectorAll(".link");
+links.forEach(l => l.textContent = l.dataset.text);
+
+let visited = [false, false, false, false, false];
+let current = 0;
+
+links.forEach((btn, i) => {
+  if (i !== 0) btn.classList.add("disabled");
+});
+
+function visit(i) {
+  if (i !== current) return;
+
+  visited[i] = true;
+  links[i].classList.add("visited");
+
+  current++;
+  if (links[current]) links[current].classList.remove("disabled");
+
+  if (visited.every(v => v)) {
+    document.getElementById("codeBox").style.display = "block";
+    claimMyCode();  // Firestore'dan shaxsiy kalitni olish
+    startTimer(); // Taymerni ishga tushirish
   }
 }
 
-init();
+// Agar foydalanuvchi avval kalit olgan bo'lsa (sahifani qayta ochsa),
+// hammasi allaqachon bajarilgan deb ko'rsatib, kalitini darhol chiqaramiz.
+(function restoreIfAlreadyClaimed() {
+  const existing = getLocalClaimSimple();
+  if (existing) {
+    visited = [true, true, true, true, true];
+    links.forEach(l => { l.classList.remove("disabled"); l.classList.add("visited"); });
+    document.getElementById("codeBox").style.display = "block";
+    showCodeState("ready", existing);
+  }
+})();
+
+// 📋 Nusxalash
+codeTextEl.onclick = function () {
+  if (codeTextEl.classList.contains("pending") || codeTextEl.classList.contains("err")) return;
+  navigator.clipboard.writeText(this.textContent);
+  copyHintEl.textContent = "Nusxa olindi!";
+};
+
+// ================================
+// 7 kunlik taymer
+
+function startTimer() {
+  const timerInterval = setInterval(function () {
+    const now = new Date().getTime();
+    const distance = countdownDate - now;
+
+    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+    // Taymerni ekranga chiqarish
+    document.getElementById("timer").innerHTML = `${days} Kun ${hours} Soat ${minutes} Daqiqa ${seconds} Sekund`;
+
+    // Taymer tugaganida
+    if (distance < 0) {
+      clearInterval(timerInterval);
+      document.getElementById("timer").innerHTML = "Taymer tugadi!";
+      
+      // Yangi taymerni boshlash (7 kunlik yangi taymer)
+      countdownDate = new Date().getTime() + 7 * 24 * 60 * 60 * 1000;  // 7 kunlik taymer
+      localStorage.setItem(PAGE_KEY, countdownDate);  // Yangi sanani saqlash
+      startTimer(); // Yangi taymerni ishga tushirish
+    }
+  }, 1000);
+}
+
+if (getLocalClaimSimple()) {
+  startTimer();
+}
 </script>
 
 </body>
