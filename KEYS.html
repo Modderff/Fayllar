@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Key Generator</title>
+<style>
+body{
+    background:#111;
+    color:white;
+    font-family:Arial;
+    text-align:center;
+    padding-top:100px;
+}
+.box{
+    background:#222;
+    padding:30px;
+    border-radius:15px;
+    width:300px;
+    margin:auto;
+}
+button{
+    padding:12px 30px;
+    border:0;
+    border-radius:10px;
+    background:#00ff88;
+    cursor:pointer;
+    font-size:18px;
+}
+#key{
+    margin-top:20px;
+    color:#00ff88;
+    font-size:22px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="box">
+<h2>KEY SYSTEM</h2>
+
+<button onclick="getKey()">GET KEY</button>
+
+<div id="key"></div>
+
+</div>
+
+<script>
+async function getKey(){
+
+let old = localStorage.getItem("my_key");
+
+if(old){
+ document.getElementById("key").innerHTML =
+ "Sizda key bor:<br>"+old;
+ return;
+}
+
+
+let file = await fetch("Ilovalar-07-20.txt");
+let text = await file.text();
+
+let lines = text.split("\n");
+
+for(let i=0;i<lines.length;i++){
+
+let data = lines[i].split(",");
+
+if(data[2]=="No Used"){
+
+let key=data[0];
+
+localStorage.setItem("my_key",key);
+
+document.getElementById("key").innerHTML =
+"Your Key:<br>"+key;
+
+return;
+
+}
+
+}
+
+document.getElementById("key").innerHTML="Key qolmagan";
+
+}
+</script>
+
+</body>
+</html>
