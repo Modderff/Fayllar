@@ -278,11 +278,23 @@ async function handleClaim() {
   try {
     const keysRef = db.collection(KEYS_COLLECTION);
 
+    // Query for an available key OUTSIDE the transaction (compat SDK
+    // transactions only support tx.get() on a single document reference,
+    // not on a query).
+    const candidateSnap = await keysRef.where("status", "==", "available").limit(1).get();
+    if (candidateSnap.empty) {
+      const total = (await keysRef.get()).size;
+      render({ phase: "empty", total });
+      return;
+    }
+    const candidateRef = candidateSnap.docs[0].ref;
+
     const claimedEntry = await db.runTransaction(async (tx) => {
-      const snap = await tx.get(keysRef.where("status", "==", "available").limit(1));
-      if (snap.empty) return null;
-      const doc = snap.docs[0];
-      tx.update(doc.ref, {
+      const doc = await tx.get(candidateRef);
+      if (!doc.exists || doc.data().status !== "available") {
+        return null;
+      }
+      tx.update(candidateRef, {
         status: "used",
         claimedBy: "user-" + Math.random().toString(36).slice(2, 10)
       });
@@ -290,9 +302,9 @@ async function handleClaim() {
     });
 
     if (!claimedEntry) {
-      const total = (await keysRef.get()).size;
-      render({ phase: "empty", total });
-      return;
+      // Someone else claimed this exact key between the query and the
+      // transaction — retry once.
+      return handleClaim();
     }
 
     saveLocalClaim(claimedEntry);
