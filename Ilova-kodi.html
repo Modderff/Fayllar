@@ -425,6 +425,7 @@ const KEYS_SEED = [
   "a5ce3a5273","43326af06c","f42b4de778","cac9b2d611"
 ];
 const KEYS_DURATION = "170Hour";
+const DURATION_HOURS = 170;
 
 async function ensureSeeded() {
   try {
@@ -442,11 +443,22 @@ async function ensureSeeded() {
 }
 ensureSeeded();
 
-function getLocalClaimSimple() {
-  try { return localStorage.getItem(LOCAL_CLAIM_KEY); } catch (e) { return null; }
+// Mahalliy (shu brauzerdagi) so'nggi olingan kalitni {code, claimedAt} ko'rinishida saqlaydi.
+function getLocalClaim() {
+  try {
+    const raw = localStorage.getItem(LOCAL_CLAIM_KEY);
+    if (!raw) return null;
+    const parsed = JSON.parse(raw);
+    if (parsed && parsed.code && parsed.claimedAt) return parsed;
+    return null;
+  } catch (e) { return null; }
 }
-function saveLocalClaim(code) {
-  try { localStorage.setItem(LOCAL_CLAIM_KEY, code); } catch (e) {}
+function saveLocalClaimEntry(code, claimedAt) {
+  try { localStorage.setItem(LOCAL_CLAIM_KEY, JSON.stringify({ code, claimedAt })); } catch (e) {}
+}
+function isExpired(claimedAt) {
+  const elapsedMs = Date.now() - claimedAt;
+  return elapsedMs > DURATION_HOURS * 60 * 60 * 1000;
 }
 
 const codeTextEl = document.getElementById("codeText");
@@ -475,11 +487,12 @@ function showCodeState(state, value) {
 async function claimMyCode() {
   showCodeState("pending");
 
-  const existing = getLocalClaimSimple();
-  if (existing) {
-    showCodeState("ready", existing);
+  const existing = getLocalClaim();
+  if (existing && !isExpired(existing.claimedAt)) {
+    showCodeState("ready", existing.code);
     return;
   }
+  // Agar existing bo'lsa-yu muddati o'tgan bo'lsa, pastga o'tib yangi kalit so'raymiz.
 
   try {
     const keysRef = db.collection(KEYS_COLLECTION);
@@ -495,14 +508,15 @@ async function claimMyCode() {
       if (!doc.exists || doc.data().status !== "available") return null;
       tx.update(candidateRef, {
         status: "used",
-        claimedBy: "user-" + Math.random().toString(36).slice(2, 10)
+        claimedBy: "user-" + Math.random().toString(36).slice(2, 10),
+        claimedAt: Date.now()
       });
       return doc.id;
     });
 
     if (!claimedCode) return claimMyCode();
 
-    saveLocalClaim(claimedCode);
+    saveLocalClaimEntry(claimedCode, Date.now());
     showCodeState("ready", claimedCode);
   } catch (e) {
     console.error(e);
@@ -511,36 +525,35 @@ async function claimMyCode() {
 }
 
 // ================================
-// 7 kunlik taymer
-const PAGE_KEY = "qulfi_" + location.pathname;
-const savedCountdownDate = localStorage.getItem(PAGE_KEY);
-let countdownDate;
-if (savedCountdownDate) {
-  countdownDate = parseInt(savedCountdownDate, 10);
-} else {
-  countdownDate = new Date().getTime() + 7 * 24 * 60 * 60 * 1000;
-  localStorage.setItem(PAGE_KEY, countdownDate);
-}
+// Kalitning amal qilish muddati taymeri (170 soat, olingan vaqtdan hisoblanadi)
+let timerInterval = null;
 
 function startTimer() {
-  const timerInterval = setInterval(function () {
-    const now = new Date().getTime();
-    const distance = countdownDate - now;
+  if (timerInterval) clearInterval(timerInterval);
 
-    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  timerInterval = setInterval(function () {
+    const claim = getLocalClaim();
+    if (!claim) {
+      document.getElementById("timer").innerHTML = "";
+      clearInterval(timerInterval);
+      return;
+    }
+
+    const expiresAt = claim.claimedAt + DURATION_HOURS * 60 * 60 * 1000;
+    const distance = expiresAt - Date.now();
+
+    if (distance <= 0) {
+      document.getElementById("timer").innerHTML = "Kalit muddati tugadi — sahifani yangilab, yangi kalit oling";
+      clearInterval(timerInterval);
+      return;
+    }
+
+    const hours = Math.floor(distance / (1000 * 60 * 60));
     const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
     const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-    document.getElementById("timer").innerHTML = `${days} kun ${hours} soat ${minutes} daqiqa ${seconds} soniya`;
-
-    if (distance < 0) {
-      clearInterval(timerInterval);
-      document.getElementById("timer").innerHTML = "Taymer tugadi!";
-      countdownDate = new Date().getTime() + 7 * 24 * 60 * 60 * 1000;
-      localStorage.setItem(PAGE_KEY, countdownDate);
-      startTimer();
-    }
+    document.getElementById("timer").innerHTML =
+      `Kalit amal qilish muddati: ${hours} soat ${minutes} daqiqa ${seconds} soniya`;
   }, 1000);
 }
 
