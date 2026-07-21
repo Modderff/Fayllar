@@ -490,6 +490,7 @@ async function claimMyCode() {
   const existing = getLocalClaim();
   if (existing && !isExpired(existing.claimedAt)) {
     showCodeState("ready", existing.code);
+    startTimer();
     return;
   }
   // Agar existing bo'lsa-yu muddati o'tgan bo'lsa, pastga o'tib yangi kalit so'raymiz.
@@ -518,6 +519,7 @@ async function claimMyCode() {
 
     saveLocalClaimEntry(claimedCode, Date.now());
     showCodeState("ready", claimedCode);
+    startTimer();
   } catch (e) {
     console.error(e);
     showCodeState("error");
@@ -595,7 +597,6 @@ function visit(i) {
   if (visited.every(v => v)) {
     document.getElementById("codeBox").style.display = "block";
     claimMyCode();
-    startTimer();
   }
 }
 
