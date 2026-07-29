@@ -355,9 +355,9 @@
   </div>
 
   <div id="codeBox">
-    <p class="cb-title">🎉 Tabriklaymiz, kalitingiz tayyor</p>
+    <p class="cb-title">🎉 Tabriklayman KEY belgilandi</p>
     <div class="code" id="codeText">—</div>
-    <div class="copyHint" id="copyHint">Bosib nusxalang</div>
+    <div class="copyHint" id="copyHint">Bosib nusxala ☝🏻</div>
     <div id="timer"></div>
   </div>
 </div>
@@ -570,7 +570,7 @@ function showCodeState(state, value) {
     copyHintEl.textContent = "Sahifani yangilab ko'ring";
   } else if (state === "ready") {
     codeTextEl.textContent = value;
-    copyHintEl.textContent = "Bosib nusxalang";
+    copyHintEl.textContent = "Bosib nusxala ☝🏻";
   }
 }
 
@@ -645,7 +645,7 @@ function startTimer() {
     const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
     document.getElementById("timer").innerHTML =
-      `Kalit amal qilish muddati: ${hours} soat ${minutes} daqiqa ${seconds} soniya`;
+      `KEY yaroqsiz holga kelishiga ${hours} soat ${minutes} daqiqa ${seconds} soniya qoldi`;
   }, 1000);
 }
 
@@ -691,7 +691,7 @@ function visit(i) {
 }
 
 steps[0].classList.add("active");
-links[0].querySelector(".status").textContent = "Endi shu bosqich";
+links[0].querySelector(".status").textContent = "Shu bosqich";
 
 codeTextEl.onclick = function () {
   if (codeTextEl.classList.contains("pending") || codeTextEl.classList.contains("err")) return;
