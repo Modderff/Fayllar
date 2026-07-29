@@ -18,8 +18,8 @@
       --surface: #141a33;
       --surface-2: #182047;
       --line: #2a3363;
-      --sky: #7dd3fc;
-      --lilac: #c4b5fd;
+      --sky: #2f7dff;
+      --lilac: #a855f7;
       --text: #eef1fb;
       --text-dim: #93a0c9;
       --text-faint: #5b6690;
@@ -35,8 +35,8 @@
       margin: 0;
       min-height: 100vh;
       background:
-        radial-gradient(1000px 550px at 10% -10%, rgba(125,211,252,0.10), transparent 60%),
-        radial-gradient(1000px 650px at 100% 5%, rgba(196,181,253,0.14), transparent 55%),
+        radial-gradient(1000px 550px at 10% -10%, rgba(47,125,255,0.16), transparent 60%),
+        radial-gradient(1000px 650px at 100% 5%, rgba(168,85,247,0.20), transparent 55%),
         var(--bg);
       color: var(--text);
       font-family: 'Inter', -apple-system, sans-serif;
@@ -89,7 +89,7 @@
     .eyebrow .dot {
       width: 6px; height: 6px; border-radius: 50%;
       background: var(--grad);
-      box-shadow: 0 0 10px rgba(125,211,252,0.8);
+      box-shadow: 0 0 10px rgba(47,125,255,0.9);
     }
 
     h1 {
@@ -132,7 +132,7 @@
       border-radius: 2px;
       height: 0%;
       transition: height 0.5s cubic-bezier(.4,0,.2,1);
-      box-shadow: 0 0 12px rgba(125,211,252,0.5);
+      box-shadow: 0 0 12px rgba(47,125,255,0.65);
     }
 
     .step {
@@ -157,10 +157,10 @@
       z-index: 2;
     }
     .step.done .step-num {
-      background: var(--grad);
+      background: var(--lilac);
       border-color: transparent;
-      color: #0b1330;
-      box-shadow: 0 0 16px rgba(125,211,252,0.55);
+      color: #06041a;
+      box-shadow: 0 0 20px rgba(168,85,247,0.75);
     }
     .step.active .step-num {
       border-color: var(--sky);
@@ -205,10 +205,10 @@
     }
 
     a.link.visited {
-      border-color: var(--sky);
-      background: linear-gradient(120deg, rgba(125,211,252,0.10), rgba(196,181,253,0.08));
+      border-color: var(--lilac);
+      background: linear-gradient(120deg, rgba(168,85,247,0.22), rgba(168,85,247,0.09));
     }
-    a.link.visited .status { color: var(--sky); }
+    a.link.visited .status { color: var(--lilac); }
     a.link.visited .status::before { content: "✓ "; }
 
     /* ===== Code card ===== */
