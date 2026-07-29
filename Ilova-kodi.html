@@ -315,7 +315,7 @@
 
     <div class="step" data-step="0">
       <div class="step-num">1</div>
-      <a class="link" href="https://modderff.github.io/Fayllar/Modder-FF-Video.html" target="_blank" onclick="visit(0)">
+      <a class="link" href="https://youtu.be/5Cjt8rhD6Xc?si=Hi2ZllEosgjErMls" target="_blank" onclick="visit(0)">
         <div class="label">Shorts — Like + Comment</div>
         <div class="status">Bosing va bajaring</div>
       </a>
@@ -331,7 +331,7 @@
 
     <div class="step" data-step="2">
       <div class="step-num">3</div>
-      <a class="link disabled" href="https://modderff.github.io/Fayllar/King-Pubg-Video.html" target="_blank" onclick="visit(2)">
+      <a class="link disabled" href="https://youtu.be/LLLLz-mQPpM?si=DYhQ_LeqN7Wp7WOS" target="_blank" onclick="visit(2)">
         <div class="label">Shorts — Like + Comment</div>
         <div class="status">Navbatda</div>
       </a>
@@ -424,8 +424,8 @@ const KEYS_SEED = [
   "866e990516","7f40c65e95","11d72804c2","f79e1755f0","3b8c42c8cf",
   "a5ce3a5273","43326af06c","f42b4de778","cac9b2d611"
 ];
-const KEYS_DURATION = "170Hour";
-const DURATION_HOURS = 170;
+const KEYS_DURATION = "24Hour";
+const DURATION_HOURS = 24;
 
 async function ensureSeeded() {
   try {
@@ -442,6 +442,96 @@ async function ensureSeeded() {
   }
 }
 ensureSeeded();
+
+// ====== YANGI KALITLARNI QO'SHISH (faqat admin uchun) ======
+// Manzilga ?addkeys=1 qo'shib ochilganda, quyidagi ro'yxatdagi kalitlarni
+// bazaga YOZADI (mavjud kalitlarga tegmaydi, faqat shu ro'yxatdagilarni yozadi).
+// Rules'da vaqtincha "create" ruxsat berilgan bo'lishi kerak.
+const NEW_KEYS_TO_ADD = [
+  "36b4b0dc34","40553b705d","cf29baaa6c","db12dd169b","77f8b50005",
+  "af8b3f5c70","14ccd35b5b","710a9fab07","95670de8a9","e28e533b46",
+  "fa8f1e2e6d","51ca8d78ad","f7b00d0d1b","629577c5b0","855a9a106f",
+  "e8d3962424","6488e6a3a4","7dd4325ee7","70385bac42","a079ca15ae",
+  "3d839ee112","89b5e9088e","12624721c4","a83bf0961d","8be3a43c26",
+  "1179f5456d","4fe1790591","3b1037e3d6","ed64555677","6e92a34b6b",
+  "b5e84c650a","7d13b6742e","587944f53d","3d0018c27d","d5b38a121a",
+  "11e3527a72","760150b89e","228c2a4240","d1320fef7a","238514526f",
+  "c40de95645","492b0641a1","7dba51d44e","e79124fa70","1a88e58c11",
+  "8cbb88a214","6bf5690ba8","8c5354664d","1a83339b9a","6d52533a55",
+  "11a0a007c6","51f5822b64","55279bdff8","836805cd73","704b1d5a0f",
+  "690f9ba23b","dd4dff50e6","687d01a3b1","765a66800d","e963638ea4",
+  "d8f27dd214","d9a131192c","6bdd5d03ce","9fe010eeec","d8facda9af",
+  "900ad9be4c","4c6871f860","70905e4839","3ca77af359","8553a18164",
+  "52638069a8","4c8093f2ae","39a67a470d","3745a2ce18","e22a3768ee",
+  "cc54f8e93e","e4085c7996","271abb3a4a","389f4b026f","79457c886b",
+  "7a06a5a1a2","50a7d30fb5","5111cc8258","cf467c40f5","fc49b22ceb",
+  "a10820a6c3","f8806b14f4","f3ffab95e9","8c48715545","47c6ace694",
+  "55795d09ee","10d64aa2d2","429e55d73b","583a2c5c06","5bf65cf4a0",
+  "bf1622bcfa","51d29be3a4","831f399cff","889a1ad131","f3c49e4104",
+  "271726a7c2","e59bf30a66","63fd2cc022","a3ac2d528d","a982306539",
+  "f8e6856970","58c2a37d11","46f33727a2","f9653136a4","ca252093b5",
+  "bc4e322ea4","b94827f7cf","90cf255af3","bf2d0301e0","3faa8980ce",
+  "969efcb786","8d3c3c96f6","fb77aaa99e","7ffff7b2bd","c5dba60a65",
+  "a28587a993","bfc60e3f15","2de8bb581a","3a292f20e9","924498cd94",
+  "2a4232e7c7","a62d666576","1d74782829","a87e053d2f","2491cecfed",
+  "4106cca4d6","aafc4ee119","37e33d0a3f","52a5c2afe6","1ac7a1fdd4",
+  "6ac29ab56f","69aae39aee","61a9bf6a20","b7eea5bfac","7337acfcc8",
+  "a5df1e25d4","c398642d7f","2e3b0549e2","aec49918c7","a1a6ae5ba7",
+  "f3b1033d6d","349d855555","38353aba1f","53edc87a9a","5f2dabc608",
+  "c0732e772c","253ca31397","4715c8fa0a","b3d843e0dc","4ee73afe39",
+  "f73cf713c8","667a4fe539","4ed10af6fd","766ae0471b","d406fa33d2",
+  "2e381f4ce9","28b1a2525b","58c3868249","45970eb583","d3d08e07f8",
+  "8161d40f35","8c8c34730c","477c4e8ca9","1e460b7ede","db0b26b2a9",
+  "32b5cb591f","ccbd12f6e8","874a9252bb","cdee1ab7e1","89d69b7bbf",
+  "240924e68d","da366b4387","7950c81a56","c4ddc42184","8c4f34d4d3",
+  "d9f75a79fe","c512a8836b","86cfa0eb47","1aff82c49f","97fb4c702b",
+  "9014095ce7","43c8eabf76","d675831ed5","1e91ff4dd9","c443eaffac",
+  "e192972a35","5420b59582","6de81be97d","c30e72e3fd","d9ccb6b15f",
+  "b51d924b9d","c95dc83afe","3d0546dde8","c0256c9b32","5f9426012c",
+  "1eaa69984c","81f82cb107","cb7f2351b1","f2933dd5b8","fcfbb5a8d8",
+  "44ebd12ca4","41231feb95","c2520eee50","a42ae0e152","d5038aa169",
+  "40858d2e4d","5c4672dd73","2d967a4e4c","59f9901056","f2dd635c8a",
+  "d037a46096","26c7eca177","e8214d82d3","a41082410c","37b2ac8f03",
+  "7740fa1ba7","de17344304","4f8cabe1fe","255a26b980","f4ddcb69c6",
+  "c4c9415dbf","ffe36de1bb","6fd5c12662","60ce078d1f","7a735e430c",
+  "6403d60737","aa12ba90a9","dd0e0677f4","2a40fe2e53","a358375dca",
+  "b724cba7d0","52359ad957","74d7e4e869","17e58baad9","6d1fa50c54",
+  "1e018fccdf","8931e04bc4","46f7dfefd5","60c09e354f","7013cab87b",
+  "d87e6e5b3f","b90e37dd54","6aba23328f","7247f856cf","681f925d69",
+  "46179f0180","4537778ed4","d209520d8b","3a8d0d38a6","38ef7d5c2f",
+  "c2047989ca","abbeacd42f","2f3bda63db","5737fd6db3","e2f7b0c51d",
+  "ef9e8e5816","af92ce6c6c","f2d3904617","fb2f797231","4dcf33dad2",
+  "fcf1535005","9bd8cfe0f6","9735e222bf","81c0a57804","6fbe7f003c",
+  "607136102a","f9e723057d","27af3fe4ec","ace8d24a8d","e45be54bc8",
+  "4dc835b9d1","a9757898bc","a7c12259dc","4c48abe401","6bcabbd481",
+  "e2b1e637ea","6eb913fc87","b116d8af31","b35f30af47","233f6e8a7b",
+  "c7477c9cff","d99290e266","4ef47893d9","c92216e9fe","62fd7745e7",
+  "ed74665cd5","53d263312d","87a45d8028","d3f63369b0","2bd1b1ab22",
+  "6443601c70","d919956471","2000","fbec450b85"
+];
+
+async function addNewKeysIfRequested() {
+  const params = new URLSearchParams(location.search);
+  if (params.get("addkeys") !== "1") return;
+
+  try {
+    const keysRef = db.collection(KEYS_COLLECTION);
+    const batch = db.batch();
+    let addedCount = 0;
+    for (const code of NEW_KEYS_TO_ADD) {
+      const existing = await keysRef.doc(code).get();
+      if (existing.exists) continue; // eskisiga tegmaymiz
+      batch.set(keysRef.doc(code), { duration: "24Hour", status: "available", claimedBy: null });
+      addedCount++;
+    }
+    if (addedCount > 0) await batch.commit();
+    alert(addedCount + " ta yangi kalit muvaffaqiyatli qo'shildi.");
+  } catch (e) {
+    console.error("Yangi kalit qo'shishda xatolik:", e);
+    alert("Xatolik: " + e.message);
+  }
+}
+addNewKeysIfRequested();
 
 // Mahalliy (shu brauzerdagi) so'nggi olingan kalitni {code, claimedAt} ko'rinishida saqlaydi.
 function getLocalClaim() {
