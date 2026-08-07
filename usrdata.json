@@ -2,13 +2,13 @@
     {
         "device_id": "6d84be830ed22f8",
         "key": "7",
-        "expirydate": "08-08-2026",
+        "expirydate": "08-08-2025",
         "Allowoffline": true
     },
     {
-        "device_id": "6d84be830ed22f8",
+        "device_id": "6d84be830ed22f5",
         "key": "1",
-        "expirydate": "15-06-2027",
+        "expirydate": "15-06-2025",
         "Allowoffline": false
     }
 ]
