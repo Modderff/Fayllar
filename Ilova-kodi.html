@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>KEY OLISH</title>
+  <title>Kalitni oching</title>
 
   <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
@@ -306,58 +306,58 @@
 <div class="snowfield" id="snowfield" aria-hidden="true"></div>
 
 <div class="wrap">
-  <div class="eyebrow"><span class="dot"></span>Developer - Dilmurod</div>
-  <h1>Bu majburiy obuna</h1>
-  <p class="sub">Sahifani yangilama sahifa yangilansa yana qayta shart bajarsan 1 kunda faqat 1 ta yangi KEY beriladi</p>
+  <div class="eyebrow"><span class="dot"></span>Kirish kalitini oching</div>
+  <h1>Kanallarga obuna bo‘l,<br>kalitni qo‘lga kirit</h1>
+  <p class="sub">Har bir bosqichni tartib bilan bajaring. Beshinchisi tugagach, sizga shaxsiy kirish kaliti ajratiladi.</p>
 
   <div class="rail">
     <div class="rail-fill" id="railFill"></div>
 
     <div class="step" data-step="0">
       <div class="step-num">1</div>
-      <a class="link" href="https://modderff.github.io/Fayllar/Modder-FF-Video.html" target="_blank" onclick="visit(0)">
+      <a class="link" href="https://youtu.be/5Cjt8rhD6Xc?si=Hi2ZllEosgjErMls" target="_blank" onclick="visit(0)">
         <div class="label">Shorts — Like + Comment</div>
-        <div class="status">Bos va bajar</div>
+        <div class="status">Bosing va bajaring</div>
       </a>
     </div>
 
     <div class="step" data-step="1">
       <div class="step-num">2</div>
-      <a class="link disabled" href="https://www.youtube.com/channel/UC9E0sZ3-qmpLqD2dH6CLAVA" target="_blank" onclick="visit(1)">
+      <a class="link disabled" href="https://www.youtube.com/channel/UCdlOZ5UZRq1Y3HiuDdgi3Ag" target="_blank" onclick="visit(1)">
         <div class="label">YouTube FF — Obuna bo‘lish</div>
-        <div class="status">Kutilmoqda...</div>
+        <div class="status">Navbatda</div>
       </a>
     </div>
 
     <div class="step" data-step="2">
       <div class="step-num">3</div>
-      <a class="link disabled" href="https://modderff.github.io/Fayllar/King-Pubg-Video.html" target="_blank" onclick="visit(2)">
+      <a class="link disabled" href="https://youtu.be/LLLLz-mQPpM?si=DYhQ_LeqN7Wp7WOS" target="_blank" onclick="visit(2)">
         <div class="label">Shorts — Like + Comment</div>
-        <div class="status">Kutilmoqda...</div>
+        <div class="status">Navbatda</div>
       </a>
     </div>
 
     <div class="step" data-step="3">
       <div class="step-num">4</div>
-      <a class="link disabled" href="https://www.youtube.com/channel/UCdlOZ5UZRq1Y3HiuDdgi3Ag" target="_blank" onclick="visit(3)">
+      <a class="link disabled" href="https://www.youtube.com/channel/UC9E0sZ3-qmpLqD2dH6CLAVA" target="_blank" onclick="visit(3)">
         <div class="label">YouTube PG — Obuna bo‘lish</div>
-        <div class="status">Kutilmoqda...</div>
+        <div class="status">Navbatda</div>
       </a>
     </div>
 
     <div class="step" data-step="4">
       <div class="step-num">5</div>
-      <a class="link disabled" href="https://modderff.github.io/Fayllar/Telegram-Link.html" target="_blank" onclick="visit(4)">
+      <a class="link disabled" href="https://t.me/+RZiLoLoeBWMzZmNi" target="_blank" onclick="visit(4)">
         <div class="label">Telegram — Kanalga qo‘shilish</div>
-        <div class="status">Kutilmoqda...</div>
+        <div class="status">Navbatda</div>
       </a>
     </div>
   </div>
 
   <div id="codeBox">
-    <p class="cb-title">🎉 Tabriklayman KEY belgilandi</p>
+    <p class="cb-title">🎉 Tabriklaymiz, kalitingiz tayyor</p>
     <div class="code" id="codeText">—</div>
-    <div class="copyHint" id="copyHint">Bosib nusxala ☝🏻</div>
+    <div class="copyHint" id="copyHint">Bosib nusxalang</div>
     <div id="timer"></div>
   </div>
 </div>
@@ -401,113 +401,73 @@ const db = firebase.firestore();
 
 const KEYS_COLLECTION = "codes100";
 const LOCAL_CLAIM_KEY = "codes100_my_claim";
-
-const KEYS_SEED = [
-  "140f96c54b","ad6f40e728","3f422fabdf","e1329a5ec5","dd77a284fd",
-  "1a9b77e817","c5e67ed1e2","9573aff93b","f6d04337ac","9163cd8ffe",
-  "acc3a33dfa","3a97ce094a","a557761416","6d815736db","eced16a87f",
-  "2559b333d1","59a24e2a7e","88ba91e362","8fb402c0a5","6aab31694b",
-  "f5b000cc73","933eb50d9f","5edf05bdf7","b363df5ae4","cac0e3c4a0",
-  "265b27f484","253da2dd08","b4b2c7a181","3e44a5c734","e7f6c049cb",
-  "5257655014","515b0058bd","1bfa87bf4b","2482569c3a","3e5b304fb5",
-  "ed1de3e24a","f225be4b36","fe6a66e7c9","89fb1c42e9","c01551bf33",
-  "90e26b9f3c","96849d1414","37d9d7f115","cd69ef3ba4","f3a62a697e",
-  "51a6f2264e","b028073c9f","9ad15f98bb","ffc193be94","34a2d0323f",
-  "33badd186b","d5747aaa12","a8343d881e","4ffa052938","3435b259cd",
-  "6dc5820c02","19dbb660ae","66ea53bbf5","261d42ec36","e33da3d803",
-  "9fcc29d41b","775425cfd5","a22b1957bc","e9baf6b238","d21e347ce0",
-  "ee0bc11e88","4512ae9420","e0e2436df9","5496bd6dca","4a6a1cf8eb",
-  "14859ba48a","b6bffee5ef","180983807d","b5f8df9915","53cdeed11f",
-  "90baa39475","9d5c8c8b49","73c7fc2ce5","2d8a878b54","66d1918dda",
-  "d380c26b2c","81501efea4","3da1ce0788","d433b9471c","8e76c47a7d",
-  "8173d0d22c","22e8a63b87","4006584a26","2688818eaf","96f6d371e1",
-  "866e990516","7f40c65e95","11d72804c2","f79e1755f0","3b8c42c8cf",
-  "a5ce3a5273","43326af06c","f42b4de778","cac9b2d611"
-];
-const KEYS_DURATION = "24Hour";
 const DURATION_HOURS = 24;
-
-async function ensureSeeded() {
-  try {
-    const snap = await db.collection(KEYS_COLLECTION).limit(1).get();
-    if (!snap.empty) return;
-    const batch = db.batch();
-    KEYS_SEED.forEach(code => {
-      const ref = db.collection(KEYS_COLLECTION).doc(code);
-      batch.set(ref, { duration: KEYS_DURATION, status: "available", claimedBy: null });
-    });
-    await batch.commit();
-  } catch (e) {
-    console.error("Seed error:", e);
-  }
-}
-ensureSeeded();
 
 // ====== YANGI KALITLARNI QO'SHISH (faqat admin uchun) ======
 // Manzilga ?addkeys=1 qo'shib ochilganda, quyidagi ro'yxatdagi kalitlarni
 // bazaga YOZADI (mavjud kalitlarga tegmaydi, faqat shu ro'yxatdagilarni yozadi).
 // Rules'da vaqtincha "create" ruxsat berilgan bo'lishi kerak.
 const NEW_KEYS_TO_ADD = [
-  "36b4b0dc34","40553b705d","cf29baaa6c","db12dd169b","77f8b50005",
-  "af8b3f5c70","14ccd35b5b","710a9fab07","95670de8a9","e28e533b46",
-  "fa8f1e2e6d","51ca8d78ad","f7b00d0d1b","629577c5b0","855a9a106f",
-  "e8d3962424","6488e6a3a4","7dd4325ee7","70385bac42","a079ca15ae",
-  "3d839ee112","89b5e9088e","12624721c4","a83bf0961d","8be3a43c26",
-  "1179f5456d","4fe1790591","3b1037e3d6","ed64555677","6e92a34b6b",
-  "b5e84c650a","7d13b6742e","587944f53d","3d0018c27d","d5b38a121a",
-  "11e3527a72","760150b89e","228c2a4240","d1320fef7a","238514526f",
-  "c40de95645","492b0641a1","7dba51d44e","e79124fa70","1a88e58c11",
-  "8cbb88a214","6bf5690ba8","8c5354664d","1a83339b9a","6d52533a55",
-  "11a0a007c6","51f5822b64","55279bdff8","836805cd73","704b1d5a0f",
-  "690f9ba23b","dd4dff50e6","687d01a3b1","765a66800d","e963638ea4",
-  "d8f27dd214","d9a131192c","6bdd5d03ce","9fe010eeec","d8facda9af",
-  "900ad9be4c","4c6871f860","70905e4839","3ca77af359","8553a18164",
-  "52638069a8","4c8093f2ae","39a67a470d","3745a2ce18","e22a3768ee",
-  "cc54f8e93e","e4085c7996","271abb3a4a","389f4b026f","79457c886b",
-  "7a06a5a1a2","50a7d30fb5","5111cc8258","cf467c40f5","fc49b22ceb",
-  "a10820a6c3","f8806b14f4","f3ffab95e9","8c48715545","47c6ace694",
-  "55795d09ee","10d64aa2d2","429e55d73b","583a2c5c06","5bf65cf4a0",
-  "bf1622bcfa","51d29be3a4","831f399cff","889a1ad131","f3c49e4104",
-  "271726a7c2","e59bf30a66","63fd2cc022","a3ac2d528d","a982306539",
-  "f8e6856970","58c2a37d11","46f33727a2","f9653136a4","ca252093b5",
-  "bc4e322ea4","b94827f7cf","90cf255af3","bf2d0301e0","3faa8980ce",
-  "969efcb786","8d3c3c96f6","fb77aaa99e","7ffff7b2bd","c5dba60a65",
-  "a28587a993","bfc60e3f15","2de8bb581a","3a292f20e9","924498cd94",
-  "2a4232e7c7","a62d666576","1d74782829","a87e053d2f","2491cecfed",
-  "4106cca4d6","aafc4ee119","37e33d0a3f","52a5c2afe6","1ac7a1fdd4",
-  "6ac29ab56f","69aae39aee","61a9bf6a20","b7eea5bfac","7337acfcc8",
-  "a5df1e25d4","c398642d7f","2e3b0549e2","aec49918c7","a1a6ae5ba7",
-  "f3b1033d6d","349d855555","38353aba1f","53edc87a9a","5f2dabc608",
-  "c0732e772c","253ca31397","4715c8fa0a","b3d843e0dc","4ee73afe39",
-  "f73cf713c8","667a4fe539","4ed10af6fd","766ae0471b","d406fa33d2",
-  "2e381f4ce9","28b1a2525b","58c3868249","45970eb583","d3d08e07f8",
-  "8161d40f35","8c8c34730c","477c4e8ca9","1e460b7ede","db0b26b2a9",
-  "32b5cb591f","ccbd12f6e8","874a9252bb","cdee1ab7e1","89d69b7bbf",
-  "240924e68d","da366b4387","7950c81a56","c4ddc42184","8c4f34d4d3",
-  "d9f75a79fe","c512a8836b","86cfa0eb47","1aff82c49f","97fb4c702b",
-  "9014095ce7","43c8eabf76","d675831ed5","1e91ff4dd9","c443eaffac",
-  "e192972a35","5420b59582","6de81be97d","c30e72e3fd","d9ccb6b15f",
-  "b51d924b9d","c95dc83afe","3d0546dde8","c0256c9b32","5f9426012c",
-  "1eaa69984c","81f82cb107","cb7f2351b1","f2933dd5b8","fcfbb5a8d8",
-  "44ebd12ca4","41231feb95","c2520eee50","a42ae0e152","d5038aa169",
-  "40858d2e4d","5c4672dd73","2d967a4e4c","59f9901056","f2dd635c8a",
-  "d037a46096","26c7eca177","e8214d82d3","a41082410c","37b2ac8f03",
-  "7740fa1ba7","de17344304","4f8cabe1fe","255a26b980","f4ddcb69c6",
-  "c4c9415dbf","ffe36de1bb","6fd5c12662","60ce078d1f","7a735e430c",
-  "6403d60737","aa12ba90a9","dd0e0677f4","2a40fe2e53","a358375dca",
-  "b724cba7d0","52359ad957","74d7e4e869","17e58baad9","6d1fa50c54",
-  "1e018fccdf","8931e04bc4","46f7dfefd5","60c09e354f","7013cab87b",
-  "d87e6e5b3f","b90e37dd54","6aba23328f","7247f856cf","681f925d69",
-  "46179f0180","4537778ed4","d209520d8b","3a8d0d38a6","38ef7d5c2f",
-  "c2047989ca","abbeacd42f","2f3bda63db","5737fd6db3","e2f7b0c51d",
-  "ef9e8e5816","af92ce6c6c","f2d3904617","fb2f797231","4dcf33dad2",
-  "fcf1535005","9bd8cfe0f6","9735e222bf","81c0a57804","6fbe7f003c",
-  "607136102a","f9e723057d","27af3fe4ec","ace8d24a8d","e45be54bc8",
-  "4dc835b9d1","a9757898bc","a7c12259dc","4c48abe401","6bcabbd481",
-  "e2b1e637ea","6eb913fc87","b116d8af31","b35f30af47","233f6e8a7b",
-  "c7477c9cff","d99290e266","4ef47893d9","c92216e9fe","62fd7745e7",
-  "ed74665cd5","53d263312d","87a45d8028","d3f63369b0","2bd1b1ab22",
-  "6443601c70","d919956471","2000","fbec450b85"
+  "53b23ce721", "2925222cc0", "1a34b2c59c", "1d2174b502", "81148920fd",
+  "3565fb2297", "e093108a56", "69dff1caae", "e6dbf8e1d0", "65a199285c",
+  "5ac2d6d33f", "bb6c81187d", "e55d56a1a3", "d4a69e0352", "72a0ea04c6",
+  "5d12e00e54", "91ecd1f0c4", "62da3405e5", "8e09b2a403", "b708f516a5",
+  "71badebac0", "b8fa37b4e6", "8cbcebc512", "f03091543e", "b9eb1f7e09",
+  "c2380a3f91", "654a8f6012", "216aa456e3", "d617631259", "efee4c969d",
+  "ba9e665b60", "ee20a248b0", "2bf3de14f1", "2b41b857a8", "fa34a6c29c",
+  "4524e07c8c", "4ab442d737", "27483b0451", "861df35a70", "d76d97422f",
+  "ecf8059547", "6a1da7946b", "13e95cca95", "931e0fbb3c", "921b341e1d",
+  "a84626b94b", "4470de7fc9", "baf3a51759", "c1b72855fa", "b6315e3e8e",
+  "1a483a047a", "5a7ef2b30f", "5b8fc958d1", "7d60b10682", "2c23e09b3d",
+  "4b6bfb01f6", "13485704b8", "23abbf4a8e", "eacb5b3451", "f134a2bcac",
+  "8b0dc6a59d", "da1d4e2071", "9eae8c6fb2", "7a354a954b", "48404c0583",
+  "702457c74c", "1a9fa36abd", "684ae38e36", "ef44e77452", "3133cf6455",
+  "58a45eadc1", "c137679392", "fa65a36b56", "8bbae07d77", "e84562ec6c",
+  "5a5e23cf3f", "104ebd2c61", "83f9ff80e3", "e73a61e76e", "ea1f968a14",
+  "b5107d8172", "c572e6de6b", "c7b523fdfb", "88529fcc80", "d61b1b518d",
+  "927139106b", "b85e098020", "7b5e9c2694", "6ca6e7e15c", "dd31357ea1",
+  "a011402fc6", "f93eaf44f5", "b0c571eb27", "45d42a3850", "3e2ad1ee2a",
+  "fc7ad35d96", "f1978e50bf", "d24ee3782f", "91138b0815", "93378b25e5",
+  "c79b855948", "3ef2e3f3e1", "a618e82f97", "88472e591e", "f00a91528d",
+  "8df90ef95b", "7e15d0f7cf", "64c941c8f5", "4b36e8dbe3", "aa6a70b69d",
+  "d7005d7dab", "d46c576853", "8481fed5fc", "4129ccb423", "18464e5a9e",
+  "eb7d686251", "d94ad9ed56", "1eaeb220f4", "507e40e302", "e2fcf4eacb",
+  "e060a02445", "d9d5725dd1", "2e005387b1", "8dbd1b161d", "b0ab4e2d15",
+  "9ac7c90b18", "9bdeb87baf", "a6292a639b", "c858309fb6", "484f008642",
+  "1d651e75c8", "489e59fd17", "f2499d892c", "7931a8c863", "bff42ec647",
+  "d2bd722d6f", "dcaf666c60", "6407a1bf7c", "2d171b3216", "bdf22d64bb",
+  "b3b41b35b3", "934eb00a3c", "86f2c90c16", "49cf67dfe8", "947d2af05a",
+  "835f6fb765", "d701ffbf8d", "433dc94bcb", "e4c3e97f0d", "167ca102aa",
+  "7f0f674ea9", "618f690a3d", "4db650d8f3", "af30e4e038", "4bc270e407",
+  "fbd608ca56", "eec3022496", "9efab4c0c9", "9601bcf21c", "1615f1e469",
+  "61e7286d22", "5bdb9bded0", "b4bdc66dee", "4ec22d81fd", "c3c33e7d72",
+  "f1941ebd4c", "bab90599c4", "2ea8864d3c", "6bd664359a", "859df758ac",
+  "7aee6f3795", "6ca27a101a", "79ca52a746", "dba1706311", "fd7f740bf9",
+  "7bc133f5f1", "78c0f568b0", "831e97018e", "6fcd6c9a56", "24a45b681b",
+  "3063a84490", "bf0f17c629", "75dc1becb6", "7fed53b2b0", "96c566c90d",
+  "6a9bceea98", "a43d4dd7f2", "827c460bf3", "1fc4e4b62d", "ef510efab8",
+  "5d4e98c02e", "3158b5d6d0", "58dfc18960", "b8545047c2", "e276919e1f",
+  "4ac11876fb", "dbeb3e5115", "f39b234c39", "5f61624682", "fde4fc7501",
+  "c2de495eab", "1ec528a256", "53d2f768c9", "6343418079", "7eed8a43ca",
+  "33fe7390da", "67662fff1a", "5c48be3fa2", "8d2e29f825", "8f8f072dcb",
+  "b1f1bcb4ef", "51e90de6d0", "33ce36dec7", "59d41c5e93", "de61105af3",
+  "184b9f3490", "619b731f88", "7c0488d363", "763a427747", "86fbabaeeb",
+  "195324f6c4", "cf51cae513", "6455ca6f10", "15d8692026", "849d0f7768",
+  "14519b2eac", "f1b1940f8c", "a085cecc24", "b34c8b8301", "ad36f97087",
+  "761c96f0d1", "eaec9973e1", "95cf227394", "21625f6f38", "e6eb0148ba",
+  "6889595341", "8fa96e175d", "6a7420e6c8", "267fb796bc", "d55e23d959",
+  "8c9950cbb6", "715b37a2a3", "ba09306c6e", "67bfa9067a", "f1da4f6819",
+  "d93169049b", "2e88404750", "bbd7e02920", "6ed43444c1", "87df90d2c2",
+  "52d3edc2f2", "cab1bc7a99", "812c6c27ff", "e88a476ef9", "42dd44048e",
+  "35056ed0e2", "fc4eeab6ea", "8d0adb0130", "139fcc09d4", "bba5a31715",
+  "999b8b41ad", "dda60c97c5", "29a9261dc5", "9dc31a6f63", "7547733614",
+  "afdd18b3c0", "4e7a7f41e2", "3ea8b6ea83", "774c564f07", "4c26c0e1a5",
+  "8df81b6e95", "9f883ef4c6", "d90c2316d8", "eaba1e6a1b", "48d77d2112",
+  "23ec602852", "921a089b76", "a50ece641d", "7060fd0649", "9290929200",
+  "f31c437c95", "2f07c4fb14", "9154cef0d1", "d8ff673c05", "6678887bb9",
+  "225b997319", "84020a473f", "2c473eb609", "e4fa1fbbb6", "2d0f95ca7e",
+  "9c26e121d6", "77f5a9199d", "ef32e3bdbf", "c8d4213084", "c488a68cbe",
+  "3408dfcc0d", "f36881f2e6"
 ];
 
 async function addNewKeysIfRequested() {
@@ -570,7 +530,7 @@ function showCodeState(state, value) {
     copyHintEl.textContent = "Sahifani yangilab ko'ring";
   } else if (state === "ready") {
     codeTextEl.textContent = value;
-    copyHintEl.textContent = "Bosib nusxala ☝🏻";
+    copyHintEl.textContent = "Bosib nusxalang";
   }
 }
 
@@ -645,7 +605,7 @@ function startTimer() {
     const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
     document.getElementById("timer").innerHTML =
-      `KEY yaroqsiz holga kelishiga ${hours} soat ${minutes} daqiqa ${seconds} soniya qoldi`;
+      `Kalit amal qilish muddati: ${hours} soat ${minutes} daqiqa ${seconds} soniya`;
   }, 1000);
 }
 
@@ -691,7 +651,7 @@ function visit(i) {
 }
 
 steps[0].classList.add("active");
-links[0].querySelector(".status").textContent = "Shu bosqich";
+links[0].querySelector(".status").textContent = "Endi shu bosqich";
 
 codeTextEl.onclick = function () {
   if (codeTextEl.classList.contains("pending") || codeTextEl.classList.contains("err")) return;
