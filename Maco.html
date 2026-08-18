@@ -1,156 +1,399 @@
-
 <!DOCTYPE html>
 <html lang="uz">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Modded by - Dilmurod</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fayllar</title>
 
-  <style>
-    html, body {
-      margin: 0;
-      padding: 0;
-      background: #000;
-      color: #fff;
-      font-family: Arial, sans-serif;
-      text-align: center;
-      overflow-x: hidden; /* yon tomonga chiqmasin */
-      overflow-y: auto;   /* scroll ishlaydi */
-    }
+<style>
+html, body {
+  background: #000 !important;
+  margin: 0;
+  padding: 0;
+}
 
-    body {
-      padding: 20px;
-      position: relative;
-    }
+body {
+  padding: 20px;
+  font-family: Arial, sans-serif;
+  color: white;
+  text-align: center;
+}
 
-    /* 🌸 Gullar */
-    .flower {
-      position: fixed;
-      top: -10%;
-      font-size: 24px;
-      opacity: 0.8;
-      animation: fall linear forwards;
-      pointer-events: none;
-      z-index: 0;
-    }
+.dark-bg {
+  background: #000;
+  min-height: 100vh;
+  /* Fon rasmini shu yerga qoʻying: */
+  background-image: url('RASM_MANZILINI_SHU_YERGA_QOYING.jpg');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  position: relative;
+}
 
-    @keyframes fall {
-      to {
-        transform: translateY(110vh);
-        opacity: 0;
-      }
-    }
+/* Rasm ustidagi qoraytiruvchi qatlam — tugmalar oʻqilishi uchun */
+.dark-bg::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.6);
+  z-index: 0;
+}
 
-    .link {
-      display: block;
-      background: #00ffd5;
-      color: #000;
-      margin: 12px auto;
-      padding: 16px;
-      width: 95%;
-      max-width: 420px;
-      border-radius: 50px;
-      text-decoration: none;
-      font-size: 18px;
-      font-weight: bold;
-      transition: all 0.3s ease;
-      box-shadow: 0 0 12px rgba(0,255,0,.7);
-      transform: scale(1);
-      z-index: 1;
-      position: relative;
-    }
+.dark-bg > * {
+  position: relative;
+  z-index: 1;
+}
 
-    .link:hover {
-      background: #1aff1a;
-      transform: scale(1.08);
-    }
+h1 {
+  margin-bottom: 20px;
+  opacity: 0;
+  animation: fadeInDown 1s forwards;
+  font-size: 22px;
+}
 
-    .link.disabled {
-      background: #777;
-      pointer-events: none;
-      opacity: .6;
-    }
+.buttons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 15px;
+}
 
-    .link.visited {
-      background: #1aff1a;
-    }
+a.button, button.button {
+  display: inline-block;
+  padding: 15px 30px;
+  border-radius: 50px;
+  font-size: 18px;
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  position: relative;
+  overflow: hidden;
+  border: 2px solid transparent;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeInUp 0.8s forwards;
+  font-family: inherit;
+}
 
-    .link.visited::after {
-      content: "Bajarildi";
-      display: block;
-      font-size: 14px;
-      margin-top: 4px;
-      color: #003300;
-    }
+/* ✨ Yulduzcha koʻrinishi */
+a.button::after, button.button::after {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -60%;
+  width: 30%;
+  height: 200%;
+  background: rgba(255,255,255,0.35);
+  transform: rotate(25deg);
+  animation: starSweep 3.2s ease-in-out infinite;
+  pointer-events: none;
+}
+@keyframes starSweep {
+  0% { left: -60%; }
+  50% { left: 130%; }
+  100% { left: 130%; }
+}
 
-    .link.finalBlue {
-      background: #2196f3;
-      color: #fff;
-      box-shadow: 0 0 12px rgba(33,150,243,.7);
-    }
-  </style>
+.b1{background:#ff4757}
+.b2{background:#1e90ff}
+.b3{background:#2ed573}
+.b4{background:#ffa502}
+.b5{background:#3742fa}
+.b6{background:#ff6348}
+.b7{background:#70a1ff}
+.b8{background:#2f3542}
+.b9{background:#7bed9f}
+.b10{background:#5352ed}
+.b11{background:#ff6b81}
+.b12{background:#1abc9c}
+.b13{background:#8e44ad}
+.b14{background:#f39c12}
+.b15{background:#e74c3c}
+.b16{background:#3498db}
+.b17{background:#16a085}
+.b18{background:#9b59b6}
+.b19{background:#27ae60}
+.b20{background:#c0392b}
+.b21{background:#2ed573}
+.b22{background:#ff9ff3}
+.b23{background:#48dbfb}
+.b24{background:#1dd1a1}
+.b25{background:#feca57}
+.b26{background:#5f27cd}
+.b27{background:#ee5253}
+.b28{background:#54a0ff}
+.b29{background:#10ac84}
+.b30{background:#576574}
+.b31{background:#01a3a4}
+.b32{background:#ff6b6b}
+.b33{background:#48dbfb}
+.b34{background:#00d2d3}
+.b35{background:#ff9f43}
+.b36{background:#5f27cd}
+.b37{background:#c8d6e5}
+.b38{background:#8395a7}
+.b39{background:#222f3e}
+.b40{background:#341f97}
+.b41{background:#ee5253}
+.b42{background:#0abde3}
+.b43{background:#10ac84}
+.b44{background:#f368e0}
+.b45{background:#ff9f43}
+.b46{background:#576574}
+.b47{background:#222f3e}
+.b48{background:#01a3a4}
+.b49{background:#ee5253}
+.b50{background:#2e86de}
+
+a.button:hover:not(.clicked), button.button:hover {
+  box-shadow: 0 0 15px rgba(255,255,255,0.5),
+              0 0 30px rgba(255,255,255,0.3);
+  transform: translateY(-5px) scale(1.05);
+  filter: brightness(1.3);
+}
+
+a.button.clicked {
+  border: 2px solid white;
+}
+
+.button:nth-child(1){animation-delay:.1s}
+.button:nth-child(2){animation-delay:.2s}
+.button:nth-child(3){animation-delay:.3s}
+.button:nth-child(4){animation-delay:.4s}
+.button:nth-child(5){animation-delay:.5s}
+.button:nth-child(6){animation-delay:.6s}
+.button:nth-child(7){animation-delay:.7s}
+.button:nth-child(8){animation-delay:.8s}
+.button:nth-child(9){animation-delay:.9s}
+.button:nth-child(10){animation-delay:1s}
+.button:nth-child(11){animation-delay:1.1s}
+.button:nth-child(12){animation-delay:1.2s}
+.button:nth-child(13){animation-delay:1.3s}
+.button:nth-child(14){animation-delay:1.4s}
+.button:nth-child(15){animation-delay:1.5s}
+.button:nth-child(16){animation-delay:1.6s}
+.button:nth-child(17){animation-delay:1.7s}
+.button:nth-child(18){animation-delay:1.8s}
+.button:nth-child(19){animation-delay:1.9s}
+.button:nth-child(20){animation-delay:2s}
+.button:nth-child(21){animation-delay:2.1s}
+.button:nth-child(22){animation-delay:2.2s}
+.button:nth-child(23){animation-delay:2.3s}
+.button:nth-child(24){animation-delay:2.4s}
+.button:nth-child(25){animation-delay:2.5s}
+.button:nth-child(26){animation-delay:2.6s}
+.button:nth-child(27){animation-delay:2.7s}
+.button:nth-child(28){animation-delay:2.8s}
+.button:nth-child(29){animation-delay:2.9s}
+.button:nth-child(30){animation-delay:3s}
+.button:nth-child(31){animation-delay:3.1s}
+.button:nth-child(32){animation-delay:3.2s}
+.button:nth-child(33){animation-delay:3.3s}
+.button:nth-child(34){animation-delay:3.4s}
+.button:nth-child(35){animation-delay:3.5s}
+.button:nth-child(36){animation-delay:3.6s}
+.button:nth-child(37){animation-delay:3.7s}
+.button:nth-child(38){animation-delay:3.8s}
+.button:nth-child(39){animation-delay:3.9s}
+.button:nth-child(40){animation-delay:4s}
+.button:nth-child(41){animation-delay:4.1s}
+.button:nth-child(42){animation-delay:4.2s}
+.button:nth-child(43){animation-delay:4.3s}
+.button:nth-child(44){animation-delay:4.4s}
+.button:nth-child(45){animation-delay:4.5s}
+.button:nth-child(46){animation-delay:4.6s}
+.button:nth-child(47){animation-delay:4.7s}
+.button:nth-child(48){animation-delay:4.8s}
+.button:nth-child(49){animation-delay:4.9s}
+.button:nth-child(50){animation-delay:5s}
+
+@keyframes fadeInUp {
+  from{opacity:0;transform:translateY(20px)}
+  to{opacity:1;transform:translateY(0)}
+}
+@keyframes fadeInDown {
+  from{opacity:0;transform:translateY(-20px)}
+  to{opacity:1;transform:translateY(0)}
+}
+
+.snow {
+  position: fixed;
+  top: -10px;
+  color: white;
+  pointer-events: none;
+  z-index: 9999;
+  animation: snowFall linear infinite;
+}
+@keyframes snowFall {
+  to { transform: translateY(110vh); }
+}
+
+/* ===== MODAL (2 ta variant) ===== */
+.overlay {
+  display: none;
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.75);
+  z-index: 10000;
+  justify-content: center;
+  align-items: center;
+}
+.overlay.active { display: flex; }
+
+.modal {
+  background: #17181c;
+  border: 1px solid #333;
+  border-radius: 16px;
+  padding: 25px 20px;
+  width: 85%;
+  max-width: 320px;
+  text-align: center;
+  animation: fadeInUp 0.25s forwards;
+}
+.modal h3 {
+  margin: 0 0 18px 0;
+  font-size: 17px;
+  color: #fff;
+}
+.modal .opt {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 13px;
+  margin-bottom: 10px;
+  border-radius: 10px;
+  border: none;
+  font-size: 15px;
+  font-weight: bold;
+  color: #fff;
+  text-decoration: none;
+  cursor: pointer;
+}
+.modal .opt-bot { background: #0088cc; }
+.modal .opt-site { background: #2ed573; }
+.modal .opt-close {
+  background: transparent;
+  color: #999;
+  font-weight: normal;
+  margin-top: 4px;
+  margin-bottom: 0;
+}
+</style>
 </head>
+
 <body>
 
-  <h2>🔑 Faylni Qulfdan ochish uchun kanallarga obuna bo'l</h2>
-  <p>Sahifani yangilama</p>
+<div class="dark-bg">
 
-  <a class="link" href="https://modderff.github.io/Fayllar/Modder-FF-Video.html" target="_blank" data-text="1) Shorts (Like + Comment)" onclick="visit(0)"></a>
-  <a class="link disabled" href="https://www.youtube.com/channel/UCdlOZ5UZRq1Y3HiuDdgi3Ag" target="_blank" data-text="2) YouTube FF (Obuna)" onclick="visit(1)"></a>
-  <a class="link disabled" href="https://modderff.github.io/Fayllar/King-Pubg-Video.html" target="_blank" data-text="3) Shorts (Like + Comment)" onclick="visit(2)"></a>
-  <a class="link disabled" href="https://www.youtube.com/channel/UC9E0sZ3-qmpLqD2dH6CLAVA" target="_blank" data-text="4) YouTube PG (Obuna)" onclick="visit(3)"></a>
-  <a class="link disabled" href="https://modderff.github.io/Fayllar/Telegram-Link.html" target="_blank" data-text="5) Telegram (Join)" onclick="visit(4)"></a>
+<h1>Fayllar roʻyxati — kerakli boʻlimni tanlang</h1>
 
+<div class="buttons" id="buttons">
+  <!-- Har bir tugma uchun data-bot va data-site atributlariga oʻz havolangizni qoʻying -->
+  <button class="button b1" data-name="Nomi 1" data-bot="#" data-site="#">Nomi 1</button>
+  <button class="button b2" data-name="Nomi 2" data-bot="#" data-site="#">Nomi 2</button>
+  <button class="button b3" data-name="Nomi 3" data-bot="#" data-site="#">Nomi 3</button>
+  <button class="button b4" data-name="Nomi 4" data-bot="#" data-site="#">Nomi 4</button>
+  <button class="button b5" data-name="Nomi 5" data-bot="#" data-site="#">Nomi 5</button>
+  <button class="button b6" data-name="Nomi 6" data-bot="#" data-site="#">Nomi 6</button>
+  <button class="button b7" data-name="Nomi 7" data-bot="#" data-site="#">Nomi 7</button>
+  <button class="button b8" data-name="Nomi 8" data-bot="#" data-site="#">Nomi 8</button>
+  <button class="button b9" data-name="Nomi 9" data-bot="#" data-site="#">Nomi 9</button>
+  <button class="button b10" data-name="Nomi 10" data-bot="#" data-site="#">Nomi 10</button>
+  <button class="button b11" data-name="Nomi 11" data-bot="#" data-site="#">Nomi 11</button>
+  <button class="button b12" data-name="Nomi 12" data-bot="#" data-site="#">Nomi 12</button>
+  <button class="button b13" data-name="Nomi 13" data-bot="#" data-site="#">Nomi 13</button>
+  <button class="button b14" data-name="Nomi 14" data-bot="#" data-site="#">Nomi 14</button>
+  <button class="button b15" data-name="Nomi 15" data-bot="#" data-site="#">Nomi 15</button>
+  <button class="button b16" data-name="Nomi 16" data-bot="#" data-site="#">Nomi 16</button>
+  <button class="button b17" data-name="Nomi 17" data-bot="#" data-site="#">Nomi 17</button>
+  <button class="button b18" data-name="Nomi 18" data-bot="#" data-site="#">Nomi 18</button>
+  <button class="button b19" data-name="Nomi 19" data-bot="#" data-site="#">Nomi 19</button>
+  <button class="button b20" data-name="Nomi 20" data-bot="#" data-site="#">Nomi 20</button>
+  <button class="button b21" data-name="Nomi 21" data-bot="#" data-site="#">Nomi 21</button>
+  <button class="button b22" data-name="Nomi 22" data-bot="#" data-site="#">Nomi 22</button>
+  <button class="button b23" data-name="Nomi 23" data-bot="#" data-site="#">Nomi 23</button>
+  <button class="button b24" data-name="Nomi 24" data-bot="#" data-site="#">Nomi 24</button>
+  <button class="button b25" data-name="Nomi 25" data-bot="#" data-site="#">Nomi 25</button>
+  <button class="button b26" data-name="Nomi 26" data-bot="#" data-site="#">Nomi 26</button>
+  <button class="button b27" data-name="Nomi 27" data-bot="#" data-site="#">Nomi 27</button>
+  <button class="button b28" data-name="Nomi 28" data-bot="#" data-site="#">Nomi 28</button>
+  <button class="button b29" data-name="Nomi 29" data-bot="#" data-site="#">Nomi 29</button>
+  <button class="button b30" data-name="Nomi 30" data-bot="#" data-site="#">Nomi 30</button>
+  <button class="button b31" data-name="Nomi 31" data-bot="#" data-site="#">Nomi 31</button>
+  <button class="button b32" data-name="Nomi 32" data-bot="#" data-site="#">Nomi 32</button>
+  <button class="button b33" data-name="Nomi 33" data-bot="#" data-site="#">Nomi 33</button>
+  <button class="button b34" data-name="Nomi 34" data-bot="#" data-site="#">Nomi 34</button>
+  <button class="button b35" data-name="Nomi 35" data-bot="#" data-site="#">Nomi 35</button>
+  <button class="button b36" data-name="Nomi 36" data-bot="#" data-site="#">Nomi 36</button>
+  <button class="button b37" data-name="Nomi 37" data-bot="#" data-site="#">Nomi 37</button>
+  <button class="button b38" data-name="Nomi 38" data-bot="#" data-site="#">Nomi 38</button>
+  <button class="button b39" data-name="Nomi 39" data-bot="#" data-site="#">Nomi 39</button>
+  <button class="button b40" data-name="Nomi 40" data-bot="#" data-site="#">Nomi 40</button>
+  <button class="button b41" data-name="Nomi 41" data-bot="#" data-site="#">Nomi 41</button>
+  <button class="button b42" data-name="Nomi 42" data-bot="#" data-site="#">Nomi 42</button>
+  <button class="button b43" data-name="Nomi 43" data-bot="#" data-site="#">Nomi 43</button>
+  <button class="button b44" data-name="Nomi 44" data-bot="#" data-site="#">Nomi 44</button>
+  <button class="button b45" data-name="Nomi 45" data-bot="#" data-site="#">Nomi 45</button>
+  <button class="button b46" data-name="Nomi 46" data-bot="#" data-site="#">Nomi 46</button>
+  <button class="button b47" data-name="Nomi 47" data-bot="#" data-site="#">Nomi 47</button>
+  <button class="button b48" data-name="Nomi 48" data-bot="#" data-site="#">Nomi 48</button>
+  <button class="button b49" data-name="Nomi 49" data-bot="#" data-site="#">Nomi 49</button>
+  <button class="button b50" data-name="Nomi 50" data-bot="#" data-site="#">Nomi 50</button>
+</div>
 
-  <a href="https://www.mediafire.com/file/eqev5y5b5f0xtb0/OB+53+SKIN+FREESTYLE++BY+LEYZI+FF+×+SUNAT+MODS.zip/file" 
-     target="_blank" 
-     class="link finalBlue"
-     id="finalBtn"
-     style="display:none;">
-     🔓 Qulf ochildi yuklash mumkin
-  </a>
+</div>
 
-  <script>
-    // 🌸 Gullar
-    function createFlowers() {
-      const flower = document.createElement("div");
-      flower.classList.add("flower");
-      flower.textContent = "🌸";
+<!-- MODAL -->
+<div class="overlay" id="overlay">
+  <div class="modal">
+    <h3 id="modalTitle">Yuklab olish usulini tanlang</h3>
+    <a href="#" id="optBot" class="opt opt-bot" target="_blank" rel="noopener">🤖 Bot orqali yuklash</a>
+    <a href="#" id="optSite" class="opt opt-site" target="_blank" rel="noopener">🌐 Saytdan yuklash</a>
+    <button class="opt opt-close" id="optClose">Bekor qilish</button>
+  </div>
+</div>
 
-      flower.style.left = Math.random() * 100 + "%";
-      flower.style.animationDuration = (Math.random() * 5 + 5) + "s";
+<script>
+const overlay = document.getElementById('overlay');
+const modalTitle = document.getElementById('modalTitle');
+const optBot = document.getElementById('optBot');
+const optSite = document.getElementById('optSite');
+const optClose = document.getElementById('optClose');
 
-      document.body.appendChild(flower);
+document.querySelectorAll('#buttons .button').forEach(btn => {
+  btn.addEventListener('click', function () {
+    const name = this.dataset.name || '';
+    const bot = this.dataset.bot || '#';
+    const site = this.dataset.site || '#';
 
-      setTimeout(() => {
-        flower.remove();
-      }, 10000);
+    modalTitle.textContent = name ? (name + ' — yuklab olish usuli') : 'Yuklab olish usulini tanlang';
+    optBot.href = bot;
+    optSite.href = site;
+    overlay.classList.add('active');
+  });
+});
 
-      setTimeout(createFlowers, 800);
-    }
+optClose.addEventListener('click', () => overlay.classList.remove('active'));
+overlay.addEventListener('click', (e) => {
+  if (e.target === overlay) overlay.classList.remove('active');
+});
 
-    createFlowers();
-
-    const links = document.querySelectorAll(".link:not(.finalBlue)");
-    links.forEach(l => l.textContent = l.dataset.text);
-
-    let visited = [false,false,false,false,false];
-    let current = 0;
-
-    function visit(i){
-      if(i !== current) return;
-
-      visited[i] = true;
-      links[i].classList.add("visited");
-
-      current++;
-      if(links[current]) links[current].classList.remove("disabled");
-
-      if(visited.every(v => v)){
-        document.getElementById("finalBtn").style.display = "block";
-      }
-    }
-  </script>
+/* Qor effekti */
+function createSnow(){
+  const s=document.createElement("div");
+  s.className="snow";
+  s.innerHTML="🌸";
+  s.style.left=Math.random()*window.innerWidth+"px";
+  s.style.fontSize=Math.random()*12+10+"px";
+  s.style.animationDuration=Math.random()*5+5+"s";
+  document.body.appendChild(s);
+  setTimeout(()=>s.remove(),10000);
+}
+setInterval(createSnow,180);
+</script>
 
 </body>
 </html>
