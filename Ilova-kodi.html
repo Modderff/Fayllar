@@ -111,102 +111,106 @@
       margin: 0 auto 44px;
     }
 
-    /* ===== Step rail ===== */
+    /* ===== Step rail — vizual ravishda yashirilgan, mantiq saqlanadi ===== */
     .rail {
       position: relative;
-      padding-left: 46px;
+      padding-left: 0;
     }
     .rail::before {
-      content: "";
-      position: absolute;
-      left: 17px; top: 20px; bottom: 20px;
-      width: 2px;
-      background: var(--line);
-      border-radius: 2px;
+      display: none;
     }
     .rail-fill {
-      position: absolute;
-      left: 17px; top: 20px;
-      width: 2px;
-      background: var(--grad);
-      border-radius: 2px;
-      height: 0%;
-      transition: height 0.5s cubic-bezier(.4,0,.2,1);
-      box-shadow: 0 0 12px rgba(47,125,255,0.65);
+      display: none;
     }
 
     .step {
       position: relative;
-      margin-bottom: 14px;
+      margin-bottom: 16px;
     }
 
     .step-num {
-      position: absolute;
-      left: -46px;
-      top: 12px;
-      width: 34px; height: 34px;
-      border-radius: 50%;
-      background: var(--surface);
-      border: 2px solid var(--line);
-      display: flex; align-items: center; justify-content: center;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 13px;
-      font-weight: 700;
-      color: var(--text-faint);
-      transition: all 0.35s ease;
-      z-index: 2;
-    }
-    .step.done .step-num {
-      background: var(--lilac);
-      border-color: transparent;
-      color: #06041a;
-      box-shadow: 0 0 20px rgba(168,85,247,0.75);
-    }
-    .step.active .step-num {
-      border-color: var(--sky);
-      color: var(--sky);
+      display: none;
     }
 
     a.link {
       display: block;
-      background: rgba(20, 26, 51, 0.7);
-      backdrop-filter: blur(6px);
-      border: 1px solid var(--line);
-      border-radius: 14px;
-      padding: 16px 20px;
+      position: relative;
+      overflow: hidden;
+      text-align: center;
+      background: linear-gradient(135deg, #1b2338, #171e30);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 50px;
+      padding: 20px 24px;
       text-decoration: none;
-      color: var(--text);
-      transition: transform 0.15s ease, border-color 0.2s ease, background 0.2s ease;
-      cursor: pointer;
-    }
-    a.link:hover:not(.disabled) {
-      border-color: var(--sky);
-      transform: translateY(-1px);
-    }
-    a.link:active:not(.disabled) { transform: translateY(0); }
-
-    a.link .label {
-      font-family: 'Sora', sans-serif;
-      font-weight: 600;
-      font-size: 15.5px;
-    }
-    a.link .status {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 11px;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
       color: var(--text-faint);
-      margin-top: 4px;
+      transition: transform 0.25s ease, border-color 0.25s ease, background 0.25s ease, box-shadow 0.25s ease, opacity 0.25s ease, color 0.25s ease;
+      cursor: pointer;
+      box-shadow: none;
     }
 
-    a.link.disabled {
-      opacity: 0.45;
+    /* Shisha kabi yaltiroq effekt — barcha holatlarda bir xil */
+    a.link::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: -75%;
+      width: 45%;
+      height: 100%;
+      background: linear-gradient(120deg, transparent, rgba(255,255,255,0.25), transparent);
+      transform: skewX(-25deg);
+      animation: link-shine 4.5s infinite;
       pointer-events: none;
     }
 
+    @keyframes link-shine {
+      0% { left: -75%; }
+      35% { left: 130%; }
+      100% { left: 130%; }
+    }
+
+    /* Joriy (navbatdagi, bosish mumkin bo'lgan) tugma — teal porlash */
+    a.link:not(.disabled):not(.visited) {
+      background: linear-gradient(135deg, #0f9d84, #0c7d6b);
+      border-color: rgba(255,255,255,0.25);
+      color: #fff;
+      box-shadow: 0 0 20px rgba(16,185,150,0.55), inset 0 1px 1px rgba(255,255,255,0.3);
+    }
+
+    a.link:hover:not(.disabled) {
+      transform: translateY(-2px) scale(1.015);
+      box-shadow: 0 0 28px rgba(16,185,150,0.75), inset 0 1px 1px rgba(255,255,255,0.35);
+    }
+    a.link:active:not(.disabled) { transform: translateY(0) scale(1); }
+
+    a.link .label {
+      position: relative;
+      z-index: 1;
+      font-family: 'Sora', sans-serif;
+      font-weight: 700;
+      font-size: 17px;
+    }
+    a.link .status {
+      display: none;
+    }
+
+    /* Disabled — quyuq kulrang, xira */
+    a.link.disabled {
+      opacity: 1;
+      pointer-events: none;
+      background: linear-gradient(135deg, #1b2338, #171e30);
+      color: #6b7590;
+      box-shadow: none;
+    }
+    a.link.disabled::before {
+      display: none;
+    }
+
+    /* Visited — bajarilgan, yorqin yashil porlash */
     a.link.visited {
-      border-color: var(--lilac);
-      background: linear-gradient(120deg, rgba(168,85,247,0.22), rgba(168,85,247,0.09));
+      background: linear-gradient(135deg, #12b886, #0f9d78);
+      border-color: rgba(255,255,255,0.3);
+      color: #fff;
+      box-shadow: 0 0 20px rgba(18,184,134,0.6), inset 0 1px 1px rgba(255,255,255,0.3);
     }
     a.link.visited .status { color: var(--lilac); }
     a.link.visited .status::before { content: "✓ "; }
@@ -316,7 +320,7 @@
     <div class="step" data-step="0">
       <div class="step-num">1</div>
       <a class="link" href="https://youtu.be/5Cjt8rhD6Xc?si=Hi2ZllEosgjErMls" target="_blank" onclick="visit(0)">
-        <div class="label">Shorts — Like + Comment</div>
+        <div class="label">1) Shorts — Like + Comment</div>
         <div class="status">Bosing va bajaring</div>
       </a>
     </div>
@@ -324,7 +328,7 @@
     <div class="step" data-step="1">
       <div class="step-num">2</div>
       <a class="link disabled" href="https://www.youtube.com/channel/UCdlOZ5UZRq1Y3HiuDdgi3Ag" target="_blank" onclick="visit(1)">
-        <div class="label">YouTube FF — Obuna bo‘lish</div>
+        <div class="label">2) YouTube FF — Obuna bo‘lish</div>
         <div class="status">Navbatda</div>
       </a>
     </div>
@@ -332,7 +336,7 @@
     <div class="step" data-step="2">
       <div class="step-num">3</div>
       <a class="link disabled" href="https://youtu.be/LLLLz-mQPpM?si=DYhQ_LeqN7Wp7WOS" target="_blank" onclick="visit(2)">
-        <div class="label">Shorts — Like + Comment</div>
+        <div class="label">3) Shorts — Like + Comment</div>
         <div class="status">Navbatda</div>
       </a>
     </div>
@@ -340,7 +344,7 @@
     <div class="step" data-step="3">
       <div class="step-num">4</div>
       <a class="link disabled" href="https://www.youtube.com/channel/UC9E0sZ3-qmpLqD2dH6CLAVA" target="_blank" onclick="visit(3)">
-        <div class="label">YouTube PG — Obuna bo‘lish</div>
+        <div class="label">4) YouTube PG — Obuna bo‘lish</div>
         <div class="status">Navbatda</div>
       </a>
     </div>
@@ -348,7 +352,7 @@
     <div class="step" data-step="4">
       <div class="step-num">5</div>
       <a class="link disabled" href="https://t.me/+RZiLoLoeBWMzZmNi" target="_blank" onclick="visit(4)">
-        <div class="label">Telegram — Kanalga qo‘shilish</div>
+        <div class="label">5) Telegram — Kanalga qo‘shilish</div>
         <div class="status">Navbatda</div>
       </a>
     </div>
@@ -408,66 +412,26 @@ const DURATION_HOURS = 24;
 // bazaga YOZADI (mavjud kalitlarga tegmaydi, faqat shu ro'yxatdagilarni yozadi).
 // Rules'da vaqtincha "create" ruxsat berilgan bo'lishi kerak.
 const NEW_KEYS_TO_ADD = [
-  "53b23ce721", "2925222cc0", "1a34b2c59c", "1d2174b502", "81148920fd",
-  "3565fb2297", "e093108a56", "69dff1caae", "e6dbf8e1d0", "65a199285c",
-  "5ac2d6d33f", "bb6c81187d", "e55d56a1a3", "d4a69e0352", "72a0ea04c6",
-  "5d12e00e54", "91ecd1f0c4", "62da3405e5", "8e09b2a403", "b708f516a5",
-  "71badebac0", "b8fa37b4e6", "8cbcebc512", "f03091543e", "b9eb1f7e09",
-  "c2380a3f91", "654a8f6012", "216aa456e3", "d617631259", "efee4c969d",
-  "ba9e665b60", "ee20a248b0", "2bf3de14f1", "2b41b857a8", "fa34a6c29c",
-  "4524e07c8c", "4ab442d737", "27483b0451", "861df35a70", "d76d97422f",
-  "ecf8059547", "6a1da7946b", "13e95cca95", "931e0fbb3c", "921b341e1d",
-  "a84626b94b", "4470de7fc9", "baf3a51759", "c1b72855fa", "b6315e3e8e",
-  "1a483a047a", "5a7ef2b30f", "5b8fc958d1", "7d60b10682", "2c23e09b3d",
-  "4b6bfb01f6", "13485704b8", "23abbf4a8e", "eacb5b3451", "f134a2bcac",
-  "8b0dc6a59d", "da1d4e2071", "9eae8c6fb2", "7a354a954b", "48404c0583",
-  "702457c74c", "1a9fa36abd", "684ae38e36", "ef44e77452", "3133cf6455",
-  "58a45eadc1", "c137679392", "fa65a36b56", "8bbae07d77", "e84562ec6c",
-  "5a5e23cf3f", "104ebd2c61", "83f9ff80e3", "e73a61e76e", "ea1f968a14",
-  "b5107d8172", "c572e6de6b", "c7b523fdfb", "88529fcc80", "d61b1b518d",
-  "927139106b", "b85e098020", "7b5e9c2694", "6ca6e7e15c", "dd31357ea1",
-  "a011402fc6", "f93eaf44f5", "b0c571eb27", "45d42a3850", "3e2ad1ee2a",
-  "fc7ad35d96", "f1978e50bf", "d24ee3782f", "91138b0815", "93378b25e5",
-  "c79b855948", "3ef2e3f3e1", "a618e82f97", "88472e591e", "f00a91528d",
-  "8df90ef95b", "7e15d0f7cf", "64c941c8f5", "4b36e8dbe3", "aa6a70b69d",
-  "d7005d7dab", "d46c576853", "8481fed5fc", "4129ccb423", "18464e5a9e",
-  "eb7d686251", "d94ad9ed56", "1eaeb220f4", "507e40e302", "e2fcf4eacb",
-  "e060a02445", "d9d5725dd1", "2e005387b1", "8dbd1b161d", "b0ab4e2d15",
-  "9ac7c90b18", "9bdeb87baf", "a6292a639b", "c858309fb6", "484f008642",
-  "1d651e75c8", "489e59fd17", "f2499d892c", "7931a8c863", "bff42ec647",
-  "d2bd722d6f", "dcaf666c60", "6407a1bf7c", "2d171b3216", "bdf22d64bb",
-  "b3b41b35b3", "934eb00a3c", "86f2c90c16", "49cf67dfe8", "947d2af05a",
-  "835f6fb765", "d701ffbf8d", "433dc94bcb", "e4c3e97f0d", "167ca102aa",
-  "7f0f674ea9", "618f690a3d", "4db650d8f3", "af30e4e038", "4bc270e407",
-  "fbd608ca56", "eec3022496", "9efab4c0c9", "9601bcf21c", "1615f1e469",
-  "61e7286d22", "5bdb9bded0", "b4bdc66dee", "4ec22d81fd", "c3c33e7d72",
-  "f1941ebd4c", "bab90599c4", "2ea8864d3c", "6bd664359a", "859df758ac",
-  "7aee6f3795", "6ca27a101a", "79ca52a746", "dba1706311", "fd7f740bf9",
-  "7bc133f5f1", "78c0f568b0", "831e97018e", "6fcd6c9a56", "24a45b681b",
-  "3063a84490", "bf0f17c629", "75dc1becb6", "7fed53b2b0", "96c566c90d",
-  "6a9bceea98", "a43d4dd7f2", "827c460bf3", "1fc4e4b62d", "ef510efab8",
-  "5d4e98c02e", "3158b5d6d0", "58dfc18960", "b8545047c2", "e276919e1f",
-  "4ac11876fb", "dbeb3e5115", "f39b234c39", "5f61624682", "fde4fc7501",
-  "c2de495eab", "1ec528a256", "53d2f768c9", "6343418079", "7eed8a43ca",
-  "33fe7390da", "67662fff1a", "5c48be3fa2", "8d2e29f825", "8f8f072dcb",
-  "b1f1bcb4ef", "51e90de6d0", "33ce36dec7", "59d41c5e93", "de61105af3",
-  "184b9f3490", "619b731f88", "7c0488d363", "763a427747", "86fbabaeeb",
-  "195324f6c4", "cf51cae513", "6455ca6f10", "15d8692026", "849d0f7768",
-  "14519b2eac", "f1b1940f8c", "a085cecc24", "b34c8b8301", "ad36f97087",
-  "761c96f0d1", "eaec9973e1", "95cf227394", "21625f6f38", "e6eb0148ba",
-  "6889595341", "8fa96e175d", "6a7420e6c8", "267fb796bc", "d55e23d959",
-  "8c9950cbb6", "715b37a2a3", "ba09306c6e", "67bfa9067a", "f1da4f6819",
-  "d93169049b", "2e88404750", "bbd7e02920", "6ed43444c1", "87df90d2c2",
-  "52d3edc2f2", "cab1bc7a99", "812c6c27ff", "e88a476ef9", "42dd44048e",
-  "35056ed0e2", "fc4eeab6ea", "8d0adb0130", "139fcc09d4", "bba5a31715",
-  "999b8b41ad", "dda60c97c5", "29a9261dc5", "9dc31a6f63", "7547733614",
-  "afdd18b3c0", "4e7a7f41e2", "3ea8b6ea83", "774c564f07", "4c26c0e1a5",
-  "8df81b6e95", "9f883ef4c6", "d90c2316d8", "eaba1e6a1b", "48d77d2112",
-  "23ec602852", "921a089b76", "a50ece641d", "7060fd0649", "9290929200",
-  "f31c437c95", "2f07c4fb14", "9154cef0d1", "d8ff673c05", "6678887bb9",
-  "225b997319", "84020a473f", "2c473eb609", "e4fa1fbbb6", "2d0f95ca7e",
-  "9c26e121d6", "77f5a9199d", "ef32e3bdbf", "c8d4213084", "c488a68cbe",
-  "3408dfcc0d", "f36881f2e6"
+  "bfc3ed4b03", "3338563acb", "d23826a2b6", "f8d3515280", "ae380abd07",
+  "7da3cfb685", "40dda19722", "9f44eb4f04", "811fe30937", "f64a353d3a",
+  "3e74bbfe63", "6a4d4a53d3", "883985217f", "803e2a4da2", "2e7602e352",
+  "a20a055e0c", "8d8af2226e", "8cae28b12f", "8b4de93694", "40ea33b9cd",
+  "30057a646b", "4b07383d69", "bdb2f5b47e", "545b0f2e43", "a8a78561de",
+  "22de443d7d", "d0954ff5d9", "3585c2f451", "e47b55d10a", "ae520d58b8",
+  "9d7b2130e2", "cece075f0d", "a8f9095ef2", "5eadd6c71f", "15f35eb973",
+  "aef8cd2e81", "c78fd6f1b1", "da541f5b5c", "68844f31e0", "9dae7de29d",
+  "532f985180", "1f5d51ba8b", "1b38c553d5", "68e9fdce7b", "9a31f61888",
+  "7d9253b772", "e45ee0e190", "eaeea9593a", "f72162432a", "1ef7f72e1b",
+  "5417471ff0", "ac8eab5edd", "10d282c44b", "c49e3013e2", "2a28b5feac",
+  "e90f5847de", "6b716fa73b", "dfbfc7014c", "bb3df8ef34", "67e0211773",
+  "5bcafca5ee", "a0608ff150", "c247939f95", "d01a614aa8", "ecfa27edc4",
+  "260709664b", "4408decd63", "f3ee264bcc", "b3941664ec", "4d6db8ea68",
+  "dbf83d2838", "858cf7950d", "2d36ecceab", "47e6f49290", "e66ebd3835",
+  "839b771805", "3ffd4c1343", "e3df68af60", "31989939dd", "ec69285ad2",
+  "a48687d195", "630164af15", "31e3f5fbc2", "935ad4d008", "85a41e9899",
+  "9ade60baf1", "e2eeead870", "e87b48135a", "2ec71d36b0", "70826b34a6",
+  "192f743574", "8fc9f642c1", "64b53f23b3", "ba43c36b35", "40b257ec36",
+  "c80a5959bb", "3beaddb0b3", "7f058057d3", "c03117dcf9"
 ];
 
 async function addNewKeysIfRequested() {
@@ -577,7 +541,7 @@ async function claimMyCode() {
 }
 
 // ================================
-// Kalitning amal qilish muddati taymeri (170 soat, olingan vaqtdan hisoblanadi)
+// Kalitning amal qilish muddati taymeri (DURATION_HOURS'dan olinadi)
 let timerInterval = null;
 
 function startTimer() {
