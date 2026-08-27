@@ -3,235 +3,626 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Modded by - Dilmurod</title>
+  <title>Kalitni oching</title>
+
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
 
   <style>
-    * {
-      box-sizing: border-box;
+    :root {
+      --bg: #0b0e1f;
+      --bg-2: #10142a;
+      --surface: #141a33;
+      --surface-2: #182047;
+      --line: #2a3363;
+      --sky: #2f7dff;
+      --lilac: #a855f7;
+      --text: #eef1fb;
+      --text-dim: #93a0c9;
+      --text-faint: #5b6690;
+      --danger: #ff8399;
+      --grad: linear-gradient(120deg, var(--sky), var(--lilac));
     }
+
+    * { box-sizing: border-box; }
+
+    html, body { height: 100%; }
 
     body {
-      background: radial-gradient(ellipse at top, #0f2027 0%, #000000 70%);
-      color: #fff;
-      font-family: Arial, sans-serif;
-      text-align: center;
-      padding: 20px;
-      position: relative;
-      min-height: 100vh;
-      overflow-x: hidden;
       margin: 0;
-    }
-
-    h2 {
+      min-height: 100vh;
+      background:
+        radial-gradient(1000px 550px at 10% -10%, rgba(47,125,255,0.16), transparent 60%),
+        radial-gradient(1000px 650px at 100% 5%, rgba(168,85,247,0.20), transparent 55%),
+        var(--bg);
+      color: var(--text);
+      font-family: 'Inter', -apple-system, sans-serif;
+      padding: 56px 20px 80px;
       position: relative;
-      z-index: 2;
-      text-shadow: 0 0 12px rgba(0,255,213,.5);
+      overflow-x: hidden;
     }
 
-    p {
-      position: relative;
-      z-index: 2;
-      opacity: .8;
-    }
-
-    /* Qor parchalarini animatsiya qilish uchun */
-    .snowflake {
+    .snowfield {
       position: fixed;
-      top: -10%;
-      color: #fff;
-      user-select: none;
+      inset: 0;
       pointer-events: none;
+      overflow: hidden;
+      z-index: 0;
+    }
+    .flake {
+      position: absolute;
+      top: -10%;
+      color: rgba(233, 238, 255, 0.75);
+      user-select: none;
+      will-change: transform, opacity;
+      animation: snow-fall linear infinite;
+    }
+    @keyframes snow-fall {
+      0%   { transform: translateY(-10vh) translateX(0) rotate(0deg); opacity: 0; }
+      8%   { opacity: 1; }
+      92%  { opacity: 1; }
+      100% { transform: translateY(110vh) translateX(var(--drift, 40px)) rotate(200deg); opacity: 0; }
+    }
+
+    .wrap {
+      max-width: 560px;
+      margin: 0 auto;
+      position: relative;
       z-index: 1;
-      text-shadow: 0 0 6px rgba(255,255,255,.8);
-      animation-name: fall, sway;
-      animation-timing-function: linear, ease-in-out;
-      animation-iteration-count: infinite;
     }
 
-    @keyframes fall {
-      0% {
-        top: -10%;
-        opacity: 1;
-      }
-      100% {
-        top: 110%;
-        opacity: .4;
-      }
+    .eyebrow {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--sky);
+      margin-bottom: 16px;
+    }
+    .eyebrow .dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--grad);
+      box-shadow: 0 0 10px rgba(47,125,255,0.9);
     }
 
-    @keyframes sway {
-      0%, 100% {
-        transform: translateX(0);
-      }
-      50% {
-        transform: translateX(30px);
-      }
+    h1 {
+      font-family: 'Sora', sans-serif;
+      font-weight: 800;
+      font-size: 32px;
+      line-height: 1.2;
+      text-align: center;
+      margin: 0 0 12px;
+      letter-spacing: -0.01em;
     }
 
-    .link {
+    .sub {
+      text-align: center;
+      color: var(--text-dim);
+      font-size: 15px;
+      line-height: 1.6;
+      max-width: 420px;
+      margin: 0 auto 44px;
+    }
+
+    /* ===== Step rail — vizual ravishda yashirilgan, mantiq saqlanadi ===== */
+    .rail {
+      position: relative;
+      padding-left: 0;
+    }
+    .rail::before {
+      display: none;
+    }
+    .rail-fill {
+      display: none;
+    }
+
+    .step {
+      position: relative;
+      margin-bottom: 16px;
+    }
+
+    .step-num {
+      display: none;
+    }
+
+    a.link {
       display: block;
       position: relative;
       overflow: hidden;
-      background: linear-gradient(135deg, rgba(0,255,213,.35), rgba(0,255,213,.12));
-      backdrop-filter: blur(6px);
-      -webkit-backdrop-filter: blur(6px);
-      color: #fff;
-      margin: 12px auto;
-      padding: 16px;
-      width: 95%;
-      max-width: 420px;
+      text-align: center;
+      background: linear-gradient(135deg, #1b2338, #171e30);
+      border: 1px solid rgba(255,255,255,0.06);
       border-radius: 50px;
-      border: 1px solid rgba(255,255,255,.35);
+      padding: 20px 24px;
       text-decoration: none;
-      font-size: 18px;
-      font-weight: bold;
-      transition: transform .3s ease, box-shadow .3s ease, background .3s ease;
-      box-shadow: 0 0 12px rgba(0,255,213,.4), inset 0 1px 1px rgba(255,255,255,.6);
-      z-index: 2;
+      color: var(--text-faint);
+      transition: transform 0.25s ease, border-color 0.25s ease, background 0.25s ease, box-shadow 0.25s ease, opacity 0.25s ease, color 0.25s ease;
+      cursor: pointer;
+      box-shadow: none;
     }
 
-    /* Shisha kabi yaltiroq effekt */
-    .link::before {
+    /* Shisha kabi yaltiroq effekt — barcha holatlarda bir xil */
+    a.link::before {
       content: "";
       position: absolute;
       top: 0;
       left: -75%;
-      width: 50%;
+      width: 45%;
       height: 100%;
-      background: linear-gradient(120deg, transparent, rgba(255,255,255,.55), transparent);
+      background: linear-gradient(120deg, transparent, rgba(255,255,255,0.25), transparent);
       transform: skewX(-25deg);
-      animation: shine 3.5s infinite;
+      animation: link-shine 4.5s infinite;
+      pointer-events: none;
     }
 
-    @keyframes shine {
+    @keyframes link-shine {
       0% { left: -75%; }
-      40% { left: 130%; }
+      35% { left: 130%; }
       100% { left: 130%; }
     }
 
-    .link:hover:not(.disabled) {
-      background: linear-gradient(135deg, rgba(26,255,26,.45), rgba(26,255,26,.18));
-      transform: scale(1.06);
-      box-shadow: 0 0 20px rgba(26,255,26,.7), inset 0 1px 1px rgba(255,255,255,.6);
+    /* Joriy (navbatdagi, bosish mumkin bo'lgan) tugma — teal porlash */
+    a.link:not(.disabled):not(.visited) {
+      background: linear-gradient(135deg, #0f9d84, #0c7d6b);
+      border-color: rgba(255,255,255,0.25);
+      color: #fff;
+      box-shadow: 0 0 20px rgba(16,185,150,0.55), inset 0 1px 1px rgba(255,255,255,0.3);
     }
 
-    .link.disabled {
-      background: rgba(120,120,120,.25);
-      border-color: rgba(255,255,255,.12);
-      color: rgba(255,255,255,.5);
-      pointer-events: none;
-      box-shadow: none;
+    a.link:hover:not(.disabled) {
+      transform: translateY(-2px) scale(1.015);
+      box-shadow: 0 0 28px rgba(16,185,150,0.75), inset 0 1px 1px rgba(255,255,255,0.35);
     }
+    a.link:active:not(.disabled) { transform: translateY(0) scale(1); }
 
-    .link.disabled::before {
-      animation: none;
+    a.link .label {
+      position: relative;
+      z-index: 1;
+      font-family: 'Sora', sans-serif;
+      font-weight: 700;
+      font-size: 17px;
+    }
+    a.link .status {
       display: none;
     }
 
-    .link.visited {
-      background: linear-gradient(135deg, rgba(26,255,26,.45), rgba(26,255,26,.18));
-      box-shadow: 0 0 16px rgba(26,255,26,.6), inset 0 1px 1px rgba(255,255,255,.6);
+    /* Disabled — quyuq kulrang, xira */
+    a.link.disabled {
+      opacity: 1;
+      pointer-events: none;
+      background: linear-gradient(135deg, #1b2338, #171e30);
+      color: #6b7590;
+      box-shadow: none;
+    }
+    a.link.disabled::before {
+      display: none;
     }
 
-    .link.visited::after {
-      content: "✔ Bajarildi";
-      display: block;
-      font-size: 13px;
-      margin-top: 4px;
-      color: #d8ffd8;
-      font-weight: normal;
-    }
-
-    /* Oxirgi tugma - moviy shisha */
-    .link.finalBlue {
-      background: linear-gradient(135deg, rgba(33,150,243,.55), rgba(33,150,243,.2));
+    /* Visited — bajarilgan, yorqin yashil porlash */
+    a.link.visited {
+      background: linear-gradient(135deg, #12b886, #0f9d78);
+      border-color: rgba(255,255,255,0.3);
       color: #fff;
-      box-shadow: 0 0 18px rgba(33,150,243,.7), inset 0 1px 1px rgba(255,255,255,.6);
-      animation: pulse 2s infinite;
+      box-shadow: 0 0 20px rgba(18,184,134,0.6), inset 0 1px 1px rgba(255,255,255,0.3);
     }
+    a.link.visited .status { color: var(--lilac); }
+    a.link.visited .status::before { content: "✓ "; }
 
-    .link.finalBlue::after {
+    /* ===== Code card ===== */
+    #codeBox {
+      display: none;
+      margin-top: 48px;
+      position: relative;
+      background: linear-gradient(160deg, rgba(24,32,71,0.85), rgba(20,26,51,0.85));
+      backdrop-filter: blur(10px);
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      padding: 36px 28px;
+      text-align: center;
+      overflow: hidden;
+    }
+    #codeBox::before {
       content: "";
+      position: absolute;
+      inset: -1px;
+      padding: 1px;
+      border-radius: 20px;
+      background: var(--grad);
+      opacity: 0.5;
+      -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      pointer-events: none;
     }
 
-    @keyframes pulse {
-      0%, 100% { box-shadow: 0 0 18px rgba(33,150,243,.7), inset 0 1px 1px rgba(255,255,255,.6); }
-      50% { box-shadow: 0 0 30px rgba(33,150,243,1), inset 0 1px 1px rgba(255,255,255,.6); }
+    .cb-title {
+      font-family: 'Sora', sans-serif;
+      font-weight: 700;
+      font-size: 20px;
+      margin: 0 0 22px;
+    }
+
+    .code {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 27px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      color: var(--text);
+      cursor: pointer;
+      padding: 14px 20px;
+      background: rgba(0,0,0,0.25);
+      border: 1px dashed var(--line);
+      border-radius: 12px;
+      display: inline-block;
+      word-break: break-all;
+      transition: border-color 0.2s ease;
+    }
+    .code:hover { border-color: var(--sky); }
+
+    .code.pending {
+      font-family: 'Inter', sans-serif;
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--text-dim);
+      letter-spacing: normal;
+      border-style: solid;
+    }
+    .code.err {
+      font-family: 'Inter', sans-serif;
+      font-size: 14.5px;
+      font-weight: 500;
+      color: var(--danger);
+      letter-spacing: normal;
+      border-color: rgba(255,131,153,0.35);
+    }
+
+    .copyHint {
+      margin-top: 12px;
+      font-size: 12.5px;
+      color: var(--text-faint);
+    }
+
+    #timer {
+      margin-top: 26px;
+      padding-top: 22px;
+      border-top: 1px solid var(--line);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 14px;
+      color: var(--text-dim);
+      letter-spacing: 0.02em;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      * { animation: none !important; transition: none !important; }
+      .flake { display: none; }
     }
   </style>
 </head>
 <body>
 
-  <h2>🔑 Saytni Qulfdan ochish uchun kanallarga obuna bo‘l</h2>
-  <p>Sahifani yangilama</p>
+<div class="snowfield" id="snowfield" aria-hidden="true"></div>
 
-  <a class="link" href="https://modderff.github.io/Fayllar/Modder-FF-Video.html" target="_blank" data-text="1) Shorts (Like + Comment)" onclick="visit(0)"></a>
-  <a class="link disabled" href="https://www.youtube.com/channel/UCdlOZ5UZRq1Y3HiuDdgi3Ag" target="_blank" data-text="2) YouTube FF (Obuna)" onclick="visit(1)"></a>
-  <a class="link disabled" href="https://modderff.github.io/Fayllar/King-Pubg-Video.html" target="_blank" data-text="3) Shorts (Like + Comment)" onclick="visit(2)"></a>
-  <a class="link disabled" href="https://www.youtube.com/channel/UC9E0sZ3-qmpLqD2dH6CLAVA" target="_blank" data-text="4) YouTube PG (Obuna)" onclick="visit(3)"></a>
-  <a class="link disabled" href="https://modderff.github.io/Fayllar/Telegram-Link.html" target="_blank" data-text="5) Telegram (Join)" onclick="visit(4)"></a>
+<div class="wrap">
+  <div class="eyebrow"><span class="dot"></span>Kirish kalitini oching</div>
+  <h1>Kanallarga obuna bo‘l,<br>kalitni qo‘lga kirit</h1>
+  <p class="sub">Har bir bosqichni tartib bilan bajaring. Beshinchisi tugagach, sizga shaxsiy kirish kaliti ajratiladi.</p>
 
-  <a href="https://modderff.netlify.app/"
-     target="_blank"
-     class="link finalBlue"
-     id="finalBtn"
-     style="display:none;">
-🔑 Key olish
-  </a>
+  <div class="rail">
+    <div class="rail-fill" id="railFill"></div>
 
-  <script>
-    // ❄️ Qor parchalarini qo'shish uchun
-    function createSnowflake() {
-      const flake = document.createElement("div");
-      flake.classList.add("snowflake");
-      flake.textContent = "❄";
+    <div class="step" data-step="0">
+      <div class="step-num">1</div>
+      <a class="link" href="https://youtu.be/5Cjt8rhD6Xc?si=Hi2ZllEosgjErMls" target="_blank" onclick="visit(0)">
+        <div class="label">1) Shorts — Like + Comment</div>
+        <div class="status">Bosing va bajaring</div>
+      </a>
+    </div>
 
-      const size = Math.random() * 14 + 10; // 10px - 24px
-      const duration = Math.random() * 6 + 6; // 6s - 12s
-      const swayDuration = Math.random() * 3 + 2; // 2s - 5s
-      const delay = Math.random() * 2;
+    <div class="step" data-step="1">
+      <div class="step-num">2</div>
+      <a class="link disabled" href="https://www.youtube.com/channel/UCdlOZ5UZRq1Y3HiuDdgi3Ag" target="_blank" onclick="visit(1)">
+        <div class="label">2) YouTube FF — Obuna bo‘lish</div>
+        <div class="status">Navbatda</div>
+      </a>
+    </div>
 
-      flake.style.left = Math.random() * 100 + "vw";
-      flake.style.fontSize = size + "px";
-      flake.style.opacity = Math.random() * .5 + .5;
-      flake.style.animationDuration = duration + "s, " + swayDuration + "s";
-      flake.style.animationDelay = "0s, " + delay + "s";
+    <div class="step" data-step="2">
+      <div class="step-num">3</div>
+      <a class="link disabled" href="https://youtu.be/LLLLz-mQPpM?si=DYhQ_LeqN7Wp7WOS" target="_blank" onclick="visit(2)">
+        <div class="label">3) Shorts — Like + Comment</div>
+        <div class="status">Navbatda</div>
+      </a>
+    </div>
 
-      document.body.appendChild(flake);
+    <div class="step" data-step="3">
+      <div class="step-num">4</div>
+      <a class="link disabled" href="https://www.youtube.com/channel/UC9E0sZ3-qmpLqD2dH6CLAVA" target="_blank" onclick="visit(3)">
+        <div class="label">4) YouTube PG — Obuna bo‘lish</div>
+        <div class="status">Navbatda</div>
+      </a>
+    </div>
 
-      // Animatsiya tugagach DOM dan olib tashlash (xotira sizib chiqishining oldini olish)
-      setTimeout(() => flake.remove(), duration * 1000);
+    <div class="step" data-step="4">
+      <div class="step-num">5</div>
+      <a class="link disabled" href="https://t.me/+RZiLoLoeBWMzZmNi" target="_blank" onclick="visit(4)">
+        <div class="label">5) Telegram — Kanalga qo‘shilish</div>
+        <div class="status">Navbatda</div>
+      </a>
+    </div>
+  </div>
 
-      setTimeout(createSnowflake, Math.random() * 400 + 200);
+  <div id="codeBox">
+    <p class="cb-title">🎉 Tabriklaymiz, kalitingiz tayyor</p>
+    <div class="code" id="codeText">—</div>
+    <div class="copyHint" id="copyHint">Bosib nusxalang</div>
+    <div id="timer"></div>
+  </div>
+</div>
+
+<script>
+// ====== QOR ANIMATSIYASI ======
+(function makeSnow() {
+  const field = document.getElementById("snowfield");
+  const flakeChars = ["❄", "❅", "❆"];
+  const COUNT = 34;
+  for (let i = 0; i < COUNT; i++) {
+    const el = document.createElement("span");
+    el.className = "flake";
+    el.textContent = flakeChars[Math.floor(Math.random() * flakeChars.length)];
+    const size = 10 + Math.random() * 16;
+    const left = Math.random() * 100;
+    const duration = 9 + Math.random() * 10;
+    const delay = Math.random() * -20;
+    const drift = (Math.random() * 80 - 40) + "px";
+    el.style.left = left + "vw";
+    el.style.fontSize = size + "px";
+    el.style.animationDuration = duration + "s";
+    el.style.animationDelay = delay + "s";
+    el.style.setProperty("--drift", drift);
+    field.appendChild(el);
+  }
+})();
+
+// ====== FIREBASE SOZLAMALARI ======
+const firebaseConfig = {
+  apiKey: "AIzaSyBagTt_GKxzKzUiIj8dIVZu-gPM9-EHDUo",
+  authDomain: "planning-with-ai-7f474.firebaseapp.com",
+  projectId: "planning-with-ai-7f474",
+  storageBucket: "planning-with-ai-7f474.firebasestorage.app",
+  messagingSenderId: "730296215902",
+  appId: "1:730296215902:web:ef0487d2ac628724e947cf"
+};
+
+firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
+
+const KEYS_COLLECTION = "codes100";
+const LOCAL_CLAIM_KEY = "codes100_my_claim";
+const DURATION_HOURS = 24;
+
+// ====== YANGI KALITLARNI QO'SHISH (faqat admin uchun) ======
+// Manzilga ?addkeys=1 qo'shib ochilganda, quyidagi ro'yxatdagi kalitlarni
+// bazaga YOZADI (mavjud kalitlarga tegmaydi, faqat shu ro'yxatdagilarni yozadi).
+// Rules'da vaqtincha "create" ruxsat berilgan bo'lishi kerak.
+const NEW_KEYS_TO_ADD = [
+  "bfc3ed4b03", "3338563acb", "d23826a2b6", "f8d3515280", "ae380abd07",
+  "7da3cfb685", "40dda19722", "9f44eb4f04", "811fe30937", "f64a353d3a",
+  "3e74bbfe63", "6a4d4a53d3", "883985217f", "803e2a4da2", "2e7602e352",
+  "a20a055e0c", "8d8af2226e", "8cae28b12f", "8b4de93694", "40ea33b9cd",
+  "30057a646b", "4b07383d69", "bdb2f5b47e", "545b0f2e43", "a8a78561de",
+  "22de443d7d", "d0954ff5d9", "3585c2f451", "e47b55d10a", "ae520d58b8",
+  "9d7b2130e2", "cece075f0d", "a8f9095ef2", "5eadd6c71f", "15f35eb973",
+  "aef8cd2e81", "c78fd6f1b1", "da541f5b5c", "68844f31e0", "9dae7de29d",
+  "532f985180", "1f5d51ba8b", "1b38c553d5", "68e9fdce7b", "9a31f61888",
+  "7d9253b772", "e45ee0e190", "eaeea9593a", "f72162432a", "1ef7f72e1b",
+  "5417471ff0", "ac8eab5edd", "10d282c44b", "c49e3013e2", "2a28b5feac",
+  "e90f5847de", "6b716fa73b", "dfbfc7014c", "bb3df8ef34", "67e0211773",
+  "5bcafca5ee", "a0608ff150", "c247939f95", "d01a614aa8", "ecfa27edc4",
+  "260709664b", "4408decd63", "f3ee264bcc", "b3941664ec", "4d6db8ea68",
+  "dbf83d2838", "858cf7950d", "2d36ecceab", "47e6f49290", "e66ebd3835",
+  "839b771805", "3ffd4c1343", "e3df68af60", "31989939dd", "ec69285ad2",
+  "a48687d195", "630164af15", "31e3f5fbc2", "935ad4d008", "85a41e9899",
+  "9ade60baf1", "e2eeead870", "e87b48135a", "2ec71d36b0", "70826b34a6",
+  "192f743574", "8fc9f642c1", "64b53f23b3", "ba43c36b35", "40b257ec36",
+  "c80a5959bb", "3beaddb0b3", "7f058057d3", "c03117dcf9"
+];
+
+async function addNewKeysIfRequested() {
+  const params = new URLSearchParams(location.search);
+  if (params.get("addkeys") !== "1") return;
+
+  try {
+    const keysRef = db.collection(KEYS_COLLECTION);
+    const batch = db.batch();
+    let addedCount = 0;
+    for (const code of NEW_KEYS_TO_ADD) {
+      const existing = await keysRef.doc(code).get();
+      if (existing.exists) continue; // eskisiga tegmaymiz
+      batch.set(keysRef.doc(code), { duration: "24Hour", status: "available", claimedBy: null });
+      addedCount++;
     }
+    if (addedCount > 0) await batch.commit();
+    alert(addedCount + " ta yangi kalit muvaffaqiyatli qo'shildi.");
+  } catch (e) {
+    console.error("Yangi kalit qo'shishda xatolik:", e);
+    alert("Xatolik: " + e.message);
+  }
+}
+addNewKeysIfRequested();
 
-    createSnowflake();
+// Mahalliy (shu brauzerdagi) so'nggi olingan kalitni {code, claimedAt} ko'rinishida saqlaydi.
+function getLocalClaim() {
+  try {
+    const raw = localStorage.getItem(LOCAL_CLAIM_KEY);
+    if (!raw) return null;
+    const parsed = JSON.parse(raw);
+    if (parsed && parsed.code && parsed.claimedAt) return parsed;
+    return null;
+  } catch (e) { return null; }
+}
+function saveLocalClaimEntry(code, claimedAt) {
+  try { localStorage.setItem(LOCAL_CLAIM_KEY, JSON.stringify({ code, claimedAt })); } catch (e) {}
+}
+function isExpired(claimedAt) {
+  const elapsedMs = Date.now() - claimedAt;
+  return elapsedMs > DURATION_HOURS * 60 * 60 * 1000;
+}
 
-    const links = document.querySelectorAll(".link:not(.finalBlue)");
-    links.forEach(l => l.textContent = l.dataset.text);
+const codeTextEl = document.getElementById("codeText");
+const copyHintEl = document.getElementById("copyHint");
 
-    let visited = [false, false, false, false, false];
-    let current = 0;
+function showCodeState(state, value) {
+  codeTextEl.classList.remove("pending", "err");
+  if (state === "pending") {
+    codeTextEl.classList.add("pending");
+    codeTextEl.textContent = "Kalit ajratilmoqda…";
+    copyHintEl.textContent = "";
+  } else if (state === "empty") {
+    codeTextEl.classList.add("err");
+    codeTextEl.textContent = "Afsuski, kalitlar tugadi";
+    copyHintEl.textContent = "Keyinroq qayta urinib ko'ring";
+  } else if (state === "error") {
+    codeTextEl.classList.add("err");
+    codeTextEl.textContent = "Ulanishda xatolik yuz berdi";
+    copyHintEl.textContent = "Sahifani yangilab ko'ring";
+  } else if (state === "ready") {
+    codeTextEl.textContent = value;
+    copyHintEl.textContent = "Bosib nusxalang";
+  }
+}
 
-    links.forEach((btn, i) => {
-      if (i !== 0) btn.classList.add("disabled");
+async function claimMyCode() {
+  showCodeState("pending");
+
+  const existing = getLocalClaim();
+  if (existing && !isExpired(existing.claimedAt)) {
+    showCodeState("ready", existing.code);
+    startTimer();
+    return;
+  }
+  // Agar existing bo'lsa-yu muddati o'tgan bo'lsa, pastga o'tib yangi kalit so'raymiz.
+
+  try {
+    const keysRef = db.collection(KEYS_COLLECTION);
+    const candidateSnap = await keysRef.where("status", "==", "available").limit(1).get();
+    if (candidateSnap.empty) {
+      showCodeState("empty");
+      return;
+    }
+    const candidateRef = candidateSnap.docs[0].ref;
+
+    const claimedCode = await db.runTransaction(async (tx) => {
+      const doc = await tx.get(candidateRef);
+      if (!doc.exists || doc.data().status !== "available") return null;
+      tx.update(candidateRef, {
+        status: "used",
+        claimedBy: "user-" + Math.random().toString(36).slice(2, 10),
+        claimedAt: Date.now()
+      });
+      return doc.id;
     });
 
-    function visit(i) {
-      if (i !== current) return;
+    if (!claimedCode) return claimMyCode();
 
-      visited[i] = true;
-      links[i].classList.remove("disabled");
-      links[i].classList.add("visited");
+    saveLocalClaimEntry(claimedCode, Date.now());
+    showCodeState("ready", claimedCode);
+    startTimer();
+  } catch (e) {
+    console.error(e);
+    showCodeState("error");
+  }
+}
 
-      current++;
-      if (links[current]) links[current].classList.remove("disabled");
+// ================================
+// Kalitning amal qilish muddati taymeri (170 soat, olingan vaqtdan hisoblanadi)
+let timerInterval = null;
 
-      if (visited.every(v => v)) {
-        document.getElementById("finalBtn").style.display = "block";
-      }
+function startTimer() {
+  if (timerInterval) clearInterval(timerInterval);
+
+  timerInterval = setInterval(function () {
+    const claim = getLocalClaim();
+    if (!claim) {
+      document.getElementById("timer").innerHTML = "";
+      clearInterval(timerInterval);
+      return;
     }
-  </script>
+
+    const expiresAt = claim.claimedAt + DURATION_HOURS * 60 * 60 * 1000;
+    const distance = expiresAt - Date.now();
+
+    if (distance <= 0) {
+      document.getElementById("timer").innerHTML = "Kalit muddati tugadi — sahifani yangilab, yangi kalit oling";
+      clearInterval(timerInterval);
+      return;
+    }
+
+    const hours = Math.floor(distance / (1000 * 60 * 60));
+    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+    document.getElementById("timer").innerHTML =
+      `Kalit amal qilish muddati: ${hours} soat ${minutes} daqiqa ${seconds} soniya`;
+  }, 1000);
+}
+
+// ================================
+// Bosqichlar mantig'i
+
+const steps = document.querySelectorAll(".step");
+const links = document.querySelectorAll("a.link");
+const railFill = document.getElementById("railFill");
+
+let visited = [false, false, false, false, false];
+let current = 0;
+
+function updateRail() {
+  const doneCount = visited.filter(Boolean).length;
+  railFill.style.height = (doneCount / visited.length * 100) + "%";
+}
+
+function markStepUI(i) {
+  steps[i].classList.remove("active");
+  steps[i].classList.add("done");
+  links[i].classList.remove("disabled");
+  links[i].classList.add("visited");
+  links[i].querySelector(".status").textContent = "Bajarildi";
+  if (steps[i + 1]) {
+    steps[i + 1].classList.add("active");
+    links[i + 1].classList.remove("disabled");
+    links[i + 1].querySelector(".status").textContent = "Endi shu bosqich";
+  }
+}
+
+function visit(i) {
+  if (i !== current) return;
+  visited[i] = true;
+  markStepUI(i);
+  updateRail();
+  current++;
+
+  if (visited.every(v => v)) {
+    document.getElementById("codeBox").style.display = "block";
+    claimMyCode();
+  }
+}
+
+steps[0].classList.add("active");
+links[0].querySelector(".status").textContent = "Endi shu bosqich";
+
+codeTextEl.onclick = function () {
+  if (codeTextEl.classList.contains("pending") || codeTextEl.classList.contains("err")) return;
+  navigator.clipboard.writeText(this.textContent);
+  copyHintEl.textContent = "Nusxa olindi ✓";
+};
+</script>
 
 </body>
 </html>
