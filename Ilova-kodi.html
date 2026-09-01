@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Key olish</title>
+  <title>Kalitni oching</title>
 
   <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
@@ -310,17 +310,17 @@
 <div class="snowfield" id="snowfield" aria-hidden="true"></div>
 
 <div class="wrap">
-  <div class="eyebrow"><span class="dot"></span>Modder & Dilmurod</div>
-  <h1>Sahifani yangilama</h1>
-  <p class="sub">Kanallarga obuna bo'lib videolarga Like bos</p>
+  <div class="eyebrow"><span class="dot"></span>Kirish kalitini oching</div>
+  <h1>Kanallarga obuna bo‘l,<br>kalitni qo‘lga kirit</h1>
+  <p class="sub">Har bir bosqichni tartib bilan bajaring. Beshinchisi tugagach, sizga shaxsiy kirish kaliti ajratiladi.</p>
 
   <div class="rail">
     <div class="rail-fill" id="railFill"></div>
 
     <div class="step" data-step="0">
       <div class="step-num">1</div>
-      <a class="link" href="https://modderff.github.io/Fayllar/Modder-FF-Video.html" target="_blank" onclick="visit(0)">
-        <div class="label">1) Video — Like + Comment</div>
+      <a class="link" href="https://youtu.be/5Cjt8rhD6Xc?si=Hi2ZllEosgjErMls" target="_blank" onclick="visit(0)">
+        <div class="label">1) Shorts — Like + Comment</div>
         <div class="status">Bosing va bajaring</div>
       </a>
     </div>
@@ -335,8 +335,8 @@
 
     <div class="step" data-step="2">
       <div class="step-num">3</div>
-      <a class="link disabled" href="https://modderff.github.io/Fayllar/King-Pubg-Video.html" target="_blank" onclick="visit(2)">
-        <div class="label">3) Video — Like + Comment</div>
+      <a class="link disabled" href="https://youtu.be/LLLLz-mQPpM?si=DYhQ_LeqN7Wp7WOS" target="_blank" onclick="visit(2)">
+        <div class="label">3) Shorts — Like + Comment</div>
         <div class="status">Navbatda</div>
       </a>
     </div>
@@ -408,48 +408,37 @@ const LOCAL_CLAIM_KEY = "codes100_my_claim";
 const DURATION_HOURS = 24;
 
 // ====== YANGI KALITLARNI QO'SHISH (faqat admin uchun) ======
-// Manzilga ?addkeys=1 qo'shib ochilganda, quyidagi ro'yxatdagi kalitlarni
-// bazaga YOZADI (mavjud kalitlarga tegmaydi, faqat shu ro'yxatdagilarni yozadi).
+// Manzilga ?addkeys=1 qo'shib ochilganda, "yangi-keylar.txt" faylidagi
+// kalitlarni bazaga YOZADI (mavjud kalitlarga tegmaydi, faqat shu
+// fayldagi, hali bazada yo'q kalitlarni qo'shadi).
 // Rules'da vaqtincha "create" ruxsat berilgan bo'lishi kerak.
-const NEW_KEYS_TO_ADD = [
-  "bfc3ed4b03", "3338563acb", "d23826a2b6", "f8d3515280", "ae380abd07",
-  "7da3cfb685", "40dda19722", "9f44eb4f04", "811fe30937", "f64a353d3a",
-  "3e74bbfe63", "6a4d4a53d3", "883985217f", "803e2a4da2", "2e7602e352",
-  "a20a055e0c", "8d8af2226e", "8cae28b12f", "8b4de93694", "40ea33b9cd",
-  "30057a646b", "4b07383d69", "bdb2f5b47e", "545b0f2e43", "a8a78561de",
-  "22de443d7d", "d0954ff5d9", "3585c2f451", "e47b55d10a", "ae520d58b8",
-  "9d7b2130e2", "cece075f0d", "a8f9095ef2", "5eadd6c71f", "15f35eb973",
-  "aef8cd2e81", "c78fd6f1b1", "da541f5b5c", "68844f31e0", "9dae7de29d",
-  "532f985180", "1f5d51ba8b", "1b38c553d5", "68e9fdce7b", "9a31f61888",
-  "7d9253b772", "e45ee0e190", "eaeea9593a", "f72162432a", "1ef7f72e1b",
-  "5417471ff0", "ac8eab5edd", "10d282c44b", "c49e3013e2", "2a28b5feac",
-  "e90f5847de", "6b716fa73b", "dfbfc7014c", "bb3df8ef34", "67e0211773",
-  "5bcafca5ee", "a0608ff150", "c247939f95", "d01a614aa8", "ecfa27edc4",
-  "260709664b", "4408decd63", "f3ee264bcc", "b3941664ec", "4d6db8ea68",
-  "dbf83d2838", "858cf7950d", "2d36ecceab", "47e6f49290", "e66ebd3835",
-  "839b771805", "3ffd4c1343", "e3df68af60", "31989939dd", "ec69285ad2",
-  "a48687d195", "630164af15", "31e3f5fbc2", "935ad4d008", "85a41e9899",
-  "9ade60baf1", "e2eeead870", "e87b48135a", "2ec71d36b0", "70826b34a6",
-  "192f743574", "8fc9f642c1", "64b53f23b3", "ba43c36b35", "40b257ec36",
-  "c80a5959bb", "3beaddb0b3", "7f058057d3", "c03117dcf9"
-];
+async function loadKeysFromFile() {
+  const res = await fetch("./yangi-keylar.txt", { cache: "no-store" });
+  if (!res.ok) throw new Error("yangi-keylar.txt topilmadi (HTTP " + res.status + ")");
+  const text = await res.text();
+  return text
+    .split(/\r?\n/)
+    .map(line => line.split(",")[0].trim()) // "kod,24Hour,No Used" bo'lsa ham, faqat kodni oladi
+    .filter(code => code.length > 0);
+}
 
 async function addNewKeysIfRequested() {
   const params = new URLSearchParams(location.search);
   if (params.get("addkeys") !== "1") return;
 
   try {
+    const codes = await loadKeysFromFile();
     const keysRef = db.collection(KEYS_COLLECTION);
     const batch = db.batch();
     let addedCount = 0;
-    for (const code of NEW_KEYS_TO_ADD) {
+    for (const code of codes) {
       const existing = await keysRef.doc(code).get();
       if (existing.exists) continue; // eskisiga tegmaymiz
       batch.set(keysRef.doc(code), { duration: "24Hour", status: "available", claimedBy: null });
       addedCount++;
     }
     if (addedCount > 0) await batch.commit();
-    alert(addedCount + " ta yangi kalit muvaffaqiyatli qo'shildi.");
+    alert(addedCount + " ta yangi kalit muvaffaqiyatli qo'shildi (" + codes.length + " tadan tekshirildi).");
   } catch (e) {
     console.error("Yangi kalit qo'shishda xatolik:", e);
     alert("Xatolik: " + e.message);
