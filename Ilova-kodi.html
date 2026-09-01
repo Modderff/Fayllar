@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Kalitni oching</title>
+  <title>Key olish</title>
 
   <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
@@ -310,9 +310,9 @@
 <div class="snowfield" id="snowfield" aria-hidden="true"></div>
 
 <div class="wrap">
-  <div class="eyebrow"><span class="dot"></span>Kirish kalitini oching</div>
-  <h1>Kanallarga obuna bo‘l,<br>kalitni qo‘lga kirit</h1>
-  <p class="sub">Har bir bosqichni tartib bilan bajaring. Beshinchisi tugagach, sizga shaxsiy kirish kaliti ajratiladi.</p>
+  <div class="eyebrow"><span class="dot"></span>1 ta Key 24 soat ishlaydi keyin yaroqsiz</div>
+  <h1>Yangi key 24 soatdan keyin beriladi</h1>
+  <p class="sub">Kanallarga obuna bo'l videoga Like bos oxirida Key beriladi</p>
 
   <div class="rail">
     <div class="rail-fill" id="railFill"></div>
@@ -320,7 +320,7 @@
     <div class="step" data-step="0">
       <div class="step-num">1</div>
       <a class="link" href="https://youtu.be/5Cjt8rhD6Xc?si=Hi2ZllEosgjErMls" target="_blank" onclick="visit(0)">
-        <div class="label">1) Shorts — Like + Comment</div>
+        <div class="label">1) Video — Like + Comment</div>
         <div class="status">Bosing va bajaring</div>
       </a>
     </div>
@@ -336,7 +336,7 @@
     <div class="step" data-step="2">
       <div class="step-num">3</div>
       <a class="link disabled" href="https://youtu.be/LLLLz-mQPpM?si=DYhQ_LeqN7Wp7WOS" target="_blank" onclick="visit(2)">
-        <div class="label">3) Shorts — Like + Comment</div>
+        <div class="label">3) Video — Like + Comment</div>
         <div class="status">Navbatda</div>
       </a>
     </div>
@@ -359,9 +359,9 @@
   </div>
 
   <div id="codeBox">
-    <p class="cb-title">🎉 Tabriklaymiz, kalitingiz tayyor</p>
+    <p class="cb-title">🎉 24 soatli key berildi</p>
     <div class="code" id="codeText">—</div>
-    <div class="copyHint" id="copyHint">Bosib nusxalang</div>
+    <div class="copyHint" id="copyHint">Bosib nusxala</div>
     <div id="timer"></div>
   </div>
 </div>
@@ -475,7 +475,7 @@ function showCodeState(state, value) {
     copyHintEl.textContent = "";
   } else if (state === "empty") {
     codeTextEl.classList.add("err");
-    codeTextEl.textContent = "Afsuski, kalitlar tugadi";
+    codeTextEl.textContent = "Afsuski Keylar tugadi";
     copyHintEl.textContent = "Keyinroq qayta urinib ko'ring";
   } else if (state === "error") {
     codeTextEl.classList.add("err");
@@ -483,7 +483,7 @@ function showCodeState(state, value) {
     copyHintEl.textContent = "Sahifani yangilab ko'ring";
   } else if (state === "ready") {
     codeTextEl.textContent = value;
-    copyHintEl.textContent = "Bosib nusxalang";
+    copyHintEl.textContent = "Bosib nusxala";
   }
 }
 
