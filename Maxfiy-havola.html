@@ -138,56 +138,55 @@ a.button.clicked {
   border: 2px solid white;
 }
 
-.button:nth-child(1){animation-delay:.1s}
-.button:nth-child(2){animation-delay:.2s}
-.button:nth-child(3){animation-delay:.3s}
-.button:nth-child(4){animation-delay:.4s}
-.button:nth-child(5){animation-delay:.5s}
-.button:nth-child(6){animation-delay:.6s}
-.button:nth-child(7){animation-delay:.7s}
-.button:nth-child(8){animation-delay:.8s}
-.button:nth-child(9){animation-delay:.9s}
-.button:nth-child(10){animation-delay:1s}
-.button:nth-child(11){animation-delay:1.1s}
-.button:nth-child(12){animation-delay:1.2s}
-.button:nth-child(13){animation-delay:1.3s}
-.button:nth-child(14){animation-delay:1.4s}
-.button:nth-child(15){animation-delay:1.5s}
-.button:nth-child(16){animation-delay:1.6s}
-.button:nth-child(17){animation-delay:1.7s}
-.button:nth-child(18){animation-delay:1.8s}
-.button:nth-child(19){animation-delay:1.9s}
-.button:nth-child(20){animation-delay:2s}
-.button:nth-child(21){animation-delay:2.1s}
-.button:nth-child(22){animation-delay:2.2s}
-.button:nth-child(23){animation-delay:2.3s}
-.button:nth-child(24){animation-delay:2.4s}
-.button:nth-child(25){animation-delay:2.5s}
-.button:nth-child(26){animation-delay:2.6s}
-.button:nth-child(27){animation-delay:2.7s}
-.button:nth-child(28){animation-delay:2.8s}
-.button:nth-child(29){animation-delay:2.9s}
-.button:nth-child(30){animation-delay:3s}
-.button:nth-child(31){animation-delay:3.1s}
-.button:nth-child(32){animation-delay:3.2s}
-.button:nth-child(33){animation-delay:3.3s}
-.button:nth-child(34){animation-delay:3.4s}
-.button:nth-child(35){animation-delay:3.5s}
-.button:nth-child(36){animation-delay:3.6s}
-.button:nth-child(37){animation-delay:3.7s}
-.button:nth-child(38){animation-delay:3.8s}
-.button:nth-child(39){animation-delay:3.9s}
-.button:nth-child(40){animation-delay:4s}
-.button:nth-child(41){animation-delay:4.1s}
-.button:nth-child(42){animation-delay:4.2s}
-.button:nth-child(43){animation-delay:4.3s}
-.button:nth-child(44){animation-delay:4.4s}
-.button:nth-child(45){animation-delay:4.5s}
-.button:nth-child(46){animation-delay:4.6s}
-.button:nth-child(47){animation-delay:4.7s}
-.button:nth-child(48){animation-delay:4.8s}
-.button:nth-child(49){animation-delay:4.9s}
-.button:nth-child(50){animation-delay:5s}
+.socials {
+  margin-top: 40px;
+  padding-top: 25px;
+  border-top: 1px solid #2a2a2a;
+}
+
+.socials-title {
+  font-size: 18px;
+  margin-bottom: 18px;
+  color: #ddd;
+}
+
+.social-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 15px;
+}
+
+.social-btn {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 16px 24px;
+  border-radius: 20px;
+  font-size: 14px;
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  transition: all 0.3s ease;
+}
+
+.social-btn svg {
+  width: 30px;
+  height: 30px;
+}
+
+.social-btn:hover {
+  box-shadow: 0 0 15px rgba(255,255,255,0.5),
+              0 0 30px rgba(255,255,255,0.3);
+  transform: translateY(-4px) scale(1.05);
+  filter: brightness(1.3);
+}
+
+.social-yt { background: #ff0000; }
+.social-tg { background: #0088cc; }
+.social-ig { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); }
 
 @keyframes fadeInUp {
   from{opacity:0;transform:translateY(20px)}
@@ -324,6 +323,28 @@ a.button.clicked {
   <button class="button b50" data-name="Nomi 50" data-bot="#" data-site="#">Nomi 50</button>
 </div>
 
+<div class="socials">
+  <h2 class="socials-title">Bizni kuzatib boring</h2>
+  <div class="social-buttons">
+    <a class="social-btn social-yt" href="https://youtube.com/@Modderf" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" fill="white"><path d="M23.5 6.2c-.3-1.1-1.1-1.9-2.2-2.2C19.4 3.5 12 3.5 12 3.5s-7.4 0-9.3.5C1.6 4.3.8 5.1.5 6.2 0 8.1 0 12 0 12s0 3.9.5 5.8c.3 1.1 1.1 1.9 2.2 2.2 1.9.5 9.3.5 9.3.5s7.4 0 9.3-.5c1.1-.3 1.9-1.1 2.2-2.2.5-1.9.5-5.8.5-5.8s0-3.9-.5-5.8zM9.6 15.6V8.4L15.8 12l-6.2 3.6z"/></svg>
+      Modder FF
+    </a>
+    <a class="social-btn social-yt" href="https://youtube.com/@KingPubgLive" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" fill="white"><path d="M23.5 6.2c-.3-1.1-1.1-1.9-2.2-2.2C19.4 3.5 12 3.5 12 3.5s-7.4 0-9.3.5C1.6 4.3.8 5.1.5 6.2 0 8.1 0 12 0 12s0 3.9.5 5.8c.3 1.1 1.1 1.9 2.2 2.2 1.9.5 9.3.5 9.3.5s7.4 0 9.3-.5c1.1-.3 1.9-1.1 2.2-2.2.5-1.9.5-5.8.5-5.8s0-3.9-.5-5.8zM9.6 15.6V8.4L15.8 12l-6.2 3.6z"/></svg>
+      King Pubg
+    </a>
+    <a class="social-btn social-tg" href="https://t.me/modderfff" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" fill="white"><path d="M23.9 3.6L20.3 20c-.3 1.2-1 1.5-2 .9l-5.6-4.1-2.7 2.6c-.3.3-.6.6-1.1.6l.4-5.7L19.6 5.6c.5-.4-.1-.6-.7-.3L6 13.6.9 12c-1.1-.3-1.1-1.1.2-1.6L22.5 2c.9-.4 1.7.2 1.4 1.6z"/></svg>
+      Telegram
+    </a>
+    <a class="social-btn social-ig" href="https://instagram.com/Modderff" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" fill="white"><path d="M12 2.2c3.2 0 3.6 0 4.9.1 1.2.1 2 .3 2.4.5.6.2 1 .5 1.5 1 .5.5.7.9 1 1.5.2.4.4 1.2.5 2.4.1 1.3.1 1.7.1 4.9s0 3.6-.1 4.9c-.1 1.2-.3 2-.5 2.4-.2.6-.5 1-1 1.5-.5.5-.9.7-1.5 1-.4.2-1.2.4-2.4.5-1.3.1-1.7.1-4.9.1s-3.6 0-4.9-.1c-1.2-.1-2-.3-2.4-.5-.6-.2-1-.5-1.5-1-.5-.5-.7-.9-1-1.5-.2-.4-.4-1.2-.5-2.4-.1-1.3-.1-1.7-.1-4.9s0-3.6.1-4.9c.1-1.2.3-2 .5-2.4.2-.6.5-1 1-1.5.5-.5.9-.7 1.5-1 .4-.2 1.2-.4 2.4-.5 1.3-.1 1.7-.1 4.9-.1zM12 0C8.7 0 8.3 0 7 .1c-1.3.1-2.2.3-3 .6-.8.3-1.5.7-2.2 1.4C1.1 2.8.7 3.5.4 4.3c-.3.8-.5 1.7-.6 3C-.2 8.6-.2 9-.2 12.3s0 3.7.1 5c.1 1.3.3 2.2.6 3 .3.8.7 1.5 1.4 2.2.7.7 1.4 1.1 2.2 1.4.8.3 1.7.5 3 .6 1.3.1 1.7.1 5 .1s3.7 0 5-.1c1.3-.1 2.2-.3 3-.6.8-.3 1.5-.7 2.2-1.4.7-.7 1.1-1.4 1.4-2.2.3-.8.5-1.7.6-3 .1-1.3.1-1.7.1-5s0-3.7-.1-5c-.1-1.3-.3-2.2-.6-3-.3-.8-.7-1.5-1.4-2.2-.7-.7-1.4-1.1-2.2-1.4-.8-.3-1.7-.5-3-.6C15.7 0 15.3 0 12 0zm0 5.8a6.2 6.2 0 100 12.4 6.2 6.2 0 000-12.4zm0 10.2a4 4 0 110-8 4 4 0 010 8zm6.4-10.4a1.4 1.4 0 11-2.8 0 1.4 1.4 0 012.8 0z"/></svg>
+      Instagram
+    </a>
+  </div>
+</div>
+
 </div>
 
 <!-- MODAL -->
@@ -342,6 +363,28 @@ const modalTitle = document.getElementById('modalTitle');
 const optBot = document.getElementById('optBot');
 const optSite = document.getElementById('optSite');
 const optClose = document.getElementById('optClose');
+
+/* Bosilganda tovush chiqarish */
+let audioCtx;
+function playClickSound(){
+  try{
+    audioCtx = audioCtx || new (window.AudioContext || window.webkitAudioContext)();
+    const osc = audioCtx.createOscillator();
+    const gain = audioCtx.createGain();
+    osc.type = 'sine';
+    osc.frequency.setValueAtTime(700, audioCtx.currentTime);
+    osc.frequency.exponentialRampToValueAtTime(300, audioCtx.currentTime + 0.12);
+    gain.gain.setValueAtTime(0.2, audioCtx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + 0.15);
+    osc.connect(gain);
+    gain.connect(audioCtx.destination);
+    osc.start();
+    osc.stop(audioCtx.currentTime + 0.15);
+  }catch(e){}
+}
+document.addEventListener('click', (e) => {
+  if (e.target.closest('.button, .social-btn, .opt')) playClickSound();
+});
 
 document.querySelectorAll('#buttons .button').forEach(btn => {
   btn.addEventListener('click', function () {
