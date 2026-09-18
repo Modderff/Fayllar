@@ -310,8 +310,8 @@
 <div class="snowfield" id="snowfield" aria-hidden="true"></div>
 
 <div class="wrap">
-  <div class="eyebrow"><span class="dot"></span>1 ta Key 24 soat ishlaydi keyin yaroqsiz</div>
-  <h1>Yangi key 24 soatdan keyin beriladi</h1>
+  <div class="eyebrow"><span class="dot"></span>1 ta Key 1 soat ishlaydi keyin yaroqsiz</div>
+  <h1>Yangi key 1 soatdan keyin beriladi</h1>
   <p class="sub">Kanallarga obuna bo'l videoga Like bos oxirida Key beriladi</p>
 
   <div class="rail">
@@ -359,7 +359,7 @@
   </div>
 
   <div id="codeBox">
-    <p class="cb-title">🎉 24 soatli key berildi</p>
+    <p class="cb-title">🎉 1 soatlik key berildi</p>
     <div class="code" id="codeText">—</div>
     <div class="copyHint" id="copyHint">Bosib nusxala</div>
     <div id="timer"></div>
@@ -405,7 +405,7 @@ const db = firebase.firestore();
 
 const KEYS_COLLECTION = "codes100";
 const LOCAL_CLAIM_KEY = "codes100_my_claim";
-const DURATION_HOURS = 24;
+const DURATION_HOURS = 1;
 
 // ====== YANGI KALITLARNI QO'SHISH (faqat admin uchun) ======
 // Manzilga ?addkeys=1 qo'shib ochilganda, "yangi-keylar.txt" faylidagi
@@ -434,7 +434,7 @@ async function addNewKeysIfRequested() {
     for (const code of codes) {
       const existing = await keysRef.doc(code).get();
       if (existing.exists) continue; // eskisiga tegmaymiz
-      batch.set(keysRef.doc(code), { duration: "24Hour", status: "available", claimedBy: null });
+      batch.set(keysRef.doc(code), { duration: "1Hour", status: "available", claimedBy: null });
       addedCount++;
     }
     if (addedCount > 0) await batch.commit();
