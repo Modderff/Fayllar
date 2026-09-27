@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Modded by - Dilmurod</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      background: radial-gradient(ellipse at top, #0f2027 0%, #000000 70%);
+      color: #fff;
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 20px;
+      position: relative;
+      min-height: 100vh;
+      overflow-x: hidden;
+      margin: 0;
+    }
+
+    h2 {
+      position: relative;
+      z-index: 2;
+      text-shadow: 0 0 12px rgba(0,255,213,.5);
+    }
+
+    p {
+      position: relative;
+      z-index: 2;
+      opacity: .8;
+    }
+
+    /* Qor parchalarini animatsiya qilish uchun */
+    .snowflake {
+      position: fixed;
+      top: -10%;
+      color: #fff;
+      user-select: none;
+      pointer-events: none;
+      z-index: 1;
+      text-shadow: 0 0 6px rgba(255,255,255,.8);
+      animation-name: fall, sway;
+      animation-timing-function: linear, ease-in-out;
+      animation-iteration-count: infinite;
+    }
+
+    @keyframes fall {
+      0% {
+        top: -10%;
+        opacity: 1;
+      }
+      100% {
+        top: 110%;
+        opacity: .4;
+      }
+    }
+
+    @keyframes sway {
+      0%, 100% {
+        transform: translateX(0);
+      }
+      50% {
+        transform: translateX(30px);
+      }
+    }
+
+    .link {
+      display: block;
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(135deg, rgba(0,255,213,.35), rgba(0,255,213,.12));
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      color: #fff;
+      margin: 12px auto;
+      padding: 16px;
+      width: 95%;
+      max-width: 420px;
+      border-radius: 50px;
+      border: 1px solid rgba(255,255,255,.35);
+      text-decoration: none;
+      font-size: 18px;
+      font-weight: bold;
+      transition: transform .3s ease, box-shadow .3s ease, background .3s ease;
+      box-shadow: 0 0 12px rgba(0,255,213,.4), inset 0 1px 1px rgba(255,255,255,.6);
+      z-index: 2;
+    }
+
+    /* Shisha kabi yaltiroq effekt */
+    .link::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: -75%;
+      width: 50%;
+      height: 100%;
+      background: linear-gradient(120deg, transparent, rgba(255,255,255,.55), transparent);
+      transform: skewX(-25deg);
+      animation: shine 3.5s infinite;
+    }
+
+    @keyframes shine {
+      0% { left: -75%; }
+      40% { left: 130%; }
+      100% { left: 130%; }
+    }
+
+    .link:hover:not(.disabled) {
+      background: linear-gradient(135deg, rgba(26,255,26,.45), rgba(26,255,26,.18));
+      transform: scale(1.06);
+      box-shadow: 0 0 20px rgba(26,255,26,.7), inset 0 1px 1px rgba(255,255,255,.6);
+    }
+
+    .link.disabled {
+      background: rgba(120,120,120,.25);
+      border-color: rgba(255,255,255,.12);
+      color: rgba(255,255,255,.5);
+      pointer-events: none;
+      box-shadow: none;
+    }
+
+    .link.disabled::before {
+      animation: none;
+      display: none;
+    }
+
+    .link.visited {
+      background: linear-gradient(135deg, rgba(26,255,26,.45), rgba(26,255,26,.18));
+      box-shadow: 0 0 16px rgba(26,255,26,.6), inset 0 1px 1px rgba(255,255,255,.6);
+    }
+
+    .link.visited::after {
+      content: "✔ Bajarildi";
+      display: block;
+      font-size: 13px;
+      margin-top: 4px;
+      color: #d8ffd8;
+      font-weight: normal;
+    }
+
+    /* Oxirgi tugma - moviy shisha */
+    .link.finalBlue {
+      background: linear-gradient(135deg, rgba(33,150,243,.55), rgba(33,150,243,.2));
+      color: #fff;
+      box-shadow: 0 0 18px rgba(33,150,243,.7), inset 0 1px 1px rgba(255,255,255,.6);
+      animation: pulse 2s infinite;
+    }
+
+    .link.finalBlue::after {
+      content: "";
+    }
+
+    @keyframes pulse {
+      0%, 100% { box-shadow: 0 0 18px rgba(33,150,243,.7), inset 0 1px 1px rgba(255,255,255,.6); }
+      50% { box-shadow: 0 0 30px rgba(33,150,243,1), inset 0 1px 1px rgba(255,255,255,.6); }
+    }
+  </style>
+</head>
+<body>
+
+  <h2>🔑 Key olish uchun kanallarga obuna bo‘l</h2>
+  <p>Sahifani yangilama</p>
+
+  <a class="link" href="https://modderff.github.io/Fayllar/Modder-FF-Video.html" target="_blank" data-text="1) Video (Like + Comment)" onclick="visit(0)"></a>
+  <a class="link disabled" href="https://www.youtube.com/channel/UCdlOZ5UZRq1Y3HiuDdgi3Ag" target="_blank" data-text="2) YouTube FF (Obuna)" onclick="visit(1)"></a>
+  <a class="link disabled" href="https://modderff.github.io/Fayllar/King-Pubg-Video.html" target="_blank" data-text="3) Video (Like + Comment)" onclick="visit(2)"></a>
+  <a class="link disabled" href="https://www.youtube.com/channel/UC9E0sZ3-qmpLqD2dH6CLAVA" target="_blank" data-text="4) YouTube CoC (Obuna)" onclick="visit(3)"></a>
+  <a class="link disabled" href="https://modderff.github.io/Fayllar/Telegram-Link.html" target="_blank" data-text="5) Telegram (Join)" onclick="visit(4)"></a>
+
+  <a href="https://modderff.tiiny.site/"
+     target="_blank"
+     class="link finalBlue"
+     id="finalBtn"
+     style="display:none;">
+🔑 Key olish
+  </a>
+
+  <script>
+    // ❄️ Qor parchalarini qo'shish uchun
+    function createSnowflake() {
+      const flake = document.createElement("div");
+      flake.classList.add("snowflake");
+      flake.textContent = "❄";
+
+      const size = Math.random() * 14 + 10; // 10px - 24px
+      const duration = Math.random() * 6 + 6; // 6s - 12s
+      const swayDuration = Math.random() * 3 + 2; // 2s - 5s
+      const delay = Math.random() * 2;
+
+      flake.style.left = Math.random() * 100 + "vw";
+      flake.style.fontSize = size + "px";
+      flake.style.opacity = Math.random() * .5 + .5;
+      flake.style.animationDuration = duration + "s, " + swayDuration + "s";
+      flake.style.animationDelay = "0s, " + delay + "s";
+
+      document.body.appendChild(flake);
+
+      // Animatsiya tugagach DOM dan olib tashlash (xotira sizib chiqishining oldini olish)
+      setTimeout(() => flake.remove(), duration * 1000);
+
+      setTimeout(createSnowflake, Math.random() * 400 + 200);
+    }
+
+    createSnowflake();
+
+    const links = document.querySelectorAll(".link:not(.finalBlue)");
+    links.forEach(l => l.textContent = l.dataset.text);
+
+    let visited = [false, false, false, false, false];
+    let current = 0;
+
+    links.forEach((btn, i) => {
+      if (i !== 0) btn.classList.add("disabled");
+    });
+
+    function visit(i) {
+      if (i !== current) return;
+
+      visited[i] = true;
+      links[i].classList.remove("disabled");
+      links[i].classList.add("visited");
+
+      current++;
+      if (links[current]) links[current].classList.remove("disabled");
+
+      if (visited.every(v => v)) {
+        document.getElementById("finalBtn").style.display = "block";
+      }
+    }
+  </script>
+
+</body>
+</html>
