@@ -99,6 +99,9 @@ button.button:hover {
   flex-wrap: wrap;
   justify-content: center;
   gap: 15px;
+  background: rgba(255,255,255,0.05);
+  border-radius: 32px;
+  padding: 20px;
 }
 
 .social-btn {
@@ -106,31 +109,28 @@ button.button:hover {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 6px;
-  padding: 16px 24px;
-  border-radius: 20px;
-  font-size: 14px;
+  gap: 8px;
+  padding: 14px 20px;
+  border-radius: 22px;
+  font-size: 13px;
   color: white;
   text-decoration: none;
   font-weight: bold;
+  background: rgba(255,255,255,0.06);
   transition: all 0.3s ease;
 }
 
 .social-btn svg {
-  width: 30px;
-  height: 30px;
+  width: 42px;
+  height: 42px;
 }
 
 .social-btn:hover {
   box-shadow: 0 0 15px rgba(255,255,255,0.5),
               0 0 30px rgba(255,255,255,0.3);
   transform: translateY(-4px) scale(1.05);
-  filter: brightness(1.3);
+  filter: brightness(1.15);
 }
-
-.social-yt { background: #ff0000; }
-.social-tg { background: #0088cc; }
-.social-ig { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); }
 
 @keyframes fadeInUp {
   from{opacity:0;transform:translateY(20px)}
@@ -261,20 +261,26 @@ input[type=color].admin-input { padding: 4px; height: 44px; cursor: pointer; }
 <div class="socials">
   <h2 class="socials-title">Bizni kuzatib boring</h2>
   <div class="social-buttons">
-    <a class="social-btn social-yt" href="https://youtube.com/@Modderf" target="_blank" rel="noopener">
-      <svg viewBox="0 0 24 24" fill="white"><path d="M23.5 6.2c-.3-1.1-1.1-1.9-2.2-2.2C19.4 3.5 12 3.5 12 3.5s-7.4 0-9.3.5C1.6 4.3.8 5.1.5 6.2 0 8.1 0 12 0 12s0 3.9.5 5.8c.3 1.1 1.1 1.9 2.2 2.2 1.9.5 9.3.5 9.3.5s7.4 0 9.3-.5c1.1-.3 1.9-1.1 2.2-2.2.5-1.9.5-5.8.5-5.8s0-3.9-.5-5.8zM9.6 15.6V8.4L15.8 12l-6.2 3.6z"/></svg>
-      YouTube — Modderf
+    <a class="social-btn" href="https://youtube.com/@Modderf" target="_blank" rel="noopener" title="YouTube — Modderf">
+      <svg viewBox="0 0 48 48"><rect width="48" height="48" rx="12" fill="#FF0000"/><path d="M20 16.5l13 7.5-13 7.5z" fill="#fff"/></svg>
+      YouTube
     </a>
-    <a class="social-btn social-yt" href="https://youtube.com/@KingPubgLive" target="_blank" rel="noopener">
-      <svg viewBox="0 0 24 24" fill="white"><path d="M23.5 6.2c-.3-1.1-1.1-1.9-2.2-2.2C19.4 3.5 12 3.5 12 3.5s-7.4 0-9.3.5C1.6 4.3.8 5.1.5 6.2 0 8.1 0 12 0 12s0 3.9.5 5.8c.3 1.1 1.1 1.9 2.2 2.2 1.9.5 9.3.5 9.3.5s7.4 0 9.3-.5c1.1-.3 1.9-1.1 2.2-2.2.5-1.9.5-5.8.5-5.8s0-3.9-.5-5.8zM9.6 15.6V8.4L15.8 12l-6.2 3.6z"/></svg>
-      YouTube — KingPubgLive
+    <a class="social-btn" href="https://youtube.com/@KingPubgLive" target="_blank" rel="noopener" title="YouTube — KingPubgLive">
+      <svg viewBox="0 0 48 48"><rect width="48" height="48" rx="12" fill="#FF0000"/><path d="M20 16.5l13 7.5-13 7.5z" fill="#fff"/></svg>
+      YouTube
     </a>
-    <a class="social-btn social-tg" href="#" target="_blank" rel="noopener">
-      <svg viewBox="0 0 24 24" fill="white"><path d="M23.9 3.6L20.3 20c-.3 1.2-1 1.5-2 .9l-5.6-4.1-2.7 2.6c-.3.3-.6.6-1.1.6l.4-5.7L19.6 5.6c.5-.4-.1-.6-.7-.3L6 13.6.9 12c-1.1-.3-1.1-1.1.2-1.6L22.5 2c.9-.4 1.7.2 1.4 1.6z"/></svg>
-      Telegram kanal
+    <a class="social-btn" href="#" target="_blank" rel="noopener">
+      <svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="24" fill="#29b6f6"/><path d="M35.5 13.5L9.8 23.6c-1.8.7-1.8 1.7-.3 2.2l6.6 2.1 2.6 7.9c.3.9.5 1.2 1 1.2.5 0 .7-.2 1-.5l3.6-3.5 6.9 5.1c1.3.7 2.2.3 2.5-1.2l4.6-21.7c.4-1.8-.7-2.6-2.4-1.7z" fill="#fff"/></svg>
+      Telegram
     </a>
-    <a class="social-btn social-ig" href="#" target="_blank" rel="noopener">
-      <svg viewBox="0 0 24 24" fill="white"><path d="M12 2.2c3.2 0 3.6 0 4.9.1 1.2.1 2 .3 2.4.5.6.2 1 .5 1.5 1 .5.5.7.9 1 1.5.2.4.4 1.2.5 2.4.1 1.3.1 1.7.1 4.9s0 3.6-.1 4.9c-.1 1.2-.3 2-.5 2.4-.2.6-.5 1-1 1.5-.5.5-.9.7-1.5 1-.4.2-1.2.4-2.4.5-1.3.1-1.7.1-4.9.1s-3.6 0-4.9-.1c-1.2-.1-2-.3-2.4-.5-.6-.2-1-.5-1.5-1-.5-.5-.7-.9-1-1.5-.2-.4-.4-1.2-.5-2.4-.1-1.3-.1-1.7-.1-4.9s0-3.6.1-4.9c.1-1.2.3-2 .5-2.4.2-.6.5-1 1-1.5.5-.5.9-.7 1.5-1 .4-.2 1.2-.4 2.4-.5 1.3-.1 1.7-.1 4.9-.1zM12 0C8.7 0 8.3 0 7 .1c-1.3.1-2.2.3-3 .6-.8.3-1.5.7-2.2 1.4C1.1 2.8.7 3.5.4 4.3c-.3.8-.5 1.7-.6 3C-.2 8.6-.2 9-.2 12.3s0 3.7.1 5c.1 1.3.3 2.2.6 3 .3.8.7 1.5 1.4 2.2.7.7 1.4 1.1 2.2 1.4.8.3 1.7.5 3 .6 1.3.1 1.7.1 5 .1s3.7 0 5-.1c1.3-.1 2.2-.3 3-.6.8-.3 1.5-.7 2.2-1.4.7-.7 1.1-1.4 1.4-2.2.3-.8.5-1.7.6-3 .1-1.3.1-1.7.1-5s0-3.7-.1-5c-.1-1.3-.3-2.2-.6-3-.3-.8-.7-1.5-1.4-2.2-.7-.7-1.4-1.1-2.2-1.4-.8-.3-1.7-.5-3-.6C15.7 0 15.3 0 12 0zm0 5.8a6.2 6.2 0 100 12.4 6.2 6.2 0 000-12.4zm0 10.2a4 4 0 110-8 4 4 0 010 8zm6.4-10.4a1.4 1.4 0 11-2.8 0 1.4 1.4 0 012.8 0z"/></svg>
+    <a class="social-btn" href="#" target="_blank" rel="noopener">
+      <svg viewBox="0 0 48 48">
+        <defs><linearGradient id="igGrad" x1="0" y1="48" x2="48" y2="0"><stop offset="0" stop-color="#feda75"/><stop offset="0.45" stop-color="#d62976"/><stop offset="1" stop-color="#4f5bd5"/></linearGradient></defs>
+        <rect width="48" height="48" rx="14" fill="url(#igGrad)"/>
+        <rect x="11" y="11" width="26" height="26" rx="8" fill="none" stroke="#fff" stroke-width="2.6"/>
+        <circle cx="24" cy="24" r="6.5" fill="none" stroke="#fff" stroke-width="2.6"/>
+        <circle cx="33.5" cy="14.5" r="1.8" fill="#fff"/>
+      </svg>
       Instagram
     </a>
   </div>
