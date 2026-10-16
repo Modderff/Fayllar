@@ -426,7 +426,20 @@ body.light-mode .category-title { color: #555; }
 .admin-card .opt:last-child { margin-bottom: 0; }
 .admin-span-all { grid-column: 1 / -1; }
 .admin-card .admin-manage-list { max-height: 340px; margin-bottom: 0; }
-.admin-list-row > span:first-child { min-width: 0; word-break: break-word; padding-right: 8px; }
+#manageBtnList .admin-list-row {
+  flex-wrap: wrap;
+  gap: 6px 10px;
+  padding: 8px 0;
+}
+#manageBtnList .admin-list-row > span:first-child {
+  flex: 1 1 100%;
+  min-width: 0;
+  word-break: normal;
+  overflow-wrap: anywhere;
+}
+#manageBtnList .admin-row-controls { margin-left: auto; }
+.admin-card-wide { grid-column: span 2; }
+@media (max-width: 600px) { .admin-card-wide { grid-column: auto; } }
 .admin-check {
   display: flex; align-items: center; gap: 8px;
   color: #ddd; font-size: 14px; margin-bottom: 10px;
@@ -524,7 +537,7 @@ body.light-mode .category-title { color: #555; }
         <button type="button" class="opt opt-close" id="cancelEditBtn" style="display:none;">✖️ Tahrirlashni bekor qilish</button>
       </div>
 
-      <div class="admin-card">
+      <div class="admin-card admin-card-wide">
         <p class="admin-section-title">📋 Barcha tugmalar</p>
         <p class="admin-note">Bosishlar soni, pin 📌, pullik 💲/💸, tahrirlash ✏️, joyini oʻzgartirish ↑↓ yoki oʻchirish 🗑:</p>
         <div id="manageBtnList" class="admin-manage-list"></div>
